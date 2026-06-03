@@ -1,0 +1,189 @@
+Title: Accelerating Reinforcement Learning Training Using Simulation Surrogate Models
+
+URL Source: https://arxiv.org/pdf/2605.27556v1
+
+Published Time: Thu, 28 May 2026 00:11:59 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+# Accelerating Reinforcement Learning Training Using Simulation Surrogate Models 
+
+## Mohammadmahdi Ghasemloo 1, David J. Eckman 1, Yaxian Li 21Department of Industrial and Systems Engineering, Texas A&M University, College Station, TX, USA 
+
+> 2
+
+## Intuit AI, Mountain View, CA, USA 
+
+Abstract 
+
+High-fidelity simulation models are widely used to analyze complex stochastic systems, but their high computational cost motivates the development of cheaper surrogate models that approximate the simulation model’s input-output rela-tionship. In parallel, reinforcement learning (RL) has emerged as a powerful framework for making online decisions in stochastic environments, with increasing attention being given to the use of simulation models as training environments for RL models. We investigate a class of surrogate models suitable for accelerating RL training in settings where the reward structure, model parameters, or system dynamics change over time and explore their interactions with simula-tion models and RL models. Through numerical experiments on a stochastic service system modeled via discrete-event simulation, we demonstrate that leveraging surrogate models can substantially accelerate RL training and re-training. 
+
+## Keywords 
+
+Reinforcement learning, surrogate modeling, discrete-event simulation 
+
+## 1. Introduction 
+
+Discrete-event simulation (DES) has long been a fundamental tool for analyzing complex stochastic systems that are an-alytically intractable. Simulation models are widely used for performance evaluation, what-if analysis, and simulation optimization in manufacturing, service systems, logistics, and healthcare [3, 13]. Despite their modeling power, simu-lation models are often computationally expensive and may require substantial computational effort to execute a single replication, particularly when system dynamics are complex or long-run performance measures are of interest. This computational burden becomes a critical limitation when simulation models are used within iterative decision making frameworks that require a large number of replications [4, 7]. A common approach to alleviate this issue is to construct a surrogate model (metamodel) that approximates the mapping of simulation inputs to outputs for use in lieu of expensive simulation runs during analysis or optimization [12]. The original simulation is run at a chosen set of input configura-tions, and a model of the response surface is fitted to the observed outputs using regression, e.g., polynomial models, stochastic kriging, or neural networks [1, 10, 2]. The surrogate model is subsequently used to predict outputs for new, unsimulated inputs. Advances in handling integer-valued inputs and uncertainty-aware neural network surrogates have further broadened the applicability of surrogate models [6]. In parallel, reinforcement learning (RL) has emerged as a powerful framework for sequential decision making in stochastic environments. In RL, an agent interacts with an environment over time, observes system states, selects actions, and receives rewards with the objective of learning a policy that maximizes the expected cumulative reward. Recent advances in function approximation and deep learning have significantly expanded the applicability of RL to large-scale and high-dimensional problems [16]. A growing literature has integrated RL with DES by using DES models as training environments for RL models. This approach enables agents to learn policies without interacting with real systems. [20] apply RL to the Job Shop Scheduling Problem (JSSP) where scheduling is framed as a sequential decision process in which actions correspond to local repair operations. [11] propose an RL scheduler for workflow management systems operating over distributed computing resources where a policy-gradient-based RL model is trained to assign tasks to heterogeneous resources. [5] introduce a Deep Q-Network (DQN)-based dispatching framework for autonomous mobile robots in warehouse logistics, trained with a DES developed using SimPy that improves on-time deliveries and demonstrates policy generalization across layouts. Similarly, [18] integrate Double DQN with DES to solve the JSSP, showing improvements in makespan and 1
+
+> arXiv:2605.27556v1 [stat.ML] 26 May 2026
+
+machine utilization over priority dispatching rules. Applications of RL further extend to traditional agent-based simulation approaches that rely on hard-coded behavioral rules by enabling adaptive, data-driven agent behaviors [19]. In agent-based simulation, RL algorithms are commonly used to model agent behavior [14] and can further enhance the modeling power through adaptive decision making [15]. The RL literature has proposed several methods to accelerate training. Model-based RL approaches learn approximate environment dynamics known as world models to enable faster planning and RL training [9]. Other techniques improve sample efficiency and scalability, including prioritized experience replay [17] and distributed RL architectures such as IMPALA [8]. Although world models have been extensively studied, less attention has been given to the interaction between simulation surrogate models and RL models in settings where a high-fidelity simulation model is already available for decision making. This paper makes the following contributions: First, we articulate a problem setting in which a high-fidelity simulation model serves as the “world model,” and a surrogate model is constructed to approximate the simulation. Second, we discuss the structural properties a surrogate must satisfy in order to interact effectively with an RL agent. Finally, we demonstrate how such surrogates can be leveraged to accelerate RL training in systems modeled using DES. 
+
+## 2. Problem Formulation 
+
+Surrogate models for simulation can be constructed in several ways. First, a surrogate may be designed to output a summary statistic of a KPI, such as its expected value. Second, a surrogate may approximate the full distribution of a KPI. Third, a surrogate may generate stochastic outputs at intermediate decision epochs, producing random samples that emulate the evolution of the simulation over time. We focus exclusively on the third class of surrogate models that can interact with an RL model by serving as a training environment. 
+
+2.1. Model Representation 
+
+The KPI of a stochastic simulation model can generally be written as Y (x) = μ(x) + ϵ(x), where x is a vector of contextual of controllable variables, μ is referred to as the response surface, and ϵ is mean-zero noise. Traditionally, surrogate models have attempted to model μ. More modern surrogate models feature generative models that produce random realizations of Y using approaches such as Conditional Variational Autoencoders (CVAEs). When RL agents are embedded in the simulation model and make decisions sequentially, one may be interested in leveraging surrogate models in which outputs are generated sequentially over epochs (referred to as episodes in the RL literature) for computational purposes. Let sj ∈ S denote the full system state at the beginning of epoch j for j = 1 , . . . , T . Assume M is the set of the state variables (e.g., the queue lengths, utilization of experts), and hence S ⊆ R|M| . In the RL model embedded in the real system, decisions are made dynamically with its set of state variables and the corresponding state space denoted by 
+
+M′ ⊆ M and S′ ⊆ R|M ′|. At the beginning of each epoch j, the policy selects an action aj ∈ A and interacts with the environment (i.e., the simulation model) to generate an output (yj , sj+1 ) from the distribution of 
+
+Yj , S j+1 | (Sj = sj , A j = aj ) (1) where a scalar reward is then computed as a function of the simulation output yj ∈ Y .The surrogate model is constructed to approximate the simulation output. The set of state variables that the surrogate model uses is M′′ ⊆ M and the space of states it utilizes is denoted as S′′ ⊆ R|M ′′ |. At each epoch j, the surrogate generates a random sample (˜ sj+1 , ˜yj ) which is approximately distributed as (1). The input space of the surrogate model is S′′ × A and the output space is S′′ × Y , with M′ ⊆ M ′′ . This restriction on M′′ arises from the requirement that, in order to interact with the RL model, the surrogate must be capable of generating at least the set of state features used as inputs by the RL agent. The surrogate model should therefore be a generative model capable of producing stochastic outputs. Approaches such as combining CVAEs with Long Short-Term Memory (LSTM) cells have been proposed to handle this setting [6]. We next explore applications in which surrogate models that can interact with an RL model can be beneficial. 
+
+2.2. Applications 
+
+The discussed class of surrogate models can be constructed in two ways. 1. Surrogate model trained separately. In some cases, the surrogate models are constructed separately from their eventual use in RL training. Such a surrogate can later be incorporated into the RL training pipeline to reduce computational cost, for example, by training or warm-starting the RL model. In other words, the surrogate model 2can be used to initialize the parameters of the RL model, which is then either deployed directly or further fine-tuned through interaction with the high-fidelity simulation model; see Figure 1a. 2. RL-first training with surrogate learned from RL trajectories. An RL model is first trained directly using the simulation model. During this process, state-action-output trajectories ( sj , aj , yj , sj+1 ) generated by the RL agent interacting with the simulation model are collected. A surrogate model is then trained using this data to approximate the simulation response in regions of the state-action space visited by the RL policy; see Figure 1b. While this surrogate is not intended for direct decision making, it can be used to accelerate retraining of the RL model in applications where the RL formulation changes (e.g., reward modification or policy architecture updates).   
+
+> (a) Surrogate model trained separately from RL model.
+> (b) Surrogate model trained on the RL trajectories.
+
+Figure 1: Applications in which a simulation surrogate model interacts with the RL model. Surrogate models can then be integrated into the RL training pipeline to address changes in the RL model or changes in system parameters. Examples include: • Reward function change. Suppose a surrogate model and an RL policy have been trained, and the reward function is subsequently modified. Such changes commonly arise in practice; for example, a call-center manager may adjust the reward structure to place greater importance on a specific customer class. Since retraining an RL model directly using the simulation model could be computationally expensive, the surrogate model could be used to rapidly retrain the RL policy under the modified reward function. • RL model structure change. Changes in the RL model architecture or training algorithm (e.g., the learning al-gorithm, number of network layers, or feature representation) may require retraining the RL policy. In such cases, the surrogate model can be used either as a stand-alone training environment or to initialize the parameters of the modified RL model prior to fine tuning using the simulation model. • Structural changes in the system. The structure of the simulated system may change over time due to capacity adjustments or logic modifications. A surrogate model can be constructed to capture a broad range of such structural variations and serve as an intermediate environment for efficiently updating the RL policy. • Changes in input models. Changes in the stochastic input models (e.g., arrival processes or service-time distribu-tions) may alter system behavior. If the surrogate model is designed to capture such distributional changes, it can be used to update or retrain the RL policy in response to detected input model shifts. A surrogate model’s input and output representation determines which applications it can effectively support, with more expressive surrogates enabling a broader range of interactions between the simulation and RL models. 
+
+## 3. Numerical Experiments 
+
+We consider a discrete-event simulation of a call-center system with two contact groups and three expert groups. The numbers of experts in the three expert groups are 1, 2, and 1, respectively. Customers in the two contact groups arrive according to independent Poisson processes with rates λ1 = 7 and λ2 = 6 . Each customer is characterized by both 3a service time and a patience time. A customer will abandon the queue if their waiting time exceeds their patience threshold. The patience- and service-time distributions for the contact groups are Gamma (5 , 0.9) and Gamma (4 , 1) for contact group 1 and Gamma (2 , 5) and Gamma (4 , 1.5) for contact group 2. Each expert is assigned a fixed number of back-office tasks with task durations following a lognormal distribution with mean and variance both set at 1.7. At each decision epoch (each 30-minute interval), expert k selects an action 
+
+ak ∈ { 0, 1}, where 0 indicates front-office service and 1 indicates back-office work. Deep Q-Learning (DQN) is used where RL agents operate on a 7-dimensional observation space and a 4-dimensional action set. The network consists of two fully connected hidden layers with 32 neurons. Training uses learning rate α = 10 −4, replay memory size 300 ,mini-batch size 5, exploration rate ϵ = 0 .05 , and discount factor γ = 0 .9. At each epoch, the simulation returns four KPI vectors: contact groups’ average waiting times and abandonment rates, and expert utilizations and the numbers of remaining back-office tasks. Let Wj = ( Wj, 1, W j, 2) denote the waiting-time KPIs for the two contact groups at epoch 
+
+j, Aj = ( Aj, 1, A j, 2) the corresponding abandonment rates, Uj the vector of expert utilizations, and Bj the vector of remaining back-office tasks. The reward at epoch j is defined as 
+
+Rj = −10 
+
+> 2
+
+X
+
+> k=1
+
+I{Wj,k > 2}− 40 
+
+> 2
+
+X
+
+> k=1
+
+I{Wj,k > 4}− 20 
+
+> 2
+
+X
+
+> k=1
+
+I{Aj,k > 0.3}− 60 
+
+> 2
+
+X
+
+> k=1
+
+I{Aj,k > 0.5}− 4 X
+
+> ℓ
+
+I{Uj,ℓ > 0.9},
+
+where I{·} denotes the indicator function. At the terminal epoch T , an additional terminal penalty of −20 P 
+
+> ℓ
+
+BT,ℓ is applied. A surrogate model is then trained on these sample paths from 200 simulation replications to approximate the simulation response per-epoch in the regions of the state-action space visited by the RL policy. The surrogate model is a neural network consisting of two fully connected hidden layers of width 64 , each followed by a ReLU activation and dropout with rate 0.1 to mitigate overfitting. To make the model generative, we sample inputs from the fitted input models and incorporate them into the input space, which includes the number of arrivals in the subsequent intervals. It took 27 seconds to run 200 training epochs for the neural network with a training dataset of 200 simulation replications. Since there are near-zero values in almost all metrics, we choose RMSE as our measure of accuracy. The RMSE for all metrics was below 0.2, except for waiting times, which were about 1 for both contact groups. A more accurate model could be built if either there were more data available or if one builds the surrogate model for stand-alone decision making purposes, where one can choose the thresholds for accuracy. Next, a new RL model is trained from scratch using the surrogate model as its environment and is subsequently fine-tuned using the original simulation model. Figures 2a and 2b compare the learning behavior of the two training strategies. Surrogate-based initialization leads to substantially faster reward improvement during the early stages of training. When the RL model is trained using only the simulation model, the reward trajectory requires approximately 80 simulation replications ( 116 seconds) to stabilize. In contrast, surrogate-based pretraining using 200 surrogate replications requires only 10 seconds, after which fewer than 5 additional simulation replications are sufficient for the reward to stabilize. This corresponds to approximately a 4-fold reduction in computational cost when accounting for the surrogate model training time, and up to a 10-fold reduction when it is excluded. We then modify the reward function of the simulation model to reflect a different operational objective. The reward at epoch j is re-defined as 
+
+Rj = −
+
+> 2
+
+X
+
+> k=1
+
+
+
+100 I{Wj,k > τ (1) 
+
+> W,k
+
+} + 1200 I{Wj,k > τ (2) 
+
+> W,k
+
+}
+
++ 40 I{Aj,k > τ (1) 
+
+> A,k
+
+} + 30 I{Aj,k > τ (2) 
+
+> A,k
+
+}
+
+
+
+− 2000 
+
+> 3
+
+X
+
+> ℓ=1
+
+I{Uj,ℓ > τ U,ℓ }.
+
+The threshold vectors are given by τ (1)  
+
+> W
+
+= (1 , 2) , τ (2)  
+
+> W
+
+= (2 , 4) , τ (1)  
+
+> A
+
+= (0 .2, 0.3) , τ (2)  
+
+> A
+
+= (0 .5, 0.5) , and τU =(0 .9, 0.9, 0.9) . At the terminal epoch, T , an additional penalty of −50 P 
+
+> ℓ
+
+BT,ℓ is applied. Under this modified re-ward structure, we retrain the RL model using two strategies: (i) direct training using the simulation model, and (ii) surrogate-based pretraining followed by simulation-based fine tuning. Figures 2c and 2d show that when the RL model is trained solely using the simulation model, the reward trajectory requires approximately 130 simulation replications (cor-responding to 208 seconds of wall-clock time) to stabilize. In contrast, surrogate-based pretraining using 200 surrogate replications requires only 10 seconds, after which 55 additional simulation replications are sufficient for the reward to stabilize, which adds up to 90 seconds in total, resulting in an approximate two-fold reduction in total training time. 4(a) Direct simulation-based training. (b) Surrogate-based pretraining + simulation fine tuning.    
+
+> (c) Direct simulation-based training after reward change. (d) Surrogate-based initialization after reward change.
+
+Figure 2: Reward trajectories under original and modified reward structures. Top row: original reward formulation. Bottom row: modified reward formulation. Left: direct simulation-based training. Right: surrogate-based pretraining followed by simulation-based fine tuning. 
+
+## 4. Conclusion 
+
+This paper investigates how simulation surrogate models can accelerate RL training in stochastic systems. We show that when a high-fidelity simulation model is available, surrogate-based pretraining can substantially reduce computational cost while preserving decision quality, as demonstrated through numerical experiments on a stochastic call-center system under both original and modified reward structures. Several directions for future research are promising. First, adaptive schemes that dynamically switch between surrogate and simulation environments during RL training merit investigation. Second, applying the proposed methodology to large-scale systems with high-dimensional state and action spaces, as well as to multi-agent reinforcement learning settings, represents an important avenue for extending the practical impact of surrogate-accelerated RL. Overall, this work highlights the potential of simulation surrogate models not merely as tools for performance approximation, but as interactive components in accelerating learning-based decision making for complex stochastic systems. 
+
+## Acknowledgments 
+
+This work was supported by the Intuit University Collaboration Program. We also thank Dusan Bosnjakovic for his support throughout the project and Soham Das for helpful conversations. 
+
+## References 
+
+[1] H. Al-Hindi. Approximation of a discrete event stochastic simulation using an evolutionary artificial neural network. 
+
+Journal of King Abdulaziz University: Engineering Sciences , 15(1):125–138, 2004. [2] Bruce Ankenman, Barry L. Nelson, and Jeremy Staum. Stochastic kriging for simulation metamodeling. Operations Research , 58(2):371–382, 2010. [3] Jerry Banks, John S. Carson, Barry L. Nelson, and David M. Nicol. Discrete-Event System Simulation . Prentice Hall, Upper Saddle River, NJ, USA, 4th edition, 2005. [4] Russell R Barton. Tutorial: Metamodeling for simulation. In 2020 Winter Simulation Conference (WSC) , pages 1102–1116. IEEE, 2020. [5] Sriparvathi Shaji Bhattathiri, Michael E Kuhl, Ankita Tondwalkar, and Andres Kwasinski. Simulation analysis of 5a reinforcement-learning-based warehouse dispatching method considering due date and travel distance. In 2023 Winter Simulation Conference (WSC) , pages 1830–1841. IEEE, 2023. [6] Wang Cen and Peter J. Haas. Enhanced simulation metamodeling via graph and generative neural networks. In 
+
+Proceedings of the 2022 Winter Simulation Conference (WSC) , pages 2748–2759, Piscataway, NJ, USA, 2022. IEEE. [7] João Victor Soares do Amaral, José Arnaldo Barra Montevechi, Rafael de Carvalho Miranda, and Wilson Trigueiro de Sousa Junior. Metamodel-based simulation optimization: A systematic literature review. Simulation Modelling Practice and Theory , 114:102403, 2022. [8] Lasse Espeholt, Hubert Soyer, Remi Munos, Karen Simonyan, Vlad Mnih, Tom Ward, Yotam Doron, Vlad Firoiu, Tim Harley, Iain Dunning, et al. Impala: Scalable distributed deep-rl with importance weighted actor-learner archi-tectures. In International Conference on Machine Learning , pages 1407–1416. PMLR, 2018. [9] Danijar Hafner, Timothy Lillicrap, Ian Fischer, Ruben Villegas, David Ha, Honglak Lee, and James Davidson. Learning latent dynamics for planning from pixels. In International Conference on Machine Learning , pages 2555– 2565. PMLR, 2019. [10] R. A. Kilmer, A. E. Smith, and L. J. Shuman. Neural networks as a metamodeling technique for discrete event stochastic simulation. In Intelligent Engineering Systems Through Artificial Neural Networks , pages 1141–1146, New York, 1994. ASME Press. [11] Athanassios M. Kintsakis, Fotis E. Psomopoulos, and Pericles A. Mitkas. Reinforcement learning-based scheduling in a workflow management system. Engineering Applications of Artificial Intelligence , 81:94–106, 2019. [12] Jack P. C. Kleijnen. Design and Analysis of Simulation Experiments . Springer, Cham, Switzerland, 2nd edition, 2015. [13] Averill M. Law. Simulation Modeling and Analysis . McGraw-Hill Education, New York, NY, USA, 5th edition, 2014. [14] Kamwoo Lee, Mark Rucker, William T Scherer, Peter A Beling, Matthew S Gerber, and Hyojung Kang. Agent-based model construction using inverse reinforcement learning. In 2017 Winter Simulation Conference (WSC) ,pages 1264–1275. IEEE, 2017. [15] Feixue Li, Zhongkai Xie, Keith C Clarke, Manchun Li, Honghua Chen, Jian Liang, and Zhenjie Chen. An agent-based procedure with an embedded agent learning model for residential land growth simulation: The case study of nanjing, china. Cities , 88:155–165, 2019. [16] Warren B. Powell. Reinforcement Learning and Stochastic Optimization: A Unified Framework for Sequential Decisions . John Wiley & Sons, Hoboken, NJ, USA, 2022. [17] Tom Schaul, John Quan, Ioannis Antonoglou, and David Silver. Prioritized experience replay. arXiv preprint arXiv:1511.05952 , 2015. [18] Bulent Soykan and Ghaith Rabadi. Optimizing job shop scheduling problem through deep reinforcement learning and discrete event simulation. In 2024 Winter Simulation Conference (WSC) , pages 2607–2618. IEEE, 2024. [19] Wei Zhang, Andrea Valencia, and Ni-Bin Chang. Synergistic integration between machine learning and agent-based modeling: A multidisciplinary review. IEEE Transactions on Neural Networks and Learning Systems , 34(5):2170– 2190, 2021. [20] Weixiong Zhang and Thomas G. Dietterich. Reinforcement learning for job-shop scheduling. In Proceedings of the 14th International Joint Conference on Artificial Intelligence (IJCAI) , pages 1114–1120, Montreal, Quebec, Canada, 1995. Morgan Kaufmann. 6
