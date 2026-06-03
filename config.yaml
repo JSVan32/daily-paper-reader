@@ -25,3 +25,65 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: msk-rl
+      description: 肌肉骨骼系统的强化学习
+      enabled: true
+      paper_sources:
+        - arxiv
+        - biorxiv
+      keywords:
+        - keyword: reinforcement learning
+          keyword_cn: 强化学习
+          query: reinforcement learning for motor control of musculoskeletal systems
+        - keyword: musculoskeletal control
+          keyword_cn: 肌肉骨骼控制
+          query: control of musculoskeletal systems using reinforcement learning
+        - keyword: biomechanical simulation
+          keyword_cn: 生物力学模拟
+          query: biomechanical simulation of human movement with reinforcement learning
+        - keyword: exoskeleton assistance
+          keyword_cn: 外骨骼辅助
+          query: reinforcement learning for exoskeleton assistance and rehabilitation
+        - keyword: human gait
+          keyword_cn: 人类步态
+          query: reinforcement learning for human gait synthesis and optimization
+      intent_queries:
+        - query: How to apply reinforcement learning to control musculoskeletal simulations?
+          query_cn: 如何将强化学习应用于控制肌肉骨骼模拟？
+          enabled: true
+          source: manual
+          note: ''
+        - query: Experiments combining reinforcement learning with biomechanical models for rehabilitation robotics.
+          query_cn: 强化学习与生物力学模型结合用于康复机器人实验
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-06-03T09:52:39.715Z'
+source_backends:
+  arxiv:
+    papers_table: arxiv_papers
+    use_vector_rpc: true
+    vector_rpc: match_arxiv_papers
+    vector_rpc_exact: match_arxiv_papers_exact
+    use_bm25_rpc: true
+    bm25_rpc: match_arxiv_papers_bm25
+    sync_table: arxiv_sync_status
+    sync_success_value: success
+    schema: public
+    kind: supabase
+    enabled: true
+    url: https://lyucdwgefyfbmaiopjbk.supabase.co
+    anon_key: sb_publishable_lX-oi64Uxyd7SIVv3_w2Uw_MTOojeKq
+  biorxiv:
+    papers_table: biorxiv_papers
+    use_vector_rpc: true
+    vector_rpc: match_biorxiv_papers_exact
+    vector_rpc_exact: match_biorxiv_papers_exact
+    use_bm25_rpc: true
+    bm25_rpc: match_biorxiv_papers_bm25
+    schema: public
+    kind: supabase
+    enabled: true
+    url: https://lyucdwgefyfbmaiopjbk.supabase.co
+    anon_key: sb_publishable_lX-oi64Uxyd7SIVv3_w2Uw_MTOojeKq
