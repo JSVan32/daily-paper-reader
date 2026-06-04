@@ -1,0 +1,24 @@
+{
+  "label": "2026-06-04",
+  "date": "2026-06-04",
+  "generated_at": "2026-06-04T21:16:35",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202606/04/2605.29032v1-theoretical-foundations-and-effective-algorithms-for-policy-aware-simulator-learning",
+      "section": "quick",
+      "title_en": "Theoretical Foundations and Effective Algorithms for Policy-Aware Simulator Learning",
+      "authors": "Christoph Dann, Yishay Mansour, Mehryar Mohri",
+      "date": "2026-05-27",
+      "pdf": "https://arxiv.org/pdf/2605.29032v1",
+      "score": "6.0",
+      "evidence": "策略感知仿真器学习解决仿真与现实差距，对将RL应用于肌肉骨骼仿真至关重要",
+      "tldr": "基于模型的强化学习面临模拟器被策略利用导致现实差距的问题。本文提出战略鲁棒性替代预测准确性作为学习目标，构建零和博弈框架，并给出在线学习保证、基于critic的简化及误差-MDP对偶理论。通过主动数据选择算法，在连续控制任务上将战略关键区域预测误差降低1.5-2.2倍，使纯模拟训练策略达到近最优真实性能。工作为可靠世界模型学习提供了理论基础与有效算法。",
+      "tags": "query:msk-rl",
+      "abstract_en": "Model-based reinforcement learning (MBRL) agents typically learn world models by minimizing predictive loss. However, powerful RL optimizers inevitably exploit minor model inaccuracies, leading to simulator exploitation and a reality gap where policies succeed in simulation but fail in the real world. We propose that the objective for learning simulators should be strategic robustness rather than predictive accuracy, and formulate this as a zero-sum minimax game between a model player and an adversarial policy player. We provide a comprehensive theoretical analysis: (1) an online learning guarantee showing the game is learnable with sublinear regret bounds; (2) a tractable critic-based simplification bounding the global policy-value gap by the local critic's loss; and (3) an Error-MDP duality, proving that finding the worst-case policy is formally dual to a standard RL problem where the reward is the one-step critic error. This duality yields a provably convergent active data selection algorithm. Experiments on continuous control tasks demonstrate that our approach reduces prediction error in strategically important regions by $1.5$-$2.2\\times$ and enables policies trained purely in simulation to match near-optimal real-world performance.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

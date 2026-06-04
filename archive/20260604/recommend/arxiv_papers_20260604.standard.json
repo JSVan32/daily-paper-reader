@@ -1,0 +1,55 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-04T21:15:00.012440+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2605.29032v1",
+      "source": "arxiv",
+      "title": "Theoretical Foundations and Effective Algorithms for Policy-Aware Simulator Learning",
+      "abstract": "Model-based reinforcement learning (MBRL) agents typically learn world models by minimizing predictive loss. However, powerful RL optimizers inevitably exploit minor model inaccuracies, leading to simulator exploitation and a reality gap where policies succeed in simulation but fail in the real world. We propose that the objective for learning simulators should be strategic robustness rather than predictive accuracy, and formulate this as a zero-sum minimax game between a model player and an adversarial policy player. We provide a comprehensive theoretical analysis: (1) an online learning guarantee showing the game is learnable with sublinear regret bounds; (2) a tractable critic-based simplification bounding the global policy-value gap by the local critic's loss; and (3) an Error-MDP duality, proving that finding the worst-case policy is formally dual to a standard RL problem where the reward is the one-step critic error. This duality yields a provably convergent active data selection algorithm. Experiments on continuous control tasks demonstrate that our approach reduces prediction error in strategically important regions by $1.5$-$2.2\\times$ and enables policies trained purely in simulation to match near-optimal real-world performance.",
+      "authors": [
+        "Christoph Dann",
+        "Yishay Mansour",
+        "Mehryar Mohri"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "stat.ML"
+      ],
+      "published": "2026-05-27T19:31:37+00:00",
+      "link": "https://arxiv.org/pdf/2605.29032v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "policy-aware simulator learning addresses sim-to-real gap critical for applying RL to musculoskeletal simulations",
+      "llm_evidence_cn": "策略感知仿真器学习解决仿真与现实差距，对将RL应用于肌肉骨骼仿真至关重要",
+      "llm_evidence": "策略感知仿真器学习解决仿真与现实差距，对将RL应用于肌肉骨骼仿真至关重要",
+      "canonical_evidence": "策略感知仿真器学习解决仿真与现实差距，对将RL应用于肌肉骨骼仿真至关重要",
+      "llm_tldr_en": "Proposes learning simulators with strategic robustness via a zero-sum game, enabling policies to transfer from simulation to real world, a key challenge for musculoskeletal RL.",
+      "llm_tldr_cn": "该论文针对模型基强化学习中仿真器不准确导致策略在真实场景失败的问题，提出将仿真器学习建模为策略玩家与模型玩家的零和博弈以战略鲁棒性替代预测准确性为目标。理论证明该博弈可学习且具有亚线性遗憾界算法上通过评论家简化来限制策略值差距。该方法为缩小肌肉骨骼仿真与真实机器人控制的差距提供了原理性框架可直接支持强化学习在肌肉骨骼系统控制中的应用。",
+      "llm_tldr": "该论文针对模型基强化学习中仿真器不准确导致策略在真实场景失败的问题，提出将仿真器学习建模为策略玩家与模型玩家的零和博弈以战略鲁棒性替代预测准确性为目标。理论证明该博弈可学习且具有亚线性遗憾界算法上通过评论家简化来限制策略值差距。该方法为缩小肌肉骨骼仿真与真实机器人控制的差距提供了原理性框架可直接支持强化学习在肌肉骨骼系统控制中的应用。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "How to apply reinforcement learning to control musculoskeletal simulations?",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
