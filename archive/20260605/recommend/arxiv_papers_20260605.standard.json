@@ -1,0 +1,300 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-05T21:45:09.665767+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [
+    {
+      "id": "2606.06370v1",
+      "source": "arxiv",
+      "title": "Ensuring Interaction Safety in Multitask Exoskeleton Control: A Simulation-Trained Variable Impedance Framework",
+      "abstract": "Wearable exoskeletons can augment human phys ical capabilities during complex activities. However, ensuring adaptation across diverse tasks while guaranteeing interaction safety remains a critical challenge. To address this, a simulation trained variable impedance control approach with stability guarantees is proposed. First, a simulation-based human exoskeleton motion data generation pipeline is established, utilizing Proximal Policy Optimization (PPO) to synthesize human muscle activations while the exoskeleton provides direct compensation for human biological joint torques. Subsequently, the generated dataset is used to train a dual modality policy that fuses semantic instructions with proprioceptive history, enabling the prediction of reference trajectories and variable impedance gains for nine different motion tasks. To guarantee safety, the network outputs are constrained by a stability criterion derived from Lyapunov stability theory, which bounds stiffness variations to ensure the asymptotic stability of the coupled system. Experimental results indicate that the proposed framework reduces metabolic cost in real-world scenarios com pared with standard baseline methods. These findings suggest the feasibility of the proposed framework for safe, multitask exoskeleton control.",
+      "authors": [
+        "Muyuan Ma",
+        "Houcheng Li",
+        "Haotian Zhai",
+        "Lijun Han",
+        "Xinpan Meng",
+        "Xiuze Xia",
+        "Long Cheng"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-06-04T16:37:01+00:00",
+      "link": "https://arxiv.org/pdf/2606.06370v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "simulation-trained variable impedance control for exoskeleton interaction safety",
+      "llm_evidence_cn": "用于外骨骼交互安全的仿真训练变阻抗控制",
+      "llm_evidence": "用于外骨骼交互安全的仿真训练变阻抗控制",
+      "canonical_evidence": "用于外骨骼交互安全的仿真训练变阻抗控制",
+      "llm_tldr_en": "This paper proposes a simulation-trained variable impedance control framework using PPO to synthesize human muscle activations for multitask exoskeleton control with stability guarantees.",
+      "llm_tldr_cn": "外骨骼在多任务下保证交互安全是难题。本文提出一种仿真训练变阻抗控制方法，利用PPO合成人类肌肉激活，并生成数据集训练双模态策略。该方法融合语义指令与本体感受历史，实现多任务外骨骼自适应控制，同时提供稳定性保证，确保人机交互安全。",
+      "llm_tldr": "外骨骼在多任务下保证交互安全是难题。本文提出一种仿真训练变阻抗控制方法，利用PPO合成人类肌肉激活，并生成数据集训练双模态策略。该方法融合语义指令与本体感受历史，实现多任务外骨骼自适应控制，同时提供稳定性保证，确保人机交互安全。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "reinforcement learning for exoskeleton assistance and rehabilitation",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.05234v1",
+      "source": "arxiv",
+      "title": "OLIVE: Online Low-Rank Incremental Learning for Efficient Adaptive Exoskeletons",
+      "abstract": "Wearable exoskeleton systems hold promise for restoring mobility in individuals with physical impairments, yet most existing controllers rely on static gait policies that lack the ability to adapt to dynamic real-world environments or individual user characteristics. We present \\olive (\\underline{O}nline \\underline{L}ow-rank \\underline{I}ncremental Learning for Efficient Adapti\\underline{ve} Exoskeletons), a parameter-efficient online adaptation framework that continuously personalizes exoskeleton control during deployment. \\olive decomposes the adaptive component of the control policy into a low-rank residual form~$\\dW = \\At\\Bt^\\top$ with rank~$r!\\ll!\\min(d,k)$, reducing online update cost from $\\mathcal{O}(dk)$ to $\\mathcal{O}(r(d{+}k))$ while preserving the stability of a pretrained base controller~$\\Wz$. Parameters are updated via a reward-shaped policy gradient driven purely by on-body sensor feedback (EMG, IMU, vibration), eliminating dependence on offline reference trajectories. A gating mechanism modulates the strength of personalization based on contextual state, and a dynamic rank scheduler adapts the update dimensionality to terrain complexity -- allocating minimal capacity on simple flat terrain and expanding to higher-rank updates on demanding uneven surfaces -- enabling robust performance across diverse activities: flat walking, stair navigation, slopes, and uneven terrain. Experiments on the wearable platform demonstrate that \\olive achieves +13, +22, and +15 percentage-point improvements in gait smoothness, effort reduction, and motion stability over the strongest baseline, converging within $\\sim$1{,}800 walking steps at 7.4,ms end-to-end latency. Our code implementation is available at https://github.com/FastLM/OLIVE.",
+      "authors": [
+        "Dong Liu",
+        "Yanxuan Yu",
+        "Ben Lengerich",
+        "Tony Geng",
+        "Ying Nian Wu"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.LG"
+      ],
+      "published": "2026-06-03T01:37:37+00:00",
+      "link": "https://arxiv.org/pdf/2606.05234v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "adaptive exoskeleton control using online low-rank incremental learning",
+      "llm_evidence_cn": "使用在线低秩增量学习实现自适应外骨骼控制",
+      "llm_evidence": "使用在线低秩增量学习实现自适应外骨骼控制",
+      "canonical_evidence": "使用在线低秩增量学习实现自适应外骨骼控制",
+      "llm_tldr_en": "OLIVE presents a parameter-efficient online adaptation framework for exoskeleton control, decomposing policy updates into low-rank residuals to continuously personalize assistance during deployment.",
+      "llm_tldr_cn": "现有外骨骼控制器依赖静态步态策略，无法适应动态环境。OLIVE提出一种在线低秩增量学习框架，将控制策略的自适应部分分解为低秩残差形式，显著降低在线更新成本。该方法在部署过程中持续个性化外骨骼控制，实验表明其能高效适应不同用户特征和实时环境变化，为实用外骨骼自适应控制提供了轻量级方案。",
+      "llm_tldr": "现有外骨骼控制器依赖静态步态策略，无法适应动态环境。OLIVE提出一种在线低秩增量学习框架，将控制策略的自适应部分分解为低秩残差形式，显著降低在线更新成本。该方法在部署过程中持续个性化外骨骼控制，实验表明其能高效适应不同用户特征和实时环境变化，为实用外骨骼自适应控制提供了轻量级方案。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "reinforcement learning for exoskeleton assistance and rehabilitation",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.04718v1",
+      "source": "arxiv",
+      "title": "CoRe-MoE: Contrastive Reweighted Mixture of Experts for Multi-Terrain Humanoid Locomotion with Gait Adaptation",
+      "abstract": "Humans primarily rely on walking and running to traverse complex terrains, without resorting to unnecessarily complex motion patterns. Similarly, humanoid robots should achieve smooth transitions between walking and running while maintaining natural and stable locomotion. However, unifying gait transition and multi-terrain adaptation within a single policy remains challenging due to gradient interference and the distribution shift induced by terrain-dependent visual and dynamic variations. Although Mixture-of-Experts (MoE) architectures can alleviate multi-skill interference, naive joint training often fails to yield clear expert specialization, limiting their effectiveness. To address these challenges, we propose CoRe-MoE, a two-stage reinforcement learning framework that decouples gait generation from terrain adaptation. In the first stage, a stable locomotion policy is learned to produce natural walking and running behaviors with smooth transitions. In the second stage, a terrain-aware MoE branch is introduced and trained with a contrastive objective to shape the gating network, enabling it to capture structured terrain representations and promote expert specialization. The final action is obtained via weighted fusion of the base gait policy and the terrain-aware branch, allowing the policy to preserve stable locomotion patterns while adapting to complex terrains. Extensive simulation results demonstrate that the proposed method outperforms baseline approaches in terms of success rate, locomotion stability, and multi-terrain adaptability. Furthermore, zero-shot deployment on a Unitree G1 humanoid robot validates the effectiveness of our framework, achieving robust walking and running across stairs, slopes, steps, obstacles, and unstructured outdoor terrains, while maintaining accurate foothold placement and dynamic stability under external disturbances.",
+      "authors": [
+        "Kailun Huang",
+        "Zikang Xie",
+        "Yanzhe Xie",
+        "Panpan Liao",
+        "Fanghai Zhang",
+        "Yanheng Mai",
+        "Wenhao Xu",
+        "Yunheng Wang",
+        "Renjing Xu",
+        "Haohui Huang"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-06-03T10:51:46+00:00",
+      "link": "https://arxiv.org/pdf/2606.04718v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multi-terrain humanoid locomotion with gait adaptation using RL and MoE",
+      "llm_evidence_cn": "使用强化学习和混合专家实现多地形人形机器人步态适应",
+      "llm_evidence": "使用强化学习和混合专家实现多地形人形机器人步态适应",
+      "canonical_evidence": "使用强化学习和混合专家实现多地形人形机器人步态适应",
+      "llm_tldr_en": "CoRe-MoE uses contrastive reweighted mixture of experts to enable smooth gait transition and multi-terrain adaptation in humanoid locomotion via RL.",
+      "llm_tldr_cn": "人类能够根据不同地形平滑切换行走与跑步步态，而人形机器人统一策略常因梯度干扰和分布偏移难以达到同样效果。本文提出CoRe-MoE框架，利用对比重加权混合专家架构，使每个专家专注于特定的步态模式，从而在单策略内实现步态转换与多地形适应。实验证明该方法在多种地形上生成了稳定自然的步态。该工作对人形机器人步态控制有直接贡献，其方法可启发人类步态合成研究。",
+      "llm_tldr": "人类能够根据不同地形平滑切换行走与跑步步态，而人形机器人统一策略常因梯度干扰和分布偏移难以达到同样效果。本文提出CoRe-MoE框架，利用对比重加权混合专家架构，使每个专家专注于特定的步态模式，从而在单策略内实现步态转换与多地形适应。实验证明该方法在多种地形上生成了稳定自然的步态。该工作对人形机器人步态控制有直接贡献，其方法可启发人类步态合成研究。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "reinforcement learning for human gait synthesis and optimization",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.30903v1",
+      "source": "arxiv",
+      "title": "Inverse Reinforcement Learning without an Optimal Demonstrator: A Feasible Reward Set Approach",
+      "abstract": "Inverse reinforcement learning (IRL) typically assumes demonstrations from a single optimal demonstrator, but in many applications data come from multiple imperfect demonstrators with heterogeneous suboptimality levels. We study reward learning in this setting through a feasible-reward-set framework: for each demonstrator, we encode its declared suboptimality level as a linear constraint and intersect the resulting feasible sets across demonstrators. Our theoretical analysis shows that the joint feasible set shrinks monotonically as data are added, and we give an exact characterization of when a new demonstrator strictly tightens it. We further establish two recovery guarantees for the feasible reward set of the ground-truth optimal demonstrator: one bound depends on closeness to the optimal occupancy, while the other requires only sufficient coverage and no near-optimal demonstrator. On the practical side, we introduce strategies to address the inherent reward ambiguity in the obtained reward set and provide an offline algorithm with function approximation for high-dimensional environments. Experiments in tabular grid-world and large language model (LLM) fine-tuning settings are consistent with the theoretical predictions and demonstrate the effectiveness of the proposed framework over baselines.",
+      "authors": [
+        "Kihyun Kim",
+        "Shripad Deshmukh",
+        "Nikos Vlassis",
+        "Jiawei Zhang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-05-29T06:38:10+00:00",
+      "link": "https://arxiv.org/pdf/2605.30903v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "IRL method to learn reward functions from multiple heterogeneous demonstrators",
+      "llm_evidence_cn": "从多个异构非最优演示者中学习奖励函数的逆强化学习方法",
+      "llm_evidence": "从多个异构非最优演示者中学习奖励函数的逆强化学习方法",
+      "canonical_evidence": "从多个异构非最优演示者中学习奖励函数的逆强化学习方法",
+      "llm_tldr_en": "Feasible-reward-set IRL handles multiple imperfect demonstrators with declared suboptimality, enabling reward learning for applications like rehabilitation where optimal demo is unavailable.",
+      "llm_tldr_cn": "传统逆强化学习假设最优演示者，但实际场景中数据常来自多个次优水平各异的个体。本文提出可行奖励集框架，将每个演示者的次优性编码为线性约束并求交，理论证明新增数据可单调缩减可行集。该方法适用于康复机器人等场景，可从多源非完美示范中学习奖励函数，为策略学习提供基础。",
+      "llm_tldr": "传统逆强化学习假设最优演示者，但实际场景中数据常来自多个次优水平各异的个体。本文提出可行奖励集框架，将每个演示者的次优性编码为线性约束并求交，理论证明新增数据可单调缩减可行集。该方法适用于康复机器人等场景，可从多源非完美示范中学习奖励函数，为策略学习提供基础。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "How to apply reinforcement learning to control musculoskeletal simulations?",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.05687v1",
+      "source": "arxiv",
+      "title": "Accelerating and Scaling MPC-Guided Reinforcement Learning for Humanoid Locomotion and Manipulation",
+      "abstract": "In humanoid motion control, model predictive control (MPC) offers physically grounded prediction and constraint handling, while reinforcement learning (RL) enables robust whole-body skills through large-scale simulation. However, using MPC inside RL often requires time-consuming problem construction or excessive training overhead, making such frameworks difficult to justify in practice. This work studies efficient training-time MPC guidance for humanoid locomotion and manipulation, termed MPC-RL. We introduce a centroidal-dynamics MPC reward formulation that leverages guidance from MPC trajectories in training time. To make this practical in massively parallel RL, we develop $π^n$MPC, a parallel-in-horizon and construction-free batched GPU MPC solver that operates directly on time-varying dynamics to avoid high memory usage and pre-compilation. Through a variety of comparative studies and hardware validations, we have found that MPC-RL achieves superior performance in locomotion and manipulation skills. The code base is available at https://github.com/junhengl/mpc-rl.",
+      "authors": [
+        "Junheng Li",
+        "Liang Wu",
+        "Sergio A. Esteban",
+        "Lizhi Yang",
+        "Ján Drgoňa",
+        "Aaron D. Ames"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "eess.SY"
+      ],
+      "published": "2026-06-04T04:12:47+00:00",
+      "link": "https://arxiv.org/pdf/2606.05687v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "RL with MPC for humanoid locomotion and gait",
+      "llm_evidence_cn": "RL结合MPC用于人形机器人步态生成与优化",
+      "llm_evidence": "RL结合MPC用于人形机器人步态生成与优化",
+      "canonical_evidence": "RL结合MPC用于人形机器人步态生成与优化",
+      "llm_tldr_en": "Introduces MPC-RL framework accelerating humanoid locomotion and manipulation by using centroidal-dynamics MPC reward and parallel-in-horizon computation.",
+      "llm_tldr_cn": "该工作针对人形机器人运动控制中MPC与RL结合效率低的问题，提出MPC-RL框架，利用质心动力学MPC奖励引导训练，并开发π^nMPC实现并行化计算。在仿真中验证了其加速步态学习的效果，为RL在类人运动生成中的应用提供了高效方案。",
+      "llm_tldr": "该工作针对人形机器人运动控制中MPC与RL结合效率低的问题，提出MPC-RL框架，利用质心动力学MPC奖励引导训练，并开发π^nMPC实现并行化计算。在仿真中验证了其加速步态学习的效果，为RL在类人运动生成中的应用提供了高效方案。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "reinforcement learning for human gait synthesis and optimization",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.30928v1",
+      "source": "arxiv",
+      "title": "Enhancing Human-Likeness in Reinforcement Learning Agents via Hierarchical Macro Action Quantization",
+      "abstract": "Human-like agents are a long-standing goal of artificial intelligence. Despite strong performance, most reinforcement learning (RL) agents remain reward-driven and often exhibit behaviors that differ from humans, limiting interpretability and reliability. In this work, we introduce a novel human-like RL framework that predicts action sequences closely aligned with human behaviors while maximizing rewards. Specifically, we encode human demonstrations into macro actions using a hierarchical macro action quantization approach (termed HiMAQ) consisting of two successive levels of vector quantization. The lower quantization level maps input actions to fine-grained subaction clusters, while the higher quantization level aggregates these subaction clusters into action clusters. Extensive evaluations on the D4RL benchmarks show that our hierarchical approach outperforms the non-hierarchical baseline (MAQ), achieving better human-likeness scores while maintaining comparable or better success rates than previous RL agents. The improvements generalize across integrations with various RL algorithms, namely IQL, SAC, and RLPD.",
+      "authors": [
+        "Usman Nizamani",
+        "M. Shaheer Luqman",
+        "Fawad Javed Fateh",
+        "Ali Shah Ali",
+        "Murad Popattia",
+        "M. Zeeshan Zia",
+        "Quoc-Huy Tran"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-05-29T07:18:20+00:00",
+      "link": "https://arxiv.org/pdf/2605.30928v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "human-like RL via hierarchical macro actions for human behavior synthesis",
+      "llm_evidence_cn": "通过分层宏动作量化生成类人行为的强化学习方法",
+      "llm_evidence": "通过分层宏动作量化生成类人行为的强化学习方法",
+      "canonical_evidence": "通过分层宏动作量化生成类人行为的强化学习方法",
+      "llm_tldr_en": "HiMAQ encodes human demonstrations into macro actions with two-level VQ, enabling RL agents to predict human-like action sequences while maximizing rewards.",
+      "llm_tldr_cn": "现有强化学习智能体虽性能强劲，但行为常偏离人类模式，限制可解释性和可靠性。本文提出HiMAQ框架，通过两级矢量量化将人类示范编码为宏动作，使智能体在最大化奖励的同时输出贴近人类的动作序列。实验表明该方法有效提升了行为人类相似度，为步态合成等类人运动控制提供了可迁移的方法论。",
+      "llm_tldr": "现有强化学习智能体虽性能强劲，但行为常偏离人类模式，限制可解释性和可靠性。本文提出HiMAQ框架，通过两级矢量量化将人类示范编码为宏动作，使智能体在最大化奖励的同时输出贴近人类的动作序列。实验表明该方法有效提升了行为人类相似度，为步态合成等类人运动控制提供了可迁移的方法论。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "reinforcement learning for human gait synthesis and optimization",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.00374v1",
+      "source": "arxiv",
+      "title": "Constrained Whole-Body Tracking for Humanoid Robots",
+      "abstract": "Recent advances in reinforcement learning (RL) have demonstrated impressive whole-body agility for humanoid robots, yet ensuring safety and satisfying constraints -- particularly those specified after training -- remains a challenge. Towards this goal, we present ConstrainedMimic, a control framework that leverages whole-body kinematics and dynamics for real-time constraint enforcement within RL tracking policies. By integrating principles from operational space control and control barrier functions (CBFs), we enable the satisfaction of arbitrary runtime constraints on both the kinematic reference motion and the underlying dynamics. In whole-body motion-tracking and teleoperation experiments on a (simulated) Unitree G1 with a learned policy, we demonstrate collision avoidance (both with the robot body and external obstacles), joint limits, and center of mass stability constraints. By remaining consistent with the current contact mode and tracking objectives, we minimally restrict the capabilities of the policy when constraints are active. Our method is fully differentiable, runs on CPU, GPU, and TPU, and can be deployed at up to 300-500 Hz. All software will be freely available upon publication.",
+      "authors": [
+        "Daniel Morton",
+        "Pranit Mohnot",
+        "Marco Pavone"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-05-29T21:33:03+00:00",
+      "link": "https://arxiv.org/pdf/2606.00374v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "RL whole-body tracking with constraints for humanoid gait",
+      "llm_evidence_cn": "RL全身追踪与控制约束用于人形步态",
+      "llm_evidence": "RL全身追踪与控制约束用于人形步态",
+      "canonical_evidence": "RL全身追踪与控制约束用于人形步态",
+      "llm_tldr_en": "Presents ConstrainedMimic framework that enforces runtime constraints on humanoid whole-body motion tracking using operational space control and CBFs.",
+      "llm_tldr_cn": "该工作针对RL训练后无法灵活满足运行时约束的问题，提出ConstrainedMimic框架，融合操作空间控制与控制障碍函数，在RL追踪策略中实时强制执行运动学与动力学约束。在仿真Unitree G1上验证了避碰等能力，为人形机器人安全步态控制提供了新方法。",
+      "llm_tldr": "该工作针对RL训练后无法灵活满足运行时约束的问题，提出ConstrainedMimic框架，融合操作空间控制与控制障碍函数，在RL追踪策略中实时强制执行运动学与动力学约束。在仿真Unitree G1上验证了避碰等能力，为人形机器人安全步态控制提供了新方法。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "reinforcement learning for human gait synthesis and optimization",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

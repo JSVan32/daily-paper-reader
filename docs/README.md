@@ -6,24 +6,41 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-04
-- 运行时间：2026-06-04 21:16:30 UTC
+- 最新运行日期：2026-06-05
+- 运行时间：2026-06-05 21:48:43 UTC
 - 运行状态：成功
-- 本次总论文数：1
-- 精读区：0
-- 速读区：1
+- 本次总论文数：7
+- 精读区：2
+- 速读区：5
 
 ### 今日简报（AI）
-今日速读1篇策略感知模拟器学习理论文章，评分6.0/10。核心方向为模拟器学习的理论基础与有效算法，政策感知方法值得关注。建议速读原文了解核心思路，或搜索更高质量相关文献。
-- 详情：[/202606/04/README](/202606/04/README)
+今日精选7篇论文，聚焦外骨骼安全控制与人形机器人运动学习。最值得关注的工作包括基于仿真训练的可变阻抗框架（9.0分）和在线低秩增量学习外骨骼适配方法（8.0分）。后续可深入外骨骼人机交互安全性与自适应控制算法方向。
+- 详情：[/202606/05/README](/202606/05/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [Ensuring Interaction Safety in Multitask Exoskeleton Control: A Simulation-Trained Variable Impedance Framework](/202606/05/2606.06370v1-ensuring-interaction-safety-in-multitask-exoskeleton-control-a-simulation-trained-variable-impedance-framework)  
+   标签：评分：9.0/10、query:msk-rl
+   evidence：用于外骨骼交互安全的仿真训练变阻抗控制
+2. [OLIVE: Online Low-Rank Incremental Learning for Efficient Adaptive Exoskeletons](/202606/05/2606.05234v1-olive-online-low-rank-incremental-learning-for-efficient-adaptive-exoskeletons)  
+   标签：评分：8.0/10、query:msk-rl
+   evidence：使用在线低秩增量学习实现自适应外骨骼控制
 
 ### 速读区论文标签
-1. [Theoretical Foundations and Effective Algorithms for Policy-Aware Simulator Learning](/202606/04/2605.29032v1-theoretical-foundations-and-effective-algorithms-for-policy-aware-simulator-learning)  
+1. [CoRe-MoE: Contrastive Reweighted Mixture of Experts for Multi-Terrain Humanoid Locomotion with Gait Adaptation](/202606/05/2606.04718v1-core-moe-contrastive-reweighted-mixture-of-experts-for-multi-terrain-humanoid-locomotion-with-gait-adaptation)  
+   标签：评分：7.0/10、query:msk-rl
+   evidence：使用强化学习和混合专家实现多地形人形机器人步态适应
+2. [Accelerating and Scaling MPC-Guided Reinforcement Learning for Humanoid Locomotion and Manipulation](/202606/05/2606.05687v1-accelerating-and-scaling-mpc-guided-reinforcement-learning-for-humanoid-locomotion-and-manipulation)  
+   标签：评分：7.0/10、query:msk-rl
+   evidence：RL结合MPC用于人形机器人步态生成与优化
+3. [Inverse Reinforcement Learning without an Optimal Demonstrator: A Feasible Reward Set Approach](/202606/05/2605.30903v1-inverse-reinforcement-learning-without-an-optimal-demonstrator-a-feasible-reward-set-approach)  
    标签：评分：6.0/10、query:msk-rl
-   evidence：策略感知仿真器学习解决仿真与现实差距，对将RL应用于肌肉骨骼仿真至关重要
+   evidence：从多个异构非最优演示者中学习奖励函数的逆强化学习方法
+4. [Enhancing Human-Likeness in Reinforcement Learning Agents via Hierarchical Macro Action Quantization](/202606/05/2605.30928v1-enhancing-human-likeness-in-reinforcement-learning-agents-via-hierarchical-macro-action-quantization)  
+   标签：评分：6.0/10、query:msk-rl
+   evidence：通过分层宏动作量化生成类人行为的强化学习方法
+5. [Constrained Whole-Body Tracking for Humanoid Robots](/202606/05/2606.00374v1-constrained-whole-body-tracking-for-humanoid-robots)  
+   标签：评分：6.0/10、query:msk-rl
+   evidence：RL全身追踪与控制约束用于人形步态
 
 
 <div class="dpr-home-promo-card">

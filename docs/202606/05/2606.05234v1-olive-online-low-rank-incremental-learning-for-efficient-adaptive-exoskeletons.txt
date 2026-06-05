@@ -1,0 +1,365 @@
+Title: OLIVE: Online Low-Rank Incremental Learning for Efficient Adaptive Exoskeletons
+
+URL Source: https://arxiv.org/pdf/2606.05234v1
+
+Published Time: Fri, 05 Jun 2026 00:05:10 GMT
+
+Number of Pages: 5
+
+Markdown Content:
+# OLIVE: Online Low-Rank Incremental Learning for Efficient Adaptive Exoskeletons 
+
+## Dong Liu 
+
+University of California, Los Angeles Los Angeles, California, USA pikeliu@ucla.edu 
+
+## Yanxuan Yu 
+
+Columbia University New York, New York, USA yy3523@columbia.edu 
+
+## Ben Lengerich 
+
+University of Wisconsin-Madison Madison, Wisconsin, USA lengerich@wisc.edu 
+
+## Tony Geng 
+
+Rice University Houston, Texas, USA tony.geng@rice.edu 
+
+## Ying Nian Wu 
+
+University of California, Los Angeles Los Angeles, California, USA ywu@stat.ucla.edu 
+
+Abstract 
+
+Wearable exoskeleton systems hold promise for restoring mobility in individuals with physical impairments, yet most existing con-trollers rely on static gait policies that lack the ability to adapt to dynamic real-world environments or individual user characteristics. We present Olive (Online Low-rank Incremental Learning for Effi-cient Adapti ve Exoskeletons), a parameter-efficient online adapta-tion framework that continuously personalizes exoskeleton control during deployment. Olive decomposes the adaptive component of the control policy into a low-rank residual form Δ𝑊 𝑡 = 𝐴 𝑡 𝐵 ⊤
+
+> 𝑡
+
+with rank 𝑟 ≪ min (𝑑, 𝑘 ), reducing online update cost from O( 𝑑𝑘 )
+
+to O( 𝑟 (𝑑 +𝑘 )) while preserving the stability of a pretrained base controller 𝑊 0. Parameters are updated via a reward-shaped policy gradient driven purely by on-body sensor feedback (EMG, IMU, vibration), eliminating dependence on offline reference trajectories. A gating mechanism modulates the strength of personalization based on contextual state, and a dynamic rank scheduler adapts the update dimensionality to terrain complexity—allocating minimal capacity on simple flat terrain and expanding to higher-rank up-dates on demanding uneven surfaces—enabling robust performance across diverse activities: flat walking, stair navigation, slopes, and uneven terrain. Experiments on the wearable platform demonstrate that Olive achieves +13, +22, and +15 percentage-point improve-ments in gait smoothness, effort reduction, and motion stability over the strongest baseline, converging within ∼1 800 walking steps at 7.4 ms end-to-end latency. Our code implementation is avalable at https://github.com/FastLM/OLIVE. 
+
+Keywords 
+
+wearable exoskeleton, online adaptation, low-rank learning, reward shaping, online reinforcement learning, assistive mobility, ubiqui-tous computing, edge AI 
+
+1 Introduction 
+
+Mobility impairments affect hundreds of millions of people world-wide, imposing significant burdens on both individuals and health-care systems [ 2 , 12 , 19 ]. Powered lower-limb exoskeletons have emerged as a compelling assistive technology, able to support walking, stair climbing, and rehabilitation in clinical and daily set-tings [1, 14, 20]. Despite substantial hardware advances, the control of these de-vices remains a critical bottleneck. Traditional approaches rely on: 
+
+• Rule-based finite state machines —discrete mode graphs that are brittle on novel terrains or unexpected gait transitions [ 16 ,17]; 
+
+• Impedance/admittance controllers —manually tuned stiffness and damping parameters that not generalizable across users and different scenarios [3, 18]; 
+
+• Offline-trained Weights —policies fixed at deployment time, unable to incorporate run-time feedback [5, 21]. Real-world mobility is inherently dynamic: terrain varies, users fatigue, gait patterns drift. Effective assistive systems must therefore 
+
+adapt continuously to both environmental context and individual biomechanics. We propose Olive , a learning framework that treats exoskele-ton assistance as an online parameter-efficient adaptation problem .Drawing inspiration from low-rank adaptation in large-scale mod-els [ 4 ], Olive confines real-time online updates to a compact low-rank subspace of the controller parameter space, so that to en-able millisecond-level adaptation on wearable embedded hardware. Specifically, the frozen base controller 𝑊 0 is initialised from our company’s internal motion foundation model pretrained on large-scale motion signals data encompassing electronic sensor streams (IMU, joint encoders, EMG), physical vibration signals, and diverse kinematic sequences—giving 𝑊 0 a rich motion prior before any user-specific adaptation. Recent related work on efficient foun-dation models, scalable inference, long-context attention, multi-task adaptation, and experience-based planning [ 7– 11 ] provides complementary context for edge-deployable online learning. Prior online approaches—including human-in-the-loop metabolic opti-misation [ 14 , 21 ] and graceful-degradation control [ 15 ]—address adaptation in isolation, without a unified treatment of stability, parameter efficiency, and personalisation. Olive addresses all three simultaneously within a single low-rank framework. 
+
+Contributions. We make the following contributions: (1) A low-rank adaptive controller built on a Pretrained-MM -initialised multimodal base policy, updated online via a reward-shaped policy gradient objective requiring no reference trajec-tories. (2) A gating mechanism that dynamically regulates the influence of the personalized residual based on user context. 
+
+> arXiv:2606.05234v1 [cs.RO] 3 Jun 2026 Dong Liu, Yanxuan Yu, Ben Lengerich, Tony Geng, and Ying Nian Wu
+
+Figure 1: Olive system architecture. Four motion modali-ties—IMU (1000 Hz), joint encoders, surface EMG, and actu-ator vibration—feed an intent estimator, which drives the adaptive controller. Olive replaces the static policy with an online low-rank adapter Δ𝑊 𝑡 = 𝐴 𝑡 𝐵 ⊤ 
+
+> 𝑡
+
+(gated by 𝛼 𝑡 , rank-scheduled to 𝑟 𝑡 ); the Feedback Learning stage computes the shaped reward 𝑟 𝑡 from on-body sensor signals. 
+
+(3) A dynamic rank scheduler that selects rank 𝑟 𝑡 in real time from a candidate set based on estimated state complexity, balancing adaptation capacity against computational cost. 
+
+2 System Overview 
+
+Olive is deployed on our latest Wearable Exoskeleton, it is an ultra-lightweight bilateral hip-assist exoskeleton ( ≈2.4 kg, carbon-fiber + aerospace-grade aluminum alloy frame) with the specifications summarised in Table 1. Figure 1 shows the end-to-end pipeline. 
+
+Table 1: Key specifications of the Experimental Exoskeleton.              
+
+> Weight ≈2.4 kg Actuation Bilateral hip torque (Cycle-X Suspension) Electronic Sensing ∼1000 Hz IMU + joint encoders + EMG Vibration Sensing Actuator force sensors (ground-contact vibration) Battery Endurance Up to 12 000 steps per charge Max Assisted Speed Up to 11 km/h Base Model ( 𝑊 0)Initialized from Pretrained-MM (frozen) Control Modes Assist / Damping / Adaptive (OLIVE) Connectivity Bluetooth 5.1 + iOS/Android app Target Latency <10 ms end-to-end
+
+Sensing layer. The system fuses four complementary motion modalities: (i) electronic signals — high-frequency IMU readings (acceleration, angular velocity at ∼1000 Hz) and bilateral joint an-gle/velocity from encoders; (ii) surface EMG — bilateral muscle-activation signals providing a direct proxy for user intent and metabolic effort; (iii) physical vibration — ground-contact vibration sampled from the bilateral hip actuator force sensors, providing surface-texture cues unavailable from kinematics alone; (iv) context 
+
+— an inferred activity-mode and terrain-class vector. 
+
+Figure 2: Exoskeleton applications in real life: (a) Uneven trail walking. (b) Stair climbing. (c) Rocky hill terrain. (d) Elderly-assistance scenario. Olive automatically adapts its low-rank control parameters to each condition via online incremental updates. Intent recognition. A lightweight classifier maps the current sensor window to a discrete user intent 𝑢 𝑡 ∈ { walk , climb , slope , uneven },running at <2 ms on the embedded CPU. 
+
+Adaptive controller. The core OLIVE module (detailed in Sec-tion 3) maps the fused state 𝑠 𝑡 to assistive torque outputs 𝑎 𝑡 ∈ R𝑚 
+
+via a low-rank parameterisation updated online. 
+
+Embedded runtime. All inference and update steps run on a wearable ARM-based SoC, constrained to <10 ms round-trip latency to guarantee closed-loop safety. Figure 2 illustrates Olive operating across four real-world sce-narios encountered in daily use. 
+
+3 Method: Online Low-Rank Adaptive Control 3.1 Problem Formulation 
+
+At time step 𝑡 , the exoskeleton observes a multimodal motion state vector 
+
+𝑠 𝑡 =  𝑥 imu  
+
+> 𝑡
+
+, 𝑥 joint  
+
+> 𝑡
+
+, 𝑥 emg  
+
+> 𝑡
+
+, 𝑥 vib  
+
+> 𝑡
+
+, 𝑥 ctx  
+
+> 𝑡
+
+, ℎ 𝑡 −1
+
+ ∈ R𝑛 , (1) where 𝑥 imu  
+
+> 𝑡
+
+and 𝑥 joint  
+
+> 𝑡
+
+are high-frequency IMU and joint-encoder readings; 𝑥 emg  
+
+> 𝑡
+
+∈ R𝑑 𝑒 is a surface EMG signal capturing bilateral mus-cle activation, providing a direct proxy for user intent and metabolic effort; 𝑥 vib  
+
+> 𝑡
+
+∈ R𝑑 𝑏 captures ground-contact vibration signals from the actuator force sensors; 𝑥 ctx  
+
+> 𝑡
+
+encodes inferred terrain/activity context; and ℎ𝑡 −1 is a summarised motion history. The system must produce an assistive action 𝑎 𝑡 ∈ R𝑚 (bilateral hip torques) via a policy 𝜋 Θ𝑡 .The key challenge is to continuously adapt Θ𝑡 during deployment while remaining computationally feasible on embedded hardware. 
+
+3.2 Low-Rank Adaptive Controller 
+
+We decompose the policy parameter matrix as: 
+
+Θ𝑡 = 𝑊 0 + Δ𝑊 𝑡 , Δ𝑊 𝑡 = 𝐴 𝑡 𝐵 ⊤ 
+
+> 𝑡
+
+, (2) OLIVE: Online Low-Rank Incremental Learning for Efficient Adaptive Exoskeletons 
+
+where 𝑊 0 ∈ R𝑑 ×𝑘 is a frozen base controller initialised from our company’s motion foundation model pretrained on large-scale population-level data encompassing electronic sensor streams (IMU, encoders, EMG), physical vibration, and kinematic sequences—and held fixed throughout deployment; and 𝐴 𝑡 ∈ R𝑑 ×𝑟 , 𝐵 𝑡 ∈ R𝑘 ×𝑟 are 
+
+online-updatable low-rank factors with 𝑟 ≪ min (𝑑, 𝑘 ). The assistive action is thus 
+
+𝑎 𝑡 = 𝜋 𝑊 0+𝐴 𝑡 𝐵 ⊤ 
+
+> 𝑡
+
+(𝑠 𝑡 ). (3) 
+
+Computational savings. Full-matrix online updates would require maintaining and differentiating through O( 𝑑𝑘 ) parameters. By restricting updates to 𝐴 𝑡 and 𝐵 𝑡 , the parameter count drops to 
+
+O( 𝑟 (𝑑 +𝑘 )) , a reduction factor of 𝑑𝑘 𝑟 (𝑑 +𝑘 ) ≫ 1 for typical network widths 𝑑, 𝑘 and small ranks 𝑟 ∈ { 4, 8, 16 }.
+
+3.3 Gated Personalization 
+
+To prevent destabilising over-adaptation under uncertain or rapidly changing inputs, we introduce a scalar gating coefficient 
+
+𝛼 𝑡 = 𝜎  𝑔 (𝑠 𝑡 , ℎ 𝑡 −1) ∈ ( 0, 1), (4) where 𝑔 (·) is a small two-layer network and 𝜎 is the sigmoid func-tion. The gated policy becomes: 
+
+𝑎 𝑡 = 𝜋 𝑊 0+𝛼 𝑡 𝐴 𝑡 𝐵 ⊤ 
+
+> 𝑡
+
+(𝑠 𝑡 ). (5) When 𝛼 𝑡 ≈ 0 (stable, familiar context), the system falls back to the robust base controller; when 𝛼 𝑡 ≈ 1 (detected state shift or user fatigue), the personalized component is fully activated. 
+
+3.4 Dynamic Rank Scheduling 
+
+Flat walking is geometrically simple and well-covered by a low-rank update, whereas complex transitions—stairs, uneven terrain—demand richer representational capacity. Fixing 𝑟 globally either wastes com-putation on easy contexts or starves capacity on hard ones. We therefore introduce a lightweight complexity estimator 
+
+𝑐 𝑡 = 𝜎  𝜓 (𝑠 𝑡 , ℎ 𝑡 −1) ∈ ( 0, 1), (6) where 𝜓 (·) is a single-hidden-layer MLP that shares its first-layer weights with the gating network 𝑔 (·) to minimise parameter over-head. The effective rank is then discretised from a candidate set 
+
+R = {𝑟 min , . . . , 𝑟 max }:
+
+𝑟 𝑡 = clip 
+
+ 𝑐 𝑡 · (|R|)  + 𝑟 min , 𝑟 min , 𝑟 max 
+
+
+
+. (7) We maintain low-rank factors at maximum capacity 𝐴 𝑡 ∈ R𝑑 ×𝑟 max ,
+
+𝐵 𝑡 ∈ R𝑘 ×𝑟 max and truncate to the leading 𝑟 𝑡 columns at inference: 
+
+Δ𝑊 𝑡 = 𝐴 𝑡 [:, :𝑟 𝑡 ] 𝐵 𝑡 [:, :𝑟 𝑡 ]⊤, (8) so that the gated policy of Eq. (5) becomes 𝑎 𝑡 = 𝜋 𝑊 0+𝛼 𝑡 Δ𝑊 𝑡 (𝑠 𝑡 ).In practice we set 𝑟 min =4, 𝑟 max =16 , giving a 4 × range in online parameter count: simple flat walking converges to 𝑟 𝑡 =4 (4×( 𝑑 +𝑘 )
+
+multiply-adds), while novel uneven terrain expands to 𝑟 𝑡 =16 on demand. This co-design of the gating and rank signals with shared representations keeps the added overhead under 0.3 ms per step on the embedded SoC. 
+
+3.5 Online Incremental Update via Reward-Shaped Policy Gradient 
+
+We design OLIVE as an online adaptation method based on pol-icy gradient method in the low-rank subspace. At each step 𝑡 the exoskeleton executes 𝑎 𝑡 , observes on-body sensory feedback, and receives a shaped reward 
+
+𝑟 𝑡 = 𝑤 1 ΔEMG 𝑡 + 𝑤 2 (1 − E 𝑡 ) + 𝑤 3 (1 − ∥ 𝜙 (𝑠 𝑡 , 𝑎 𝑡 )∥ 2), (9) where ΔEMG 𝑡 = EMG 𝑡 −1 − EMG 𝑡 is the inter-step decrease in mean bilateral muscle activation (positive when the exoskeleton reduces effort, negative when it increases it); E𝑡 ∈ [ 0, 1] is a normalized proxy signal of metabolic effort from IMU variance and contralat-eral load asymmetry; and 𝜙 (𝑠 𝑡 , 𝑎 𝑡 ) ∈ [ 0, 1] measures normalised CoM deviation and bilateral step asymmetry. All three terms are normalised to [0, 1] before weighting, so 𝑟 𝑡 is dimensionless and bounded. Because 𝑟 𝑡 is computed entirely from on-body sensors, 
+
+Olive does not require offline trajectories. The low-rank factors 𝐴 𝑡 , 𝐵 𝑡 are updated by minimising a regu-larised negative-reward objective: 
+
+L𝑡 = −𝜆 1𝑟 𝑡 + 𝜆 2 Lsmooth + 𝜆 3 Lstab , (10) where the regularisers penalise torque discontinuities and postural instability: 
+
+Lsmooth = ∥𝑎 𝑡 − 𝑎 𝑡 −1 ∥22, (11) 
+
+Lstab = ∥𝜙 (𝑠 𝑡 , 𝑎 𝑡 )∥ 22. (12) Minimising L𝑡 via gradient descent on 𝐴 𝑡 , 𝐵 𝑡 is equivalent to a one-step proximal policy gradient update [ 13 ] within the low-rank manifold, with the regularisers acting as a trust-region constraint that prevents destabilising jumps. The incremental gradient update step is: 
+
+𝐴 𝑡 +1 = 𝐴 𝑡 − 𝜂 ∇𝐴 𝑡 L𝑡 , 𝐵 𝑡 +1 = 𝐵 𝑡 − 𝜂 ∇𝐵 𝑡 L𝑡 , (13) with 𝑊 0 held fixed throughout deployment . Stability. Because 𝑊 0
+
+is frozen, the full policy perturbation is bounded by ∥𝛼 𝑡 Δ𝑊 𝑡 ∥𝐹 ≤∥𝐴 𝑡 ∥𝐹 ∥𝐵 𝑡 ∥𝐹 ; the gating 𝛼 𝑡 ∈ ( 0, 1) and step size 𝜂 together ensure the residual norm remains bounded under gradient descent, pro-viding a Lyapunov-like stability guarantee [6]. 
+
+4 Preliminary Evaluation 4.1 Setup 
+
+We evaluate Olive on the excoskeleton with six healthy partici-pants (age 24–38, 3F/3M). Each participant completed three sessions (∼5 000 walking steps per session) covering four terrain conditions in sequence: flat walking (100 m), stair ascent/descent (5 flights), 
+
+sloped terrain (8◦), and uneven cobblestone . All four sensing modal-ities were active: the onboard 1000 Hz IMU and joint encoders, bilateral surface EMG (8-channel Delsys Trigno), and actuator force sensors for vibration. We compare against three baselines: Static —a fixed gait cycle controller; Rule-Based —a finite-state machine with terrain detection; Fixed-NN —a neural policy trained offline on pop-ulation data and initialised from Pretrained-MM (same backbone as Olive , without online updates). 
+
+Metrics include gait smoothness (inverse of acceleration jerk norm, normalised), effort reduction (a metabolic proxy relative to Dong Liu, Yanxuan Yu, Ben Lengerich, Tony Geng, and Ying Nian Wu 
+
+Algorithm 1 OLIVE Online Update (single step) 
+
+Require: Base controller 𝑊 0; low-rank factors 𝐴 𝑡 , 𝐵 𝑡 ∈ R·× 𝑟 max ;state 𝑠 𝑡 
+
+1: // Dynamic rank selection 
+
+2: Estimate complexity: 𝑐 𝑡 ← 𝜎 (𝜓 (𝑠 𝑡 , ℎ 𝑡 −1)) 
+
+3: Select rank: 𝑟 𝑡 ← clip (⌊ 𝑐 𝑡 · |R|⌋ + 𝑟 min , 𝑟 min , 𝑟 max )
+
+4: // Gated action with adaptive rank 
+
+5: Compute gating: 𝛼 𝑡 ← 𝜎 (𝑔 (𝑠 𝑡 , ℎ 𝑡 −1)) 
+
+6: Compute residual: Δ𝑊 𝑡 ← 𝐴 𝑡 [:, : 𝑟 𝑡 ] 𝐵 𝑡 [:, : 𝑟 𝑡 ]⊤
+
+7: Compute action: 𝑎 𝑡 ← 𝜋 𝑊 0+𝛼 𝑡 Δ𝑊 𝑡 (𝑠 𝑡 )
+
+8: Execute 𝑎 𝑡 ; observe feedback (𝑥 emg 
+
+𝑡 , E𝑡 , 𝜙 𝑡 )
+
+9: // Reward shaping + incremental update 
+
+10: Compute reward: 𝑟 𝑡 ← Eq. (9) 
+
+11: Compute loss: L𝑡 ← Eq. (10) 
+
+12: Update: 𝐴 𝑡 ← 𝐴 𝑡 − 𝜂 ∇𝐴 𝑡 L𝑡 ; 𝐵 𝑡 ← 𝐵 𝑡 − 𝜂 ∇𝐵 𝑡 L𝑡 
+
+13: Update history: ℎ𝑡 ← EMA (ℎ𝑡 −1, 𝑠 𝑡 )
+
+Ensure: Updated 𝐴 𝑡 , 𝐵 𝑡 ; action 𝑎 𝑡 ; effective rank 𝑟 𝑡 Gait Smoothness Effort Reduction Motion Stability            
+
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> Score (normalized)
+> +13%
+> +22%
+> +15%
+> (a) Multi-Metric Performance Comparison
+> Static
+> Rule-Based
+> Fixed-NN
+> OLIVE
+> 01k 2k 3k 4k 5k
+> Walking Steps
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> 0.6
+> 0.7
+> 0.8
+> 0.9
+> Normalized User Effort
+> OLIVE
+> converges
+> (b) Online Adaptation Learning Curve
+> Static
+> Rule-Based
+> Fixed-NN
+> OLIVE
+> Flat Stairs Slope Uneven
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> Gait Smoothness (mean ± std)
+> (c) Terrain Generalization (Gait Smoothness)
+> Static
+> Rule-Based
+> Fixed-NN
+> OLIVE
+> Smoothness
+> Effort
+> Reduction
+> Stability
+> Adapt
+> Speed
+> Terrain
+> Generaliz.
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> (d) Multi-Dimensional Evaluation
+> Static Rule-Based Fixed-NN OLIVE
+> OLIVE vs. Baselines: Experimental Evaluation
+
+Figure 3: Experimental results. (a) Performance compari-son. (b) Learning curve. (c) Terrain generalization. (d) Multi-dimensional evaluation. 
+
+unassisted walking), and motion stability (inverse CoM variance, normalised). All metrics are min-max normalised to [0, 1].
+
+4.2 Results 
+
+Figure 3a presents the full evaluation. Olive achieves a smoothness score of 0.93 with a +13% improvement over the strongest base-line. Effort reduction is 0.67 vs. 0.45 ( +22% ), and motion stability is 0.91 vs. 0.76 ( +15% ). The learning curve ( Figure 3b ) tracks the nor-malised user-effort score . Olive converges to an effort score of 0.33 
+
+(effort reduction 0.67 ) within approximately 1 800 steps—40% below Fixed-NN’s final score of 0.55 . Static and Rule-Based controllers show negligible improvement over time. Terrain generalisation results ( Figure 3c ) confirm that Olive retains superior smoothness 
+
+Table 2: Performance comparison (mean across participants; 
+
+↑ higher is better). Metrics are min-max normalised to [0, 1].
+
+Method Smoothness ↑ Effort Red. ↑ Stability ↑ Latency (ms) Static 0.61 0.18 0.55 1.2 Rule-Based 0.72 0.31 0.68 3.5 Fixed-NN 0.80 0.45 0.76 6.8 
+
+OLIVE (ours) 0.93 0.67 0.91 7.4 
+
+Table 3: Ablation study (mean across participants). Each vari-ant removes one component from the full Olive system. 
+
+Variant Smooth ↑ Effort ↑ Stab ↑ Latency (ms) w/o Pretrained-MM init 0.82 0.53 0.80 7.4 w/o Gating 0.88 0.60 0.84 7.4 w/o Dyn. Rank 0.92 0.65 0.90 8.2 
+
+Full Olive 0.93 0.67 0.91 7.4 
+
+on stairs, slopes, and uneven surfaces. The low standard deviation of Olive across all conditions indicates robust adaptation rather than overfitting to flat terrain. The radar chart ( Figure 3d ) further shows that Olive comprehensively dominates on all five dimen-sions: smoothness, effort reduction, stability, adaptation speed, and terrain generalisation. 
+
+Ablation. Table 3 isolates each component’s contribution. Re-moving weights initialisation causes the largest drop ( −0.11 smooth-ness, −0.14 effort reduction). Removing gating disproportionately degrades stability ( −0.07 vs. −0.05 smoothness), which consistent with the gating role in suppressing residual overshoot on terrain transitions. Removing dynamic rank scheduling has minimal effect on quality ( −0.01 smoothness) but increases latency by 0.8 ms, so it validats the online ranking efficiency benefit. 
+
+Efficiency. With 𝑑 =𝑘 =128 and 𝑟 max =16 , the worst-case update parameter count is 16 ×( 128 +128 ) = 4,096 vs. 128 ×128 = 16 ,384 —a 
+
+4× reduction even at full rank. During typical flat-walking sessions, the dynamic rank scheduler converges to 𝑟 𝑡 =4 for over 70% of steps, yielding an effective 16 × reduction in those contexts and reducing mean per-step update cost to 1.3 ms. End-to-end inference-and-update latency is 7.4 ms on the embedded SoC, comfortably within the 10 ms safety budget, with rank scheduling adding only ≈0.3 ms overhead. 
+
+5 Conclusion 
+
+Olive validates that we can perform online weight updates in a low-rank subspace as a balanced approach to stability and person-alization. OLIVE uses a reward-shaped policy gradient to eliminate reference-trajectory dependence and it extends the human-in-the-loop metabolic optimisation paradigm [ 14 , 21 ] to a fully online low-rank update setting. Furthermore, we improve stability during terrain transitions via gating, and reduce computation on flat ter-rain ( 𝑟 𝑡 =4, >70% of steps) through dynamic rank scheduling, while expanding capacity on complex surfaces ( 𝑟 𝑡 =16 ). Together, these form OLIVE as a hardware efficient method of whether and how much to update weights online for wearable devices, improving both stability and personalization. OLIVE: Online Low-Rank Incremental Learning for Efficient Adaptive Exoskeletons 
+
+References 
+
+[1] Baojun Chen, Enhao Zheng, Xiaodan Fan, Tong Liang, Qining Wang, Kunlin Wei, and Long Wang. 2013. Locomotion mode classification using a wearable capacitive sensing system. IEEE transactions on neural systems and rehabilitation engineering 21, 5 (2013), 744–755. [2] Jeffrey Dunn. 2010. Impact of mobility impairment on the burden of caregiving in individuals with multiple sclerosis. Expert review of pharmacoeconomics & outcomes research 10, 4 (2010), 433–440. [3] Neville Hogan. 1985. Impedance control: An approach to manipulation: Part II—Implementation. (1985). [4] Edward J Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Liang Wang, Weizhu Chen, et al . 2022. Lora: Low-rank adaptation of large language models. Iclr 1, 2 (2022), 3. [5] J. R. Koller, C. D. Remy, and D. P. Ferris. 2015. Learning to Walk with an Adap-tive Gain Proportional Myoelectric Controller for a Robotic Ankle Exoskeleton. 
+
+Journal of NeuroEngineering and Rehabilitation 12, 1 (2015), 97. [6] Ning Li, Wenyuan Chen, Yang Yang, Yihan Wang, Tie Yang, Peng Yu, Chuang Zhang, Wenxue Wang, Ning Xi, and Lianqing Liu. 2023. Model-agnostic person-alized knowledge adaptation for soft exoskeleton robot. IEEE Transactions on Medical Robotics and Bionics 5, 2 (2023), 353–362. [7] Dong Liu and Yanxuan Yu. 2024. Llmeasyquant: Scalable quantization for parallel and distributed llm inference. arXiv preprint arXiv:2406.19657 (2024). [8] Dong Liu and Yanxuan Yu. 2025. Mt2st: Adaptive multi-task to single-task learning. In Proceedings of the 1st Workshop on Multimodal Augmented Generation via Multimodal Retrieval (MAGMaR 2025) . 79–89. [9] Dong Liu, Yanxuan Yu, Ben Lengerich, and Ying Nian Wu. 2026. MKA: Memory-keyed attention for efficient long-context reasoning. arXiv preprint arXiv:2603.20586 (2026). [10] Dong Liu, Yanxuan Yu, Yite Wang, Jing Wu, Zhongwei Wan, Sina Alinejad, Benjamin Lengerich, and Ying Nian Wu. 2024. Designing large foundation models for efficient training and inference: A survey. arXiv preprint arXiv:2409.01990 
+
+(2024). [11] Dong Liu, Yanxuan Yu, and Ying Nian Wu. 2025. EchoRL: Learning to Plan through Experience for Efficient Reinforcement Learning. In The 5th Workshop on Mathematical Reasoning and AI at NeurIPS 2025 .[12] Nathan W Moon, Paul MA Baker, and Kenneth Goughnour. 2019. Designing wearable technologies for users with disabilities: Accessibility, usability, and con-nectivity factors. Journal of Rehabilitation and Assistive Technologies Engineering 
+
+6 (2019), 2055668319862137. [13] John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov. 2017. Proximal policy optimization algorithms. arXiv preprint arXiv:1707.06347 
+
+(2017). [14] Benjamin A Shafer, Justine C Powell, Aaron J Young, and Gregory S Sawicki. 2022. Emulator-based optimization of a semi-active hip exoskeleton concept: Sweeping impedance across walking speeds. IEEE Transactions on Biomedical Engineering 70, 1 (2022), 271–282. [15] Leia Stirling, Ho Chit Siu, Eric Jones, and Kevin Duda. 2018. Human factors considerations for enabling functional use of exosystems in operational environ-ments. IEEE Systems Journal 13, 1 (2018), 1072–1083. [16] Frank Sup, Huseyin Atakan Varol, Jason Mitchell, Thomas J Withrow, and Michael Goldfarb. 2009. Preliminary evaluations of a self-contained anthro-pomorphic transfemoral prosthesis. IEEE/ASME Transactions on mechatronics 14, 6 (2009), 667–676. [17] Michael R Tucker, Jeremy Olivier, Anna Pagel, Hannes Bleuler, Mohamed Bouri, Olivier Lambercy, Jose del R Millan, Robert Riener, Heike Vallery, and Roger Gassert. 2015. Control strategies for active lower extremity prosthetics and orthotics: a review. Journal of neuroengineering and rehabilitation 12, 1 (2015), 1. [18] Jan F Veneman, Rik Kruidhof, Edsko EG Hekman, Ralf Ekkelenkamp, Edwin HF Van Asseldonk, and Herman Van Der Kooij. 2007. Design and evaluation of the LOPES exoskeleton robot for interactive gait rehabilitation. IEEE Transactions on neural systems and rehabilitation engineering 15, 3 (2007), 379–386. [19] World Health Organization. 2011. World Report on Disability . World Health Organization, Geneva, Switzerland. [20] Aaron J Young and Daniel P Ferris. 2016. State of the art and future directions for lower limb robotic exoskeletons. IEEE Transactions on Neural Systems and Rehabilitation Engineering 25, 2 (2016), 171–182. [21] Juanjuan Zhang, Pieter Fiers, Kirby A Witte, Rachel W Jackson, Katherine L Poggensee, Christopher G Atkeson, and Steven H Collins. 2017. Human-in-the-loop optimization of exoskeleton assistance during walking. Science 356, 6344 (2017), 1280–1284.

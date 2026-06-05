@@ -1,0 +1,389 @@
+Title: Ensuring Interaction Safety in Multitask Exoskeleton Control: A Simulation-Trained Variable Impedance Framework
+
+URL Source: https://arxiv.org/pdf/2606.06370v1
+
+Published Time: Fri, 05 Jun 2026 01:25:28 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# Ensuring Interaction Safety in Multitask Exoskeleton Control: A Simulation-Trained Variable Impedance Framework 
+
+Muyuan Ma, Houcheng Li, Haotian Zhai, Lijun Han, Xinpan Meng, Xiuze Xia, Long Cheng 
+
+Abstract — Wearable exoskeletons can augment human phys-ical capabilities during complex activities. However, ensuring adaptation across diverse tasks while guaranteeing interaction safety remains a critical challenge. To address this, a simulation-trained variable impedance control approach with stability guarantees is proposed. First, a simulation-based human-exoskeleton motion data generation pipeline is established, utilizing Proximal Policy Optimization (PPO) to synthesize human muscle activations while the exoskeleton provides direct compensation for human biological joint torques. Subsequently, the generated dataset is used to train a dual modality policy that fuses semantic instructions with proprioceptive history, enabling the prediction of reference trajectories and variable impedance gains for nine different motion tasks. To guarantee safety, the network outputs are constrained by a stability criterion derived from Lyapunov stability theory, which bounds stiffness variations to ensure the asymptotic stability of the coupled system. Experimental results indicate that the proposed framework reduces metabolic cost in real-world scenarios com-pared with standard baseline methods. These findings suggest the feasibility of the proposed framework for safe, multitask exoskeleton control. 
+
+I. I NTRODUCTION 
+
+Wearable robots can augment human physical capabilities, offering significant potential to mitigate the risk of muscu-loskeletal disorders in industrial and rehabilitation settings [1], [2]. However, despite success in single-task assistance, widespread deployment in unstructured real-world scenarios remains a challenge [3]. The complexity of daily life requires an exoskeleton to seamlessly adapt to a wide variety of di-verse motion tasks, ranging from performing distinct gestures to lifting heavy payloads. Simultaneously, the system must strictly maintain safe physical human-robot interaction. In the literature, task-specific assistance methods for ex-oskeletons have been extensively investigated. [4] developed a CNN-LSTM model that accurately maps electromyography (EMG) signals to future joint trajectories during a multi-joint reaching task. For a specific hand grasping task, [5] employed personalized musculoskeletal models to estimate finger joint torques via experimental calibration, enabling dy-namic adjustment of assistance levels. [6] introduced Flexos, a portable, bilateral active shoulder exoskeleton designed to reduce muscular effort during industrial weight-lifting and carrying tasks. Relying on expert therapists’ demonstrations, [7] proposed a learning by demonstration framework using Hidden Markov Models (HMMs) to generate trajectories for individual task-specific movements. In addition, [8] intro-duced a deep learning framework that predicts user intention from wearable muscle sensors to provide pneumatic assis-tance for upper-limb flexion and extension. Nevertheless, these strategies are typically designed for specific tasks, requiring extensive calibration and lacking scalability across diverse movements and interaction scenarios. To address the lack of scalability in single-task exoskele-ton assistance, recent research has increasingly focused on developing multitask assistance frameworks. [9] proposed an exoskeletal weight compensation strategy optimized for four types of daily movements. To further enhance adaptability, [10] proposed a task-agnostic control strategy based on deep neural networks to provide continuous, multi-joint assistance across 28 diverse and unstructured activities. [11] introduced a parametric early motion recognition framework for upper limb mirror rehabilitation to accurately classify multiple therapeutic tasks from partial trajectories. Additionally, [12] introduced the ANYexo 2.0 upper-limb exoskeleton featuring a unique bio-inspired kinematic structure to support 15 di-verse activities of daily living across all rehabilitation stages. Furthermore, [13] proposed a human in the loop adaptation framework that employs a neural task translator to generalize assistance trajectories across multiple complex scenarios. However, these methods rely on real human-exoskeleton interaction datasets, whose collection is time-consuming and requires extensive human trials. In order to address the challenges of costly real-world data collection, simulation-based data generation and policy train-ing has become an effective paradigm for exoskeleton assis-tance. For instance, [14] introduced an automated pipeline to generate computationally efficient musculoskeletal models, leveraging the MuJoCo physics engine to support contact-rich simulations for exoskeleton research. [15] developed and simulated a hand exoskeleton utilizing an extensive sensor network and PWM control for precise assistance. To train simulated assistive policies, [16] formulated a deep reinforcement learning framework that employs a decou-pled offline strategy to guarantee robust walking control for musculoskeletal-coupled exoskeletons. Furthermore, [17] developed an experiment-free sim to real pipeline using reinforcement learning to autonomously synthesize policies for multitask ankle assistance, without requiring any human-in-the-loop trials. Moreover, [18] introduced a deep domain adaptation framework that eliminates the need for device-specific labeled data, achieving performance comparable to fully trained models. Despite enabling direct deployment, assistive controllers trained in simulation often lack explicit stability guarantees during real-world human-exoskeleton interaction, resulting in potentially unsafe behaviors. To leverage the scalability of simulation-based learning for multitask assistance while guaranteeing interaction safety            
+
+> arXiv:2606.06370v1 [cs.RO] 4 Jun 2026 Simulated
+> Dataset
+> Data Generation Pipeline Bimodal Imitation Learning
+> Stability
+> Guarantee
+> Variable Impedance Control
+> Historical proprioceptive data Language instruction
+> Trajectory encoding Text encoding
+> Carry the box with
+> both hands.
+> Multi -head cross -attention mechanism
+> Two decoupled output heads
+> Feedforward
+> compensation
+> Stiffness
+> limitation Fig. 1. Overview of the proposed simulation-trained variable impedance control framework. This framework consists of three main stages: (1) simulated human-exoskeleton data generation, (2) bimodal imitation learning, and (3) real-world variable impedance control.
+
+during real-world deployment, a simulation-trained variable impedance control approach with stability guarantees is proposed. The proposed framework is illustrated in Fig. 1. In this framework, a simulation environment is utilized to syn-thesize human-robot interaction data. Leveraging this dataset, a bimodal multitask imitation learning policy is trained to predict reference trajectories and variable impedance gains. To enforce safety, a Lyapunov-based stability criterion is derived to bound stiffness variations, thereby ensuring the stability of the coupled system. The contributions of this article are as follows. 1) A data generation pipeline is established for human-exoskeleton coordinated motion in simulation. A de-tailed musculoskeletal model is integrated with arobotic exoskeleton model to capture realistic biody-namics. PPO is utilized to minimize kinematic tracking errors and biological joint torques, thereby enabling the collection of high-quality interaction data aligned with biomechanical efficiency. 2) A bimodal imitation learning approach is proposed for multitask generalization. The network fuses semantic text embeddings with historical proprioceptive states to encode task intent. This architecture distills the expert policy from simulation, enabling the robot to predict future reference trajectories and variable impedance gains in real-time, adapting to varying dynamic re-quirements implied by the text input. 3) A stability-guaranteed variable impedance control strategy is formulated using Lyapunov stability theory. A constraint is constructed to bound the variation of the stiffness, ensuring the asymptotic stability of the system. Furthermore, initial physical deployments suggest that the framework can reduce metabolic cost compared to standard baseline methods. The rest of this article is organized as follows. Section II introduces the simulated human-exoskeleton data generation pipeline. Section III presents the bimodal multitask imitation learning method. Section IV details the design of the variable impedance controller with Lyapunov-based stability guaran-tees. Section V validates the framework through simulation data analysis, real-world multitask stability evaluations, and metabolic cost assessments. Finally, Section VI concludes this article. II. S IMULATION -B ASED HUMAN -E XOSKELETON 
+
+COORDINATED MOTION GENERATION 
+
+To capture the complex biodynamics of human-robot inter-action, a high-fidelity simulation environment is constructed within the MuJoCo physics engine. Specifically, a compre-hensive dual-arm musculoskeletal model is established, fea-turing 76 degrees of freedom (DoFs) driven by 126 individual muscle-tendon units. Moreover, a simulation model based on the real exoskeleton is created and fixed to the arms. The integration of these components results in a virtual human-robot coupled system. Within this environment, PPO is employed to drive the musculoskeletal model, enabling the simulation of realistic human motion and different exoskele-ton assistance modes. In this process, PPO optimizes muscle activations to accurately track human reference motions, while the exoskeleton provides assistance via proportional control to directly compensate for the biological elbow joint torque. The overall architecture of this co-simulation framework is illustrated in Fig. 2. The observation space of the PPO policy is defined as 
+
+s = [ qhd , q h, e h, ˙qh, τ ext ], (1) where qhd represents the reference human joint positions derived from public datasets [19], [20]; qh and ˙qh denote the current joint positions and velocities of the musculoskeletal model, respectively; eh = qhd − qh represents the tracking error between the reference and current joint positions; and 
+
+τext is the interaction torque between the human and the exoskeleton. The action space consists of the human muscle activation signals, denoted by ah. The reward function is formulated as a weighted trade-off between the trajectory tracking error and the muscle activation effort, defined as follows: 
+
+r = −( qhd − qh 2 + w ah 2), (2) where w is a weighting coefficient that balances the tracking accuracy and the muscle activation penalty. Correspondingly, Muscle  
+
+> activation
+> Observation
+> reward
+> Human biological elbow joint torque
+> Torque Compensation Fig. 2. The architecture of the proposed dual-loop co-simulation frame-work, illustrated using a lifting and carrying task.
+
+the assistive torque provided by the exoskeleton, denoted by 
+
+τexo , is defined as a proportional compensation of the human biological joint torque: 
+
+τexo = ατ bio , (3) where τbio represents the active biological torque generated by the human musculoskeletal system at the elbow joint, and 
+
+α ∈ [0 , 1] is the proportional assistance gain. By modulating the value of α, different levels of exoskeleton assistance modes can be seamlessly simulated to enrich the interaction dataset. Upon completion of the training phase, simulation rollouts are conducted to collect interaction data across various assis-tance ratios α. During these rollouts, alongside the semantic text descriptions defining each specific task (e.g., ”lift a heavy box”), the interaction torque τext , the reference elbow joint position qelbow  
+
+> d
+
+, and the actual exoskeleton joint position 
+
+qr are comprehensively recorded. The human-exoskeleton interaction dynamics are modeled using a linear elastic relationship, formulated as: 
+
+τext = Kinteractive (qelbow  
+
+> d
+
+− qr ), (4) where Kinteractive is the human-robot interaction stiffness obtained through data fitting. To guarantee robust tracking performance across diverse operational conditions, nine different motions are selected for training, encompassing various gestures and lifting tasks sourced from public human motion datasets [19], [20]. Each motion is evaluated under three discrete assistance ratios (α ∈ { 0, 0.5, 1}) and three different musculoskeletal model masses (60 kg, 70 kg, and 80 kg). For every specific combination of motion, assistance level, and body mass, a dedicated neural network is optimized using PPO. Conse-quently, a total of 81 independent policies are trained, en-suring minimal kinematic tracking errors across all simulated scenarios. To support reproducibility and future research, the final simulation dataset has been made publicly available and is accessible via an anonymous link: https://anonym ous.4open.science/r/human_exo_mocap_data set-743B .elbow 
+
+ˆdqinteractive 
+
+ˆKtext zprop f1: 1: ( , )r rt tq qlanguage  
+
+> instruction
+> Fig. 3. Overall architecture of the bimodal multitask assistance policy.
+
+III. B IMODAL MULTITASK POLICY LEARNING 
+
+Following the generation of the comprehensive interaction dataset, a unified multitask exoskeleton assistance policy is trained to predict the subsequent exoskeleton reference motion and interaction stiffness based on semantic language descriptions and historical proprioceptive data (qr
+
+> 1: t
+
+, ˙qr
+
+> 1: t
+
+).The overall architecture of the proposed neural network is depicted in Fig. 3. The historical joint positions and velocities are concatenated and linearly projected into a high-dimensional latent space. The resulting features are then encoded via 1D dilated convolutions to extract temporal dependencies. Concurrently, the natural language instruction indicating the task intent is tokenized and processed through an em-bedding layer and a recurrent neural network. This operation maps the text into dense semantic vectors ztext , which share the same high-dimensional latent space as the encoded proprioceptive features fprop . To achieve bimodal fusion, a multi-head cross-attention mechanism is applied to fprop and 
+
+ztext . In this architecture, fprop act as the queries, while 
+
+ztext serve as the keys and values, enabling the policy to dynamically attend to relevant semantic tokens based on the current physical state. The feature vector from the final time step of this fused sequence is then fed into two decoupled output heads. To address the different physical characteristics of kinematics and impedance, a linear projection head is employed to directly predict qelbow  
+
+> d
+
+, while a deeper multi-layer perceptron predicts Kinteractive . The overall optimization objective is formulated as a weighted sum of the squared L2 norm errors from both prediction heads: 
+
+L = ˆqelbow  
+
+> d
+
+− qelbow  
+
+> d
+> 2
+
++w1 ˆKinteractive − Kinteractive 
+
+> 2
+
+, (5) where ˆqelbow  
+
+> d
+
+and ˆKinteractive denote the predicted reference elbow joint position and interaction stiffness, respectively. 
+
+w1 is a weighting coefficient to balance the numerical scale and gradient contribution of the impedance learning relative to the kinematic tracking. IV. S TABILITY -G UARANTEED VARIABLE IMPEDANCE 
+
+CONTROL 
+
+To ensure safe and compliant physical human-robot inter-action, a variable impedance controller is designed to track 1: Ok gesture (ns, p=0.072)          
+
+> 0
+> 200
+> 400
+> Muscle activation reward  2: Thumb down (ns, p=0.072)
+> 0
+> 200
+> 400
+> 3: Exultation (*, p=0.042)
+> 200
+> 300
+> 400
+> 4: Block out sun from own face (*, p=0.042)
+> 200
+> 300
+> 400
+> 500
+> Muscle activation reward  5: Greet (*, p=0.029)
+> 200
+> 400
+> 6: Military salute (*, p=0.042)
+> 200
+> 400
+> 7: Pointing at something straight ahead (*, p=0.042)
+> No Exo α=0 α=0.5 α=1
+> 100
+> 200
+> 300
+> Muscle activation reward  8: Silence gesture (*, p=0.042)
+> No Exo α=0 α=0.5 α=1
+> 200
+> 400
+> 600
+> 9: Carry the box with both hands (*, p=0.042)
+> No Exo α=0 α=0.5 α=1
+> 400
+> 600
+
+Fig. 4. Comparison of muscle activation rewards across nine different simulated tasks under four assistance conditions: without exoskeleton (No Exo), zero assistance ( α = 0 ), partial assistance ( α = 0 .5), and full assistance ( α = 1 ). Statistical significance from the Friedman test is annotated above each subplot (*: p < 0.05 , ns: not significant). 
+
+the reference kinematics while dynamically modulating the interactive behavior according to the predicted interaction stiffness. The standard rigid-body dynamics of the exoskele-ton in the joint space can be formulated as: 
+
+M (qr )¨ qr + C(qr , ˙qr ) ˙ qr + g(qr ) = τ + τext , (6) where ˙qr , ¨qr denote the joint velocity and acceleration vec-tors, respectively. M (qr ) is the symmetric positive-definite inertia matrix, C(qr , ˙qr ) represents the Coriolis and cen-trifugal matrix, g(qr ) is the gravity vector, and τ is the commanded control torque applied by the joint actuators. The fundamental objective of impedance control is to enforce a desired dynamic relationship between the motion tracking error and the external interaction torque, rather than directly regulating the force or rigidly tracking the trajectory. Let e = ˆ qelbow  
+
+> d
+
+−qr be the tracking error, the target impedance behavior is specified by a second-order linear differential equation: 
+
+M ¨e + D ˙e + ˆKinteractive e = τext , (7) where M and D are the predefined inertia and damping matrices, respectively. To transform the nonlinear robot dynamics into this target linear impedance model, an inverse dynamics control law is designed as follows: 
+
+τ = C(qr , ˙qr ) ˙ qr + g(qr ) + M (qr )M −1(D ˙e + ˆKinteractive e)
+
+−  I + M (qr )M −1 τext .
+
+(8) By substituting (8) into (6), the inherent nonlinearities are exactly decoupled and canceled, yielding the desired stable impedance behavior (7). However, since ˆKinteractive is dynamically predicted by the neural network, rapid variations in the stiffness parameter can inject unbounded energy into the coupled human-robot system, potentially violating passivity and compromising interaction stability. To guarantee the stability of the closed-loop system under the variable impedance control, a stability analysis is conducted. According to [21], consider the fol-lowing Lyapunov candidate function: 
+
+V (e, ˙e, t ) = 12 ( ˙ e + γe )T M ( ˙ e + γe ) + 12 eT β(t)e. (9) To ensure that V (e, ˙e, t ) qualifies as a valid positive definite Lyapunov function, the parameter γ is a strictly positive constant selected such that the matrix 
+
+β(t) = ˆKinteractive (t) + γD − γ2M (10) remains positive semidefinite for all t > 0. By differenti-ating V with respect to time along the closed-loop system trajectories, ˙V (e, ˙e, t ) ≤ 0 is guaranteed if the following two conditions are simultaneously satisfied: 
+
+γM − D ≤ 0, (11) 
+
+˙ˆKinteractive (t) − 2γ ˆKinteractive (t) ≤ 0, (12) where the matrix inequalities denote negative semidefinite-ness. Furthermore, under these conditions, ˙V (e, ˙e, t ) = 0 
+
+holds if and only if e = 0 and ˙e = 0 . According to LaSalle’s invariance principle, the asymptotic stability of the closed-loop system is guaranteed, thereby ensuring safe physical human-exoskeleton interaction. The complete stability proof of the closed-loop system is provided in the Appendix. TABLE I TRAJECTORY TRACKING REWARDS ACROSS MISSIONS AND ASSISTANCE CONDITIONS                                                                                                                                      
+
+> Condition Mission ID 123456789No Exo 95 ±8237 ±31 135 ±6190 ±33 238 ±11 220 ±38 122 ±22 234 ±16 406 ±77
+> α= 0 92 ±5226 ±17 132 ±2192 ±39 276 ±62 172 ±14 113 ±15 247 ±18 371 ±42
+> α= 0 .5101 ±11 261 ±51 134 ±5209 ±22 236 ±30 255 ±95 110 ±14 243 ±39 426 ±56
+> α= 1 123 ±44 229 ±8136 ±4211 ±22 238 ±22 201 ±20 112 ±12 238 ±27 420 ±54
+> p-value 0.33 0.46 0.80 0.61 0.90 0.61 0.53 0.80 0.61
+> Note: Data are presented as mean ±standard deviation. Mission-level significance is assessed using the Friedman test with mass as paired blocks; all tests indicate no significant difference ( p > 0.05 ).
+
+For the 1-DoF elbow exoskeleton, the stability matrices reduce to positive scalars. By setting γ = D/M to maximize the allowable stiffness variation rate, the stability condition simplifies to an explicit upper bound for the stiffness deriva-tive: 
+
+˙ˆKinteractive (t) ≤ 2 DM ˆKinteractive (t). (13) Physically, (13) implies that the exoskeleton can instanta-neously decrease its stiffness to become compliant, but its rate of increase is strictly bounded to prevent sudden energy injections. To practically enforce this stability criterion, an asymmetric rate limiter bounded by (13) is applied to the network predictions. V. E XPERIMENT RESULTS 
+
+This section presents a comprehensive evaluation of the proposed framework, divided into simulation analysis and real-world deployment. The first part validates the rationality and kinematic consistency of the synthesized data across nine tasks. Second, real-world deployments are conducted to assess the control stability and multitask adaptability of the simulation-trained variable impedance control approach. Within this real-world phase, the framework’s assistive ef-ficacy is further quantified through metabolic cost analy-sis during a repetitive load-carrying task. All experiment procedures have been reviewed and approved by the ethics committee of Institute of Automation, Chinese Academy of Sciences under the protocol no. IA21-2302-140202. 
+
+A. Simulation Results Validation 
+
+To comprehensively validate the rationality and biome-chanical fidelity of the generated data, the variations in elbow-related muscle activation rewards across nine differ-ent missions are evaluated. As illustrated in Fig. 4, the evaluation is conducted under four conditions: without the exoskeleton (No Exo), zero assistance ( α = 0), partial assistance ( α = 0 .5), and full assistance ( α = 1 ), with the results averaged across different musculoskeletal model masses. A lower value of this metric indicates that less muscle activation is required by the musculoskeletal model to drive the joints and accomplish the identical kinematic task. As observed from the Fig. 4, when the exoskeleton assistance ratio is set to α = 0, the muscle activation reaches its maximum. This is biomechanically intuitive, as the simulated human model must generate additional effort to overcome the inherent mass and inertia of the unpowered exoskeleton. Conversely, under the full assistance condition ( α = 1), the muscle activation is minimized because the exoskeleton theoretically compensates for the entire human biological torque. However, it is noteworthy that the musculoskeletal model still exhibits residual activation even at α = 1 . This phenomenon occurs because the assistive torque generated by the exoskeleton cannot be losslessly transmitted to the human biological elbow joint, reflecting the realistic compliance and coupling dynamics at the physical human-robot interface. Importantly, the progressive decrease in muscle activation corresponding to the incremental increase in the assistance ratio ( α) is highly consistent with empirical physiological trends observed in real-world exoskeleton assistance experi-ments. Furthermore, to statistically evaluate the differences among the assistance conditions across various tasks, aFriedman test is conducted for each mission, treating the three musculoskeletal model masses (60 kg, 70 kg, and 80 kg) as paired blocks. The statistical results indicate that there are significant differences ( p < 0.05 ) in muscle activation for seven out of the nine evaluated missions. The only exceptions are the “Ok gesture” and “Thumb down” tasks, which do not reach statistical significance. To ensure that the observed reduction in muscle effort does not compromise task execution, an identical statistical analysis is conducted on the trajectory tracking error rewards. The statistical re-sults of the trajectory tracking rewards are summarized in Table I, which reveals no significant differences across all evaluated missions ( p > 0.05 ). This demonstrates that the varying levels of exoskeleton assistance successfully reduce the required muscle effort on the user without sacrificing the kinematic tracking accuracy of the tasks. 
+
+B. Real-World Exoskeleton Experiments 
+
+Experiments are conducted on an elbow exoskeleton [22] equipped with Series Elastic Actuators (SEAs) for force sens-ing at the human-robot interface. To evaluate the proposed approach, comparative experiments are conducted across the Left Pos Left Target Stiffness Right Pos Right Target         
+
+> 0
+> 1
+> 2
+> Angle(rad)
+> 60
+> 80
+> Stiffness
+> 1: Ok gesture
+> 0
+> 1
+> 2
+> Angle(rad)
+> 60
+> 80
+> Stiffness
+> 4: Block out sun from own face
+> 0
+> 1
+> Angle(rad)
+> 0123
+> Time (s)
+> 50
+> 75
+> Stiffness
+> 7: Pointing at something straight ahead
+> 0
+> 1
+> 2
+> 60
+> 80
+> 2: Thumb down
+> 0
+> 1
+> 2
+> 60
+> 80
+> 5: Greet
+> 0
+> 1
+> 2
+> 012
+> Time (s)
+> 50
+> 75
+> 8: Silence gesture
+> 0
+> 1
+> 2
+> 50
+> 100
+> 3: Exultation
+> 0
+> 1
+> 2
+> 60
+> 80
+> 6: Military salute
+> −1
+> 0
+> 1
+> 2
+> 0.0 2.5 5.0 7.5
+> Time (s)
+> 50
+> 75
+> 9: Carry the box with both hands
+
+Fig. 5. Reference trajectory tracking and dynamically generated interaction stiffness across the nine evaluated tasks in real-world experiments. 
+
+nine missions from the dataset under the following three conditions: 1) Natural Movement: Task execution without the ex-oskeleton. 2) Simulation-Trained Variable Impedance Approach: 
+
+The proposed framework designed to provide stable assistance. 3) Probabilistic Movement Primitives (ProMP) [23]: 
+
+A standard data-driven baseline employed to generate reference joint trajectories and interaction stiffness. As demonstrated in the supplementary video, the real-world evaluation comprises two primary phases: kinematic tracking across nine different missions and a physically demanding repetitive load-carrying metabolic assessment. The nine missions are executed to evaluate the frame-work’s control stability and multitask adaptability. Fig. 5 presents the reference and actual joint trajectories alongside the corresponding interaction stiffness profiles across the nine missions. Based on the kinematic profiles, the evaluated tasks can be categorized into three distinct patterns: missions 1, 2, 4, 6, and 8 exhibit single-peak bell-shaped trajectories; missions 3, 7, and 9 display double-peak curves; and mission 5 presents a triple-peak pattern. Moreover, a consistent correlation is observed regarding the dynamic impedance modulation, whereby the interaction stiffness significantly increases only during the phases of rapid joint angle increase. In contrast, the stiffness generally stabilizes or decreases dur-ing the steady-state or descending phases of the joint angle. Specifically for the bimanual carrying task (Mission 9), the interaction stiffness is unified to ensure symmetric assistive torque and maintain payload stability during execution: 
+
+ˆKinteractive (t) = ˆKright interactive (t) + ˆKleft interactive (t)2 . (14) The root-mean-square error (RMSE) serves as a com-prehensive system-level metric for quantifying performance, capturing the coupled impact of reference trajectory predic-tion errors from the learned policy and tracking errors from the low-level controller. Across the nine missions, the overall average RMSE is 0.1 ± 0.03 rad. The maximum tracking error of 0.14 rad occurs during the third mission, while the minimum error of 0.06 rad is observed in the sixth mission. Furthermore, to quantify the assistive efficacy of the ex-0 2 4 6 8 10    
+
+> Time (min)
+> 4
+> 6
+> 8
+> Energy expenditure (W ⋅kg −1 )
+> Proposed Method
+> Natural Movement
+> ProMP Fig. 6. Trajectories of mass-normalized metabolic energy expenditure (W·kg −1) during the 10-minute task. The curves compare the assistive performance of the proposed method against natural movement and the baseline ProMP condition.
+
+oskeleton, the respiratory metabolic cost is measured during a 10-minute repetitive 10 kg lifting and carrying task, which represents the most physically demanding activity within the dataset. Metabolic data is recorded via indirect calorimetry using a portable analyzer equipped with a respiratory mask (PACER VO2 Analyzer, Neumafit Co. Ltd., South Korea). The metabolic energy expenditure ( W · kg −1) is computed from the raw volumetric rates of oxygen consumption ˙VO2
+
+and carbon dioxide production ˙VCO 2 using the Brockway equation: 
+
+EE = 16 .58 ˙VO2 + 4 .51 ˙VCO 2
+
+m , (15) where m denotes the subject’s body mass. During the 10-minute trial, the subject completes 67 box transfers under natural movement, 62 transfers under the ProMP-assisted condition, and 64 transfers using the proposed assistive method. This suggests that the effective workload remains broadly comparable across conditions. The variations in energy expenditure across the three experimental conditions are illustrated in Fig. 6. To com-pletely eliminate any potential fatigue carry-over, the three experimental conditions are evaluated on separate days, with a strict 24-hour rest period enforced between sessions. The trajectories show a transient increase in metabolic energy expenditure during the initial 3 minutes of the task due to physiological adaptation to the physical demand. The energy expenditure subsequently stabilizes and enters a steady-state phase from 3 to 10 minutes. The total steady-state energy consumption ( EC ) is calculated based on these measure-ments using the equation: 
+
+EC = m
+
+Z t2
+
+> t1
+
+EE (t)dt, (16) where [t1, t 2] denotes the steady-state time window in sec-onds. The results indicate a total steady-state energy con-sumption of 250.2 kJ for natural movement. Relative to this baseline, the proposed method achieves a 10.9% reduction (consuming 223.0 kJ), whereas the ProMP framework yields a smaller reduction of 8.0% (230.1 kJ). These findings suggest the potential of the proposed framework to mitigate human fatigue during repetitive load-carrying activities. Beyond the metabolic benefits, the joint-level kinematic tracking performance during the repetitive task is also eval-uated. The RMSE of the joint angle is calculated as 0.2 rad. This tracking error is larger than the RMSE observed in the isolated single-lifting task. The increased deviation is attributed to severe dynamic disturbances induced by con-tinuous 10 kg payload manipulation and high-frequency task transitions. The tracking trajectories and the corresponding stiffness modulation during the initial 1 minute of the trial are detailed in Fig. 7. As depicted, the stiffness increases when the joint angle rises rapidly, which is consistent with the isolated mission. −1 
+
+0
+
+1
+
+> Angle (rad)
+
+0 10 20 30 40 50 60 
+
+Time (s) 
+
+25 
+
+50 
+
+75 
+
+> Stiffness
+
+Left Pos 
+
+Left Target 
+
+Right Pos 
+
+Right Target 
+
+Stiffness  
+
+> Fig. 7. Kinematic tracking performance and variable stiffness modulation during the initial 1 minute of the repetitive 10 kg lifting task.
+
+VI. C ONCLUSIONS 
+
+This paper proposes a simulation-trained variable impedance control approach for wearable exoskeletons that enables safe and multitask assistance. The proposed dual modality policy uses data generated in simulation to predict task-specific trajectories and stiffness while ensuring safe human-robot interaction through rigorous Lyapunov-based stability bounds. Real-world experiments validate the efficacy of the proposed framework, demonstrating effective multitask assistance and reductions in user metabolic cost compared to standard baselines during repetitive load-carrying tasks. Future work will focus on extending the proposed framework to multi-joint exoskeletons and evaluating its efficacy across a broader range of participants. APPENDIX 
+
+PROOF OF CLOSED -L OOP SYSTEM STABILITY 
+
+This Appendix describes the proof of the asymptotic stability for the closed-loop human-exoskeleton system. The foundational theoretical framework and the stability criteria follow the approach established by [21]. Taking the time derivative of (9) yields: 
+
+˙V (e, ˙e, t ) = ( ˙ e + γe )T M (¨ e + γ ˙e) + eT β(t) ˙ e
+
++ 12 eT ˙β(t)e. (17) In the absence of τext , substituting (7) into (17) results in: 
+
+˙V (e, ˙e, t ) = ˙ eT (γM − D) ˙ e
+
++ ˙ eT {β(t) + γ2M − ˆKinteractive (t) − γD }e
+
++ eT
+
+ 12 ˙β(t) − γ ˆKinteractive (t)
+
+
+
+e. 
+
+(18) According to (10), the cross-coupling term evaluates to zero. With the property ˙β(t) = ˙ˆKinteractive (t), (18) reduces to: 
+
+˙V (e, ˙e, t ) = 12 eT n ˙ˆKinteractive (t) − 2γ ˆKinteractive (t)
+
+o
+
+e
+
++ ˙ eT (γM − D) ˙ e. 
+
+(19) Therefore, provided that conditions (11) and (12) are satis-fied, it is mathematically guaranteed that ˙V (e, ˙e, t ) ≤ 0. This concludes the proof. REFERENCES [1] R. Bogue, “Robotic exoskeletons: A review of recent progress,” 
+
+Industrial Robot: An International Journal , vol. 42, no. 1, pp. 5–10, 2015. [2] A. Carnevale, G. Nicodemi, M. G. Pisani, A. Lalli, F. S. di Luzio, P. D’Hooghe, L. Zollo, E. Schena, and U. G. Longo, “Portable exoskeletons for upper limb rehabilitation: A systematic review,” 
+
+Journal of Experimental Orthopaedics , vol. 12, no. 3, art. no. e70416, 2025. [3] G. Bao, L. Pan, H. Fang, X. Wu, H. Yu, S. Cai, B. Yu, and Y. Wan, “Academic review and perspectives on robotic exoskeletons,” IEEE Transactions on Neural Systems and Rehabilitation Engineering , vol. 27, no. 11, pp. 2294–2304, 2019. [4] P. Sedighi, X. Li, and M. Tavakoli, “EMG-based intention detection using deep learning for shared control in upper-limb assistive exoskele-tons,” IEEE Robotics and Automation Letters , vol. 9, no. 1, pp. 41–48, 2024. [5] H. Li, L. Cheng, S. Qin, and L. Han, “Voluntary control of the hand assistive exoskeleton based on the sEMG-driven musculoskeletal model,” IEEE Robotics and Automation Letters , vol. 10, no. 7, pp. 7651–7658, 2025. [6] G. Rinaldi, V. Suglia, L. Tiseni, C. Camardella, M. Xiloyannis, L. Masia, D. Buongiorno, V. Bevilacqua, A. Frisoli, and D. Chiara-dia, “Towards a healthier workplace: How Flexos, an active and bilateral shoulder exoskeleton, provides support in weight-lifting and carrying tasks,” IEEE Transactions on Robotics , in press, DOI: 10.1109/TRO.2026.3666155. [7] B. Luciani, L. Roveda, F. Braghin, A. Pedrocchi, and M. Gandolla, “Trajectory learning by therapists’ demonstrations for an upper limb rehabilitation exoskeleton,” IEEE Robotics and Automation Letters ,vol. 8, no. 8, pp. 4561–4568, 2023. [8] J. Lee, K. Kwon, I. Soltis, J. Matthews, Y. J. Lee, H. Kim, L. Romero, N. Zavanelli, Y. Kwon, S. Kwon, J. Lee, Y. Na, S. H. Lee, K. J. Yu, M. Shinohara, F. L. Hammond, and W.-H. Yeo, “Intelligent upper-limb exoskeleton integrated with soft bioelectronics and deep learning for intention-driven augmentation,” npj Flexible Electronics , vol. 8, no. 1, art. no. 11, 2024. [9] L. D. Arco, K. Gusakowski, C. A. Cifuentes, M. Munera, M. Segatto, and C. A. R. D´ ıaz, “Mitigating muscle fatigue in upper-limb prosthesis users through exoskeletal weight compensation,” IEEE Transactions on Neural Systems and Rehabilitation Engineering , vol. 34, pp. 334– 344, 2026. [10] D. D. Molinaro, K. L. Scherpereel, E. B. Schonhaut, G. Evangelopou-los, M. K. Shepherd, and A. J. Young, “Task-agnostic exoskeleton control via biological joint moment estimation,” Nature , vol. 635, pp. 337–344, 2024. [11] H. Wang, Y. Yao, H. Lei, Y. Shi, and S. Pei, “High-accuracy early recognition of upper-limb motions for exoskeleton-assisted mirror rehabilitation,” IEEE Robotics and Automation Letters , vol. 10, no. 3, pp. 2718–2725, 2025. [12] Y. Zimmermann, M. Sommerhalder, P. Wolf, R. Riener, and M. Hutter, “ANYexo 2.0: A fully actuated upper-limb exoskeleton for manipulation and joint-oriented training in all stages of rehabilitation,” 
+
+IEEE Transactions on Robotics , vol. 39, no. 3, pp. 2131–2150, 2023. [13] Y. Chen, S. Miao, G. Chen, J. Ye, C. Fu, B. Liang, S. Song, and X. Li, “Learning to assist different wearers in multitasks: efficient and individualized human-in-the-loop adaptation framework for lower-limb exoskeleton,” IEEE Transactions on Robotics , vol. 40, pp. 4699– 4718, 2024. [14] H. Wang, V. Caggiano, G. Durandau, M. Sartori, and V. Kumar, “MyoSim: Fast and physiologically realistic MuJoCo models for musculoskeletal and exoskeletal studies,” in Proceedings of the 38th International Conference on Robotics and Automation , Philadelphia, USA, 2022, pp. 8104–8111. [15] N. Wilhelm, V. Schaack, A. Leisching, C. Micheler, S. Haddadin, and R. Burgkart, “An adaptive robotic exoskeleton for comprehen-sive force-controlled hand rehabilitation,” in Proceedings of the 36th IEEE/RSJ International Conference on Intelligent Robots and Systems ,Abu Dhabi, United Arab Emirates, 2024, pp. 170–177. [16] S. Luo, G. Androwis, S. Adamovich, E. Nunez, H. Su, and X. Zhou, “Robust walking control of a lower limb rehabilitation exoskeleton coupled with a musculoskeletal model via deep reinforcement learn-ing,” Journal of NeuroEngineering and Rehabilitation , vol. 20, no. 1, art. no. 34, 2023. [17] S. Luo, M. Jiang, S. Zhang, J. Zhu, S. Yu, I. Dominguez Silva, T. Wang, E. Rouse, B. Zhou, H. Yuk, X. Zhou, and H. Su, “Experiment-free exoskeleton assistance via learning in simulation,” 
+
+Nature , vol. 630, pp. 353–359, 2024. [18] K. L. Scherpereel, M. C. Gombolay, M. K. Shepherd, C. A. Car-rasquillo, O. T. Inan, and A. J. Young, “Deep domain adaptation eliminates costly data required for task-agnostic wearable robotic control,” Science Robotics , vol. 10, no. 108, art. no. eads8652, 2025. [19] G. Averta, F. Barontini, V. Catrambone, S. Haddadin, G. Handjaras, J. P. Held, T. Hu, E. Jakubowitz, C. M. Kanzler, J. K¨ uhn, O. Lam-bercy, A. Leo, A. Obermeier, E. Ricciardi, A. Schwarz, G. Valenza, A. Bicchi, and M. Bianchi, “U-Limb: A multi-modal, multi-center database on arm motion control in healthy and post-stroke conditions,” 
+
+GigaScience , vol. 10, no. 6, art. no. giab043, 2021. [20] Carnegie Mellon University, “CMU Graphics Lab Motion Capture Database,” [Online]. Available: http://mocap.cs.cmu.edu/ [21] K. Kronander and A. Billard, “Stability considerations for variable impedance control,” IEEE Transactions on Robotics , vol. 32, no. 5, pp. 1298–1305, 2016. [22] X. Xia, L. Han, H. Li, Y. Zhang, Z. Liu, and L. Cheng, “A compliant elbow exoskeleton with an SEA at interaction port,” in Proceedings of the 30th International Conference on Neural Information Processing ,Changsha, China, 2024, pp. 146–157. [23] Y. Chen, G. Chen, J. Ye, X. Qiu, and X. Li, “Safe and individualized motion planning for upper-limb exoskeleton robots using human demonstration and interactive learning,” in Proceedings of the 40th International Conference on Robotics and Automation , Yokohama, Japan, 2024, pp. 15307–15313.
