@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-06-06 <!--dpr-date:20260606-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/06/2606.04829v1-m3imic-learning-a-versatile-whole-body-controller-for-multimodal-motion-mimicking" data-sidebar-item="{&quot;title&quot;: &quot;M3imic: Learning a Versatile Whole-Body Controller for Multimodal Motion Mimicking&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.04829v1-m3imic-learning-a-versatile-whole-body-controller-for-multimodal-motion-mimicking&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;msk-rl&quot;}], &quot;evidence&quot;: &quot;学习多模态运动模仿的全身控制器，可应用于生物力学仿真&quot;}">M3imic: Learning a Versatile Whole-Body Controller for Multimodal Motion Mimicking</a>
   * 2026-06-05 <!--dpr-date:20260605-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/05/2606.06370v1-ensuring-interaction-safety-in-multitask-exoskeleton-control-a-simulation-trained-variable-impedance-framework" data-sidebar-item="{&quot;title&quot;: &quot;Ensuring Interaction Safety in Multitask Exoskeleton Control: A Simulation-Trained Variable Impedance Framework&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.06370v1-ensuring-interaction-safety-in-multitask-exoskeleton-control-a-simulation-trained-variable-impedance-framework&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;msk-rl&quot;}], &quot;evidence&quot;: &quot;用于外骨骼交互安全的仿真训练变阻抗控制&quot;}">Ensuring Interaction Safety in Multitask Exoskeleton Control: A Simulation-Trained Variable Impedance Framework</a>

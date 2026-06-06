@@ -1,0 +1,61 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-06T20:51:29.491987+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.04829v1",
+      "source": "arxiv",
+      "title": "M3imic: Learning a Versatile Whole-Body Controller for Multimodal Motion Mimicking",
+      "abstract": "Building a general-purpose whole-body controller is essential for enabling diverse motion capabilities in humanoid robots across a wide range of downstream tasks, including locomotion and loco-manipulation. Different tasks rely on distinct motion reference modalities: locomotion primarily depends on coordinated robot joint trajectories, whereas manipulation requires precise end-effector trajectory tracking. Existing methods often overlook the representational mismatch between dense robot joint angles and sparse end-effector poses. To address this, we propose Multi-Modal Mimic (M3imic), a versatile multi-modal whole-body control framework that unifies heterogeneous motion reference modalities, including robot joint angles, human pose trajectories, and end-effector poses, using modality-specific encoders to map them into a shared latent space. Leveraging large-scale reinforcement learning in the simulator, we train a single policy that achieves sim-to-real transfer across multiple motion reference modalities without modality-specific retraining. Extensive simulation and real-world experiments on the Unitree G1 robot are conducted to evaluate the proposed framework. In simulation, the policy achieves a peak success rate of 98.42\\% on an unseen test dataset, demonstrating its exceptional generalization capability. The code is available at https://github.com/Renforce-Dynamics/MultiModalWBC",
+      "authors": [
+        "Zuxing Lu",
+        "Ziang Zheng",
+        "Yao Lyu",
+        "Jingyu Liu",
+        "Feihong Zhang",
+        "Song Lu",
+        "Xin Yuan",
+        "Changyin Sun",
+        "Xingxing Zuo",
+        "Shengbo Eben Li"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-06-03T12:52:37+00:00",
+      "link": "https://arxiv.org/pdf/2606.04829v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "learning whole-body controller for multimodal motion mimicking from diverse reference modalities",
+      "llm_evidence_cn": "学习多模态运动模仿的全身控制器，可应用于生物力学仿真",
+      "llm_evidence": "学习多模态运动模仿的全身控制器，可应用于生物力学仿真",
+      "canonical_evidence": "学习多模态运动模仿的全身控制器，可应用于生物力学仿真",
+      "llm_tldr_en": "Proposes a multi-modal whole-body control framework that unifies robot joint angles and human pose trajectories for versatile motion mimicking, enabling diverse locomotion and manipulation skills.",
+      "llm_tldr_cn": "针对人形机器人多种运动控制任务中参考模态不统一的问题，提出M3imic框架，融合机器人关节角度和人体姿态轨迹等多模态参考信号。通过统一建模，控制器能模仿行走、操作等多种运动，实验验证了其泛化性和鲁棒性。",
+      "llm_tldr": "针对人形机器人多种运动控制任务中参考模态不统一的问题，提出M3imic框架，融合机器人关节角度和人体姿态轨迹等多模态参考信号。通过统一建模，控制器能模仿行走、操作等多种运动，实验验证了其泛化性和鲁棒性。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "biomechanical simulation of human movement with reinforcement learning",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
