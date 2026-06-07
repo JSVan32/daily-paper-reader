@@ -6,24 +6,22 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-06
-- 运行时间：2026-06-06 20:52:08 UTC
+- 最新运行日期：2026-06-07
+- 运行时间：2026-06-07 21:06:48 UTC
 - 运行状态：成功
-- 本次总论文数：1
+- 本次总论文数：0
 - 精读区：0
-- 速读区：1
+- 速读区：0
 
 ### 今日简报（AI）
-今日速读一篇关于多模态运动模仿的全身控制论文。该研究提出了一种通用全身控制器，能模仿多种模态的运动。适合对机器人运动控制或模仿学习感兴趣的读者快速了解。
-- 详情：[/202606/06/README](/202606/06/README)
+> 今日无新推荐，系统未产出可展示论文。
+- 详情：[/202606/07/README](/202606/07/README)
 
 ### 精读区论文标签
 - 本次无精读推荐。
 
 ### 速读区论文标签
-1. [M3imic: Learning a Versatile Whole-Body Controller for Multimodal Motion Mimicking](/202606/06/2606.04829v1-m3imic-learning-a-versatile-whole-body-controller-for-multimodal-motion-mimicking)  
-   标签：评分：6.0/10、query:msk-rl
-   evidence：学习多模态运动模仿的全身控制器，可应用于生物力学仿真
+- 本次无速读推荐。
 
 
 <div class="dpr-home-promo-card">
