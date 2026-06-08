@@ -1,0 +1,56 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-08T21:28:31.700835+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.06967v1",
+      "source": "arxiv",
+      "title": "GenPO++: Generative Policy Optimization with Jacobian-free Likelihood Ratios",
+      "abstract": "Generative policies provide expressive and multimodal action distributions, making them attractive for reinforcement learning (RL) in complex continuous-control tasks. Among them, flow-based policies are especially appealing because they generate actions through deterministic transport maps. However, applying such generative policies to likelihood-based on-policy learning remains limited by the difficulty of evaluating the probability of executed actions. Existing flow RL methods either replace the true action-density ratio with approximate surrogates, which can introduce biased updates, or recover exact likelihoods through dummy-action augmentation, which enlarges the policy space and increases computation. In this work, we propose GenPO++, a reversible generative policy optimization framework that uses history states as auxiliary memory in a high-order reversible ODE solver, yielding exact inversion without changing the original action dimension. The resulting generative policy map has a log-determinant determined only by fixed solver coefficients, enabling exact and Jacobian-free likelihood-ratio computation. This design preserves the expressiveness of generative flow policies while avoiding both action ratio bias and dummy-action overhead. We evaluate GenPO++ on large-scale simulated control, fine-tuning, and real-world robotic manipulation tasks, where it achieves competitive or superior performance over state-of-the-art on-policy RL methods, while improving training stability and computational efficiency.",
+      "authors": [
+        "Ke Hu",
+        "Shutong Ding",
+        "Panxin Tao",
+        "Jingya Wang",
+        "Ye Shi"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-05T06:54:09+00:00",
+      "link": "https://arxiv.org/pdf/2606.06967v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "generative policy optimization with Jacobian-free likelihood ratios for continuous control RL, broadly applicable to musculoskeletal motor control",
+      "llm_evidence_cn": "生成式策略优化结合无雅可比似然比用于连续控制RL，可迁移至肌肉骨骼运动控制",
+      "llm_evidence": "生成式策略优化结合无雅可比似然比用于连续控制RL，可迁移至肌肉骨骼运动控制",
+      "canonical_evidence": "生成式策略优化结合无雅可比似然比用于连续控制RL，可迁移至肌肉骨骼运动控制",
+      "llm_tldr_en": "GenPO++ improves on-policy learning with flow-based generative policies by using Jacobian-free likelihood ratios, enabling stable and efficient updates for complex continuous control tasks.",
+      "llm_tldr_cn": "现有基于流的生成策略在强化学习中面临动作似然计算困难的问题。本文提出GenPO++，通过无雅可比似然比避免了近似偏差，同时降低了计算开销。该方法在多个复杂连续控制任务上实现了稳定且高效的策略更新，优于现有方法。该工作为强化学习在肌肉骨骼系统这类高维连续控制中的应用提供了先进的算法基础。",
+      "llm_tldr": "现有基于流的生成策略在强化学习中面临动作似然计算困难的问题。本文提出GenPO++，通过无雅可比似然比避免了近似偏差，同时降低了计算开销。该方法在多个复杂连续控制任务上实现了稳定且高效的策略更新，优于现有方法。该工作为强化学习在肌肉骨骼系统这类高维连续控制中的应用提供了先进的算法基础。",
+      "llm_tags": [
+        "query:msk-rl:composite"
+      ],
+      "matched_query_tag": "query:msk-rl:composite",
+      "matched_query_text": "Papers central to 肌肉骨骼系统的强化学习, especially work that connects or combines: reinforcement learning for motor control of musculoskeletal systems; control of musculoskeletal systems using reinforcement learning; biomechanical simulation of human movement with reinforcement learning; reinforcement learning for exoskeleton assistance and rehabilitation; reinforcement learning for human gait synthesis and optimization; How to apply reinforcement learning to control musculoskeletal simulations?; Experiments combining reinforcement learning with biomechanical models for rehabilitation robotics..",
+      "matched_requirement_id": "req-composite-msk-rl",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

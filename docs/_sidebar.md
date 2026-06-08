@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-06-08 <!--dpr-date:20260608-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/08/2606.06967v1-genpo-generative-policy-optimization-with-jacobian-free-likelihood-ratios" data-sidebar-item="{&quot;title&quot;: &quot;GenPO++: Generative Policy Optimization with Jacobian-free Likelihood Ratios&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.06967v1-genpo-generative-policy-optimization-with-jacobian-free-likelihood-ratios&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;msk-rl&quot;}], &quot;evidence&quot;: &quot;生成式策略优化结合无雅可比似然比用于连续控制RL，可迁移至肌肉骨骼运动控制&quot;}">GenPO++: Generative Policy Optimization with Jacobian-free Likelihood Ratios</a>
   * 2026-06-06 <!--dpr-date:20260606-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/06/2606.04829v1-m3imic-learning-a-versatile-whole-body-controller-for-multimodal-motion-mimicking" data-sidebar-item="{&quot;title&quot;: &quot;M3imic: Learning a Versatile Whole-Body Controller for Multimodal Motion Mimicking&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.04829v1-m3imic-learning-a-versatile-whole-body-controller-for-multimodal-motion-mimicking&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;msk-rl&quot;}], &quot;evidence&quot;: &quot;学习多模态运动模仿的全身控制器，可应用于生物力学仿真&quot;}">M3imic: Learning a Versatile Whole-Body Controller for Multimodal Motion Mimicking</a>

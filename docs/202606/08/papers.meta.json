@@ -1,0 +1,24 @@
+{
+  "label": "2026-06-08",
+  "date": "2026-06-08",
+  "generated_at": "2026-06-08T21:29:42",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202606/08/2606.06967v1-genpo-generative-policy-optimization-with-jacobian-free-likelihood-ratios",
+      "section": "quick",
+      "title_en": "GenPO++: Generative Policy Optimization with Jacobian-free Likelihood Ratios",
+      "authors": "Ke Hu, Shutong Ding, Panxin Tao, Jingya Wang, Ye Shi",
+      "date": "2026-06-05",
+      "pdf": "https://arxiv.org/pdf/2606.06967v1",
+      "score": "6.0",
+      "evidence": "生成式策略优化结合无雅可比似然比用于连续控制RL，可迁移至肌肉骨骼运动控制",
+      "tldr": "针对连续控制任务中基于流的生成策略难以精确评估动作概率的问题，GenPO++通过高阶可逆ODE求解器利用历史状态作为辅助记忆实现精确逆映射，无需哑动作增强，且对数行列式仅由固定求解器系数决定，从而实现无雅可比似然比计算。该方法避免了动作密度比近似偏差和哑动作开销，在模拟控制、微调和真实机器人操作任务中达到或超越最先进策略梯度方法，同时提高训练稳定性和计算效率。",
+      "tags": "query:msk-rl",
+      "abstract_en": "Generative policies provide expressive and multimodal action distributions, making them attractive for reinforcement learning (RL) in complex continuous-control tasks. Among them, flow-based policies are especially appealing because they generate actions through deterministic transport maps. However, applying such generative policies to likelihood-based on-policy learning remains limited by the difficulty of evaluating the probability of executed actions. Existing flow RL methods either replace the true action-density ratio with approximate surrogates, which can introduce biased updates, or recover exact likelihoods through dummy-action augmentation, which enlarges the policy space and increases computation. In this work, we propose GenPO++, a reversible generative policy optimization framework that uses history states as auxiliary memory in a high-order reversible ODE solver, yielding exact inversion without changing the original action dimension. The resulting generative policy map has a log-determinant determined only by fixed solver coefficients, enabling exact and Jacobian-free likelihood-ratio computation. This design preserves the expressiveness of generative flow policies while avoiding both action ratio bias and dummy-action overhead. We evaluate GenPO++ on large-scale simulated control, fine-tuning, and real-world robotic manipulation tasks, where it achieves competitive or superior performance over state-of-the-art on-policy RL methods, while improving training stability and computational efficiency.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
