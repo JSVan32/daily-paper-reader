@@ -1,0 +1,452 @@
+Title: Simulation-Driven Imitation Learning for Biosignals-Free Shared-Autonomy Prosthetic Grasping
+
+URL Source: https://arxiv.org/pdf/2606.07389v1
+
+Published Time: Mon, 08 Jun 2026 01:03:05 GMT
+
+Number of Pages: 11
+
+Markdown Content:
+> 1
+
+# Simulation-Driven Imitation Learning for Biosignals-Free Shared-Autonomy Prosthetic Grasping 
+
+Kaijie Shi, Wanglong Lu, Huiling Chen, Associate Member, IEEE , Vinicius Prado da Fonseca, Member, IEEE , Ting Zou, Senior Member, IEEE , Hanli Zhao*, and Xianta Jiang*, Senior Member, IEEE 
+
+Abstract — Biosignals-free shared-autonomy control of upper-limb prosthetic hands aims to enable natural and low-effort manipulation without relying on EMG or other physiological signals. Recent imitation-learning-based ap-proaches have shown promising results, but their scala-bility is limited by the cost and variability of collecting large amounts of real-world human demonstration data. In this work, we present a scalable simulation frame-work that automatically generates diverse reach-to-grasp demonstrations from a wrist-mounted virtual camera. The framework combines physically feasible grasp synthe-sis, natural reaching trajectories retargeting, and reach– grasp–lift execution in procedurally generated indoor en-vironments. It records wrist-view observations, proprio-ception, and actions to build a large-scale demonstration dataset for imitation learning. Through extensive simu-lation benchmarks, we evaluate object and scene gen-eralization and compare several representative state-of-the-art imitation learning methods. Results show that the simulated demonstrations are sufficiently rich and con-sistent for effective policy learning. In three realistic set-tings, the learned sim-to-real policy achieves over 90% grasp success, surpasses baseline methods, and ex-hibits stronger generalization, highlighting the promise of simulation-driven training for biosignals-free shared-autonomy prosthetic grasping. The demonstrations are 
+
+This work has been submitted to the IEEE for possible publication. Copyright may be transferred without notice, after which this version may no longer be accessible. Submitted on June 8, 2026. This work was supported in part by the Government of Canada’s New Frontiers in Research Fund (NFRF, Grant No NFRFE-2022-00407) and Natural Sciences and Engineering Re-search Council of Canada’s Research Tools and Instruments (NSERC RTI, Grant No RTI-2022-00688). This work involved human subjects or animals in its research. Ap-proval of all ethical and experimental procedures and protocols was granted by the Memorial University Interdisciplinary Committee on Ethics in Human Research (20210316-SC). Kaijie Shi and Wanglong Lu are with Department of Computer Science, Memorial University of Newfoundland, St. John’s, NL A1B 3X5, Canada, and also with College of Computer Science and Artificial Intelligence, Wenzhou University, Wenzhou, 325000, China. (email: kaijies@mun.ca, wanglongl@mun.ca). Huiling Chen and Hanli Zhao are with College of Computer Sci-ence and Artificial Intelligence, Wenzhou University, Wenzhou, 325000, China. (email: chenhuiling jsj@wzu.edu.cn, hanlizhao@wzu.edu.cn). Vinicius Prado da Fonseca and Xianta Jiang are with Department of Computer Science, Memorial University of Newfoundland, St. John’s, NL A1B 3X5, Canada. (email: vpradodafons@mun.ca, xiantaj@mun.ca). Ting Zou is with Department of Mechanical and Mechatronics Engi-neering, Memorial University of Newfoundland, St. John’s, NL A1B 3X5, Canada. (email: tzou@mun.ca). *Corresponding authors. 
+
+available at https://sites.google.com/view/sim-prosthetic-grasp/home. 
+
+Index Terms — Prosthetic hand control, computer vision, imitation learning, generative models, simulation, sim-to-real. 
+
+I. I NTRODUCTION 
+
+The loss of a hand profoundly limits an individual’s ability to interact with objects in daily life. Prosthetic hands provide a non-invasive means to restore lost functionality, offering users the ability to perform basic grasping tasks. However, how to control these prostheses in an efficient, intuitive, and reliable manner remains a fundamental challenge [1]–[3]. Current mainstream prosthetic hand control methods are primarily based on surface electromyography (sEMG) signals [4]–[7]. In these approaches, users generate distinct muscle signal patterns to trigger specific grasp types. While widely studied, sEMG-based methods place a heavy burden on the user [8]–[10], as they require active participation at every step of the grasping process. To alleviate this limitation, semi-autonomous approaches have been proposed, in which computer vision is used to identify the desired grasp type, and sEMG signals are then employed to initiate each motion [11], [12]. Although such methods reduce some of the decision-making burden, they still require explicit per-grasp triggering, which can be physically and psychologically demanding. To overcome these limitations, autonomous grasping has recently attracted significant attention [13], [14]. The system infers user intent directly from natural limb positioning and a brief dwell near the target object, while autonomously executing low-level grasp and manipulation actions mimick-ing human dexterity. The key idea is to shift the low-level decision-making process from the user to the prosthesis itself, thereby simplifying control. For instance, Shi et al. [13] proposed a biosignals-free autonomous control method that eliminates sEMG dependency altogether. This approach relies solely on a wrist-mounted camera to perceive object proper-ties and autonomously execute grasp-and-release actions. In this framework, users are only responsible for moving the prosthesis to the desired location, while the system indepen-dently manages grasping and releasing. Beyond reducing user effort, such biosignals-free methods also offer strong cross-
+
+> arXiv:2606.07389v1 [cs.RO] 5 Jun 2026 2
+
+user generalization, since they do not require subject-specific data collection and model training [13]. Nevertheless, autonomous grasping introduces new chal-lenges, particularly in visual generalization. Vision-based im-itation learning models often degrade when facing distribu-tion shifts such as novel objects, cluttered backgrounds, or changes in illumination [15]–[17]. A common way to improve robustness is to learn policies from a large-scale and diverse dataset [18]. However, it is fundamentally bottlenecked by the cost of collecting sufficiently large and diverse demonstration datasets. This bottleneck becomes especially severe for real-world upper-limb prosthetic grasping: demonstrations must be recorded on physical hardware under human-in-the-loop op-eration, often requiring careful setup and calibration, repeated trials to cover object and pose variability, and strict safety considerations when interacting with users and everyday envi-ronments. As a result, data collection is labor-intensive, slow to collect, and difficult to scale; operator fatigue and day-to-day changes in execution can further introduce inconsistency and noise. Moreover, practical constraints such as hardware availability, wear-and-tear, and limited experimental time make it difficult to capture the long-tail cases that are critical for robust grasping in the wild. To address this data collection bottleneck, we propose a simulation framework for biosignals-free prosthetic hand grasping. The framework enables automatic generation of diverse and scalable training data by simulating key factors in grasping, including wrist trajectories, grasp configurations, ob-jects, and background environments. By systematically vary-ing these components, the system can, in principle, generate an infinite number of prosthetic hand grasping scenarios. Compared with prior work on virtual simulation (e.g., Xie et al. [19], 2021), our framework is specifically designed to accelerate data generation for autonomous prosthesis grasping neural network training, thereby reducing reliance on labor-intensive real-world demonstration collection. To the best of our knowledge, this is the first simulation framework served for biosignals-free shared-autonomy pros-thetic grasping research area. This study presents the following key contributions: 1) Demonstration Synthesis. We build a fully automated data collection pipeline in simulation to generate ascalable set of reach-to-grasp trials, covering diverse objects, wrist trajectories, and procedurally generated indoor scenes, with no manual intervention required. 2) Imitation-learning Benchmarking. We establish a standardized and reproducible simulation benchmark for autonomous prosthetic grasping, filling a gap in evalu-ation protocols and enabling systematic comparison of representative SOTA imitation-learning methods under multiple generalization settings. 3) Realistic-setting Validation. We establish the practical viability of simulation-trained policies for autonomous prosthetic grasping by transferring them to a real pros-thetic hand and validating their performance across 1,800 real-world trials involving 12 participants. 
+
+II. R ELATED WORK 
+
+A. Control paradigms for prosthetic grasping 
+
+Mainstream prosthetic-hand control has long relied on sur-face electromyography (sEMG), where users produce distinct muscle-activation patterns to trigger predefined grasp types or action sequences [4]–[6], [20]–[22]. Despite extensive study and deployment, sEMG-based control can impose substantial user burden because effective operation often requires active participation and explicit triggering throughout the grasping process [9], [10], [23], [24]. To reduce decision-making effort, semi-autonomous ap-proaches use computer vision to infer candidate grasp types or target properties, while sEMG is used to confirm or initiate motions [11], [12], [25]. Although such hybrids partially of-fload perception and selection, they frequently retain per-grasp confirmation/triggering steps, which can remain physically and psychologically demanding during repeated daily interactions. Recently, autonomous grasping has emerged as a promising direction to further reduce user burden by shifting “what to grasp, how to grasp, and when to grasp” decisions from the user to the prosthesis controller [13], [14]. In particular, 
+
+biosignals-free methods eliminate sEMG dependency alto-gether, avoiding subject-specific signal collection and cali-bration and potentially improving cross-user generalization. Representative work leverages a wrist-mounted camera to perceive objects and autonomously execute grasp-and-release behaviors, while the user primarily positions the prosthesis [13]. Imitation-learning-based approaches for prosthetic grasp-ing have also been explored [14]. Beyond vision-driven autonomy, the literature includes non-vision (or weak-vision) semi-autonomous paradigms that ex-ploit residual-limb kinematics and postural synergies, inertial sensing, proximity sensing and sensor fusion, and adaptive mode-switching to reduce control dimensionality or simplify interaction [26]–[32]. While these approaches offer valuable alternatives, they primarily emphasize interface design, intent inference, or sensor configurations, and are not directly tar-geted at scalable learning and benchmarking for wrist-vision autonomous grasping, which is the focus of this work. 
+
+B. Simulation for grasping 
+
+Collecting large-scale grasping data on real robotic hands is expensive, time-consuming, and potentially damaging to hard-ware. Simulation provides a scalable alternative by enabling automatic generation of grasp scenes, object interactions, and success labels with precise annotations [33]–[39]. Prior work has used physics simulators to model object poses, contact dynamics, and grasp outcomes, while photorealistic render-ing and procedural scene generation have been employed to synthesize diverse visual observations. Domain randomization further improves diversity by varying textures, lighting, cam-era parameters, and physical properties, making simulation a practical source of training data for grasp learning [16], [40]– [42]. Imitation learning has been widely adopted to learn grasping policies from expert demonstrations, which may come from human teleoperation [18], [43], motion planners [44]–[46], or 3(c) Actions for data collection in simulated room (d) Dataset 
+
+(b) Human wrist trajectories 
+
+during reaching and grasping 
+
+(a) Grasp synthesis 
+
+# …
+
+> Reaching
+
+## Grasping 
+
+## Lifting 
+
+## …
+
+[0.2, 0.2 …] 
+
+[0.3, 0.4 …]  
+
+> Wrist -view image
+> Proprioception
+> Targets
+> Fig. 1. Overview of the proposed simulated data collection framework. Given an object and a hand model, we first synthesize feasible grasps (a). A human wrist trajectory for reaching and grasping (b) is then sampled and retargeted to the synthesize grasp before being executed in the simulation environment (c). During this process, wrist-view images, proprioceptive measurements and action targets are recorded to build the dataset (d).
+
+simulated experts [47]. Behavior cloning [48] is a common approach that directly maps visual observations to grasp poses, end-effector actions, or gripper commands. Although effective and easy to optimize, such methods often suffer from compounding errors caused by distribution shift between train-ing and deployment [49]. To improve robustness, interactive imitation learning and data aggregation methods have been explored to provide corrective supervision on states visited by the learner [50]. Recent work further combines imitation learning with deep visual representations and sequence models for closed-loop grasping and long-horizon manipulation tasks [18], [43], [51]. A major challenge in simulation-trained grasping is the sim-to-real gap, which arises from discrepancies in visual appearance, depth noise, contact dynamics, friction, actuation, and calibration errors. Since grasp success is highly sensitive to both perception and contact modeling, these discrepancies can substantially degrade real-world performance. Existing approaches [16], [52], [53] address this issue through visual domain randomization, domain adaptation, dynamics random-ization, and system identification. Some methods further in-corporate real-world fine-tuning, residual policy learning, or online adaptation after transfer [54], [55]. These advances have significantly improved the feasibility of deploying simulation-trained grasping policies on real robotic systems. 
+
+III. S IMULATION FRAMEWORK 
+
+We aim to automatically generate scalable reach-to-grasp demonstration data for training an imitation-learning policy for biosignal-free prosthetic grasping. Each demonstration contains wrist-view RGB observations and proprioceptive states, together with joint-level action supervision for learning dexterous finger control. Figure 1 illustrates our framework for generating scalable simulated demonstrations. Given a set of objects, a prosthetic hand model, and indoor scenes in simulation (Section III-A), we first synthesize diverse grasps for each object (Section III-B). We then sample a natural wrist-reaching motion and retar-get its final wrist pose to match the target grasp (Section III-C). Finally, we execute the reaching, grasping, and lifting 
+
+> Fig. 2. 200 objects used in this paper.
+
+sequence in simulation (Section III-D), while recording wrist-camera images, proprioception, and joint actions to construct the dataset for training autonomous grasping models. 
+
+A. Objects and Prosthetic hand 
+
+Objects. As shown in Figure 2, 200 objects are used in this paper, sampled from the Google Scanned Objects (GSO) dataset [56]. GSO is an open-source collection of over one thousand high-quality 3D-scanned household items released under a Creative Commons license, providing textured, re-alistic meshes that are preprocessed for common physics simulators (e.g., Ignition Gazebo, Bullet), which makes it well-suited for interactive simulation, synthetic data generation, and robotic perception and manipulation tasks. Furthermore, we use the Universal Scene Description (USD) assets processed following Multigrippergrasp [57], enabling direct use of these objects in NVIDIA Isaac Sim, which is the main simulation utility used in this work. 
+
+Prosthetic Hand. In this study, the prosthetic hand (Ability hand, PSYONIC [58]) features six degrees of freedom (DoFs): one for each finger, with the thumb having two DoFs. We use the 3D hand model provided by PSYONIC company in the simulation. While this study uses the Ability Hand, the approach is largely hardware-agnostic and can be transferred 4 
+
+> Fig. 3. Wide-angle corner views of ten indoor rooms were generated with Infinigen Indoors [59] and used in our experiments.
+
+to other multi-DOF prosthetic hands with minimal changes, primarily in action-space definition, kinematic retargeting, and sensor calibration, provided that a suitable 3D model of the target hand is available for simulation. 
+
+System Identification. We calibrate joint dynamics in simulation via system identification so that the same joint command produces similar motion in simulation and on the real prosthetic hand, reducing the action gap for sim-to-real transfer. Specifically, we first record a sequence of target action - proprioception pairs on the real prosthetic hand, and then use an evolutionary algorithm in simulation to search for the stiffness and damping settings of each joint that best reproduce this behavior. 
+
+Simulated Wrist Camera. In simulation, an RGB camera is mounted on the prosthetic wrist and oriented toward the workspace to capture hand–object interactions. The camera extrinsics are defined relative to the hand base frame, and the intrinsics (resolution, focal length/FOV) are set to match the real wrist camera (RealSense D405); images are rendered at 
+
+424 × 240 .
+
+Indoor Scenes. We use Infinigen Indoors [59] to generate 10 indoor rooms for our experiments (Figure 3). Infinigen Indoors procedurally synthesizes photorealistic indoor scenes by sampling from a large library of procedural assets (e.g., furniture, architectural elements, appliances, and everyday objects) and arranging them via a constraint-based layout system. A domain-specific language and a dedicated solver are employed to enforce both semantic coherence and physical plausibility in the resulting environments [59]. 
+
+B. Grasp synthesis 
+
+We do not use hand-crafted grasp labels for each object (e.g., assigning a spherical grasp to a ball). Instead, we use synthetic grasps in place of human demonstrations, enabling faster data collection and greater grasp diversity. Following BoDex [60], we synthesize dexterous grasps via optimization in simulation for the prosthetic hand. Given an object O = ( Mo, T o), where Mo is the object mesh and To ∈ SE (3) denotes its pose, the prosthetic hand is represented as H = ( Mh, q h), where Mh is the hand mesh and qh is the initial finger joint configuration corresponding to an open-hand posture. The resulting grasp is parameterized as g = (Tg , q g ), where Tg is the wrist pose and qg is the optimized finger joint configuration corresponding to the grasping posture. Compared to another grasp generator for prosthetic grasp, Bring Your Own Grasp Generator (BYOGG) [61], which gen-erates parallel-jaw gripper grasps (e.g., via Contact-GraspNet [62]) and then maps them to a low-dimensional prosthetic pre-shape, BoDex [60] directly optimizes the dexterous grasp in the full configuration space (wrist pose plus all joint angles). Its bilevel formulation explicitly solves for frictional contact forces and validates grasps in simulation, producing contact-rich and physically feasible grasps that are better suited for large-scale synthetic supervision. 
+
+C. Hand move trajectory 
+
+Reaching trajectory patterns. We maintain a database of reaching-phase wrist trajectories {τi}Ni=1 [63], where N is the number of trajectories. The wrist motion is obtained by manually annotating per-frame 2D hand keypoints (including the wrist) in multi-view RGB-D videos and then reconstruct-ing the per-frame 3D wrist pose [64]. Each trajectory τi is represented by a sequence of mi critical wrist poses τi =
+
+{Ti, 1, . . . , T i,m i }, where Ti,j ∈ SE (3) denotes the wrist rigid transform (position and orientation) at the j-th keyframe. 
+
+End pose retargeting. We use the wrist pose of each synthetic grasp (Sec. III-B) as the desired terminal pose of the reaching trajectory, denoted by TG ∈ SE (3) . To retarget a template trajectory τi to end exactly at TG, we compute the aligning transform 
+
+∆i = TG T −1 
+
+> i,m i
+
+, (1) and apply it to every keyframe: 
+
+ˆTi,j = ∆ i Ti,j , j = 1 , . . . , m i. (2) This construction guarantees ˆTi,m i = TG, i.e., the final frame of the reaching phase matches a physically feasible grasp wrist pose.         
+
+> TABLE I REACH -TO -GRASP EXECUTION .
+> Time step index Wrist action Fingers action 1-50 Reaching Keep Open 51-65 Stoping Execute grasping 66-115 Lifting Keep grasping
+
+D. Dataset construction 
+
+Object pose randomization. At the beginning of each trial, we randomize the object pose by initializing it at a height of 1 meter with its planar position sampled as x, y ∼ U (−1, 1) 
+
+meter. We then release the object and let it fall under gravity. After it comes to rest, we read out its final pose T rest  
+
+> o
+
+and transform the corresponding grasp accordingly, so that the grasp pose remains consistent with the settled object state. 
+
+Reach-to-grasp execution. We execute each grasp episode for 115 time steps (1 second has 30 time steps) and divide the execution into three phases (Table I). 5
+
+1) Reaching (t = 1 –50 ): the wrist follows the reaching trajectory toward the target pre-grasp pose, while the fingers remain fully open to avoid premature contact. 2) Stopping & Grasping (t = 51 –65 ): the wrist motion is decelerated and brought to a stop at the terminal grasp wrist pose; meanwhile, the fingers execute the grasp by closing to establish stable contacts. 3) Lifting (t = 66 –115 ): the wrist lifts the object upward, and the fingers maintain the grasp configuration to keep the object secured throughout the lift. 
+
+Trial collection. With 200 objects and 10 rooms, we col-lected 2000 successful reach-to-grasp trials. Each trial lasts for 115 time steps, and at each step we record (i) an RGB image from the wrist-mounted camera, (ii) proprioception (per-joint angles), and (iii) the target joint position for each finger. A trial is labeled as successful if the object remains stably grasped during lifting, quantified by a small change in the object-to-hand relative position between lift onset and the end of the episode: (pobj − phand )final − (pobj − phand )lift  
+
+> 2
+
+<
+
+0.05 m . We split the 2000 successful trials into training and testing sets for generalization experiments; the split protocol is described in Sec. IV. 
+
+Demonstrations quality control. We ensure demonstration quality by using physically feasible synthesized grasps and retaining only trials that satisfy a stability-based success criterion during lifting. 
+
+IV. S IMULATION EXPERIMENTS 
+
+A. Experimental setup. 
+
+All simulation experiments are conducted in Isaac Lab. We consider 200 objects and 10 procedurally generated rooms in the simulation. We first collect 2000 successful reach-to-grasp trials and construct training/testing splits for different generalization settings (Sec.IV-E). At test time, each grasp trial is executed in 5 parallel environments, and we report the aggregated performance over these runs. We focus on this scale to provide a controlled benchmark; scaling up is left for future work. 
+
+B. Imitation learning benchmark algorithms 
+
+Action Chunking with Transformers (ACT) [43]. ACT employs a CVAE-Transformer to model the conditional distri-bution over image and proprioception, and predicts an action chunk (multiple future actions) at each step, optionally using temporal ensembling for smooth execution. We adapt ACT to our prosthetic setting by conditioning it on the wrist-view RGB observation and proprioception, and mapping its predicted action chunks to multi-step joint command sequences for the prosthetic hand. 
+
+VTM-VAE [13]. VTM-VAE is a variational model for prosthetic control and replaces the Transformer with a central-aware Mamba backbone compared with ACT to reduce com-putation for image understanding. Since tactile sensing is not available in our setup, we remove the tactile stream and condition the model on wrist-view RGB and proprioception only, while mapping the outputs to prosthetic joint command sequences. 
+
+HannesImitation [14]. HannesImitation proposes Hannes-ImitationPolicy , a diffusion-policy-based imitation learning pipeline to control a prosthetic hand for grasping from eye-in-hand RGB and proprioceptive signals [14]. To benchmark a diffusion-based prosthetic-specific approach under our setting, we adopt its diffusion-policy backbone and interface it with our observation space (wrist-view RGB and proprioception) and action space (prosthetic joint commands). 
+
+Implementation details. For those three SOTA imitation-learning methods, we change the algorithm’s input and output, and keep the model’s backbone same as original paper. For ACT and VTM-VAE, the observation consists of (i) the current wrist-view RGB image and (ii) a proprioceptive window of joint positions over the past 30 steps (current + 29 history). The policy outputs a horizon of 25 future joint command vectors. The image size is 320 × 240 , while the size of joint state and target pose/angle at a specific time step is 6. We train neural networks with 50 epochs using AdamW optimizer, with a learning rate of 1e − 4 and weight decay of 1e − 4. For testing, we select the checkpoint with the best validation performance. In HannesImitation, the model takes two consecutive images and joint positions as input. We train it to forecast eight future actions, and evaluate it by executing four future actions at test time. Unless otherwise specified, the remaining settings are identical to HannesImitation [14]. 
+
+C. Testing procedure 
+
+During testing, we follow the same reach-to-grasp execution procedure as in data collection, with two modifications: (1) the Stopping & Grasping phase is extended to 30 time steps; (2) finger motions are driven by the imitation-learning policy, while the wrist follows the reaching and lifting motions in collected dataset. Although the demonstrations complete the grasp within 15 time steps, policies learned via imitation learning may require a longer execution horizon to finish finger closure and achieve a stable grasp. Using the original 15-step horizon would prematurely terminate some otherwise successful attempts and thus underestimate performance. Therefore, during testing we extend the Stopping & Grasping phase to 30 time steps, which we empirically found sufficient for grasp completion in simulation. This modification only increases the grasping completion window and keeps other components of the reach-and-lift procedure unchanged. In real-world use, users often wait until the grasp is completed before moving the prosthetic hand, making the extended horizon reasonable in practical interaction. A dynamic/longer time window for the Stopping & Grasping phase may further improve grasp success; however, to keep the evaluation protocol simple and controlled, we do not investigate it in this work and leave it for future study. 
+
+D. Evaluation 
+
+We use the following criteria to assess grasp success and grasping behavior: (i) whether the policy can successfully grasp and stably lift the object, and (ii) whether it exhibits 6
+
+appropriate finger actions: keeping the hand open when it should not grasp and closing the fingers when it should grasp. 
+
+Success rate (SR). The ratio of successful trials to all testing trials. A trial is success, if 
+
+(pobj − phand )final − (pobj − phand )lift  
+
+> 2
+
+< 0.03 m , where 
+
+phand denotes the position of the hand, and pobj denotes the position of the object. We empirically choose lift = 85 
+
+and final = 116 , as these two time steps approximately correspond to the beginning and the end of the lifting phase, during which the relative position between the hand and the object remains nearly unchanged. 
+
+Open during reaching rate (OR). The ratio of trials that are classified as open during reach among all test trials. A trial is classified as open during reach if no finger exceeds its corresponding threshold at any time step during the reaching phase, i.e., PTt=1 
+
+P6 
+
+> j=1
+
+1 |ft,j | > θ t
+
+ = 0 . Here, T denotes the final time step considered for evaluation and is empirically set to 40. ft,j denotes the target value of finger j ∈ { 1, . . . , 6}
+
+at time step t. θt is a time-dependent threshold that increases linearly from 0.25 at t = 1 to 0.30 at t = T . 1(·) denotes the indicator function, which equals 1 if the condition inside is true, and 0 otherwise. 
+
+Close before lifting rate (CR). The ration of trials that are classified as close before lifting to open during reach trails. A trial is classified as close before lifting if P6 
+
+> j=1
+
+1(|ft,j | > θ t) > 3. We empirically set t = 80 and 
+
+θ80 = 0 .4.
+
+E. Generalization 
+
+In this section, we test generalization of imitation learning model ACT on unseen objects and/or environments. 
+
+Generalization settings. We evaluate generalization under three split settings. 
+
+(1) Object generalization. We compare models trained on datasets with different numbers of objects, using 10, 25, 50, 75, or 100 objects, by evaluating all models on the same set of 100 test objects. For both training and testing, each object is associated with one trial in each room, resulting in 10 trials per object. 
+
+(2) Room generalization. We compare models trained on datasets with different numbers of rooms, using 2, 4, 6, or 8 rooms, by evaluating all models on the same set of 2 test rooms. For both training and testing, each room is associated with 200 objects, resulting in 200 trials per room. 
+
+(3) Object & room generalization. We compare models trained on datasets with different numbers of objects and rooms, ranging from 10 objects in 1 room to 100 objects in 8 rooms, by evaluating all models on the same test set of 100 test objects in 2 test rooms. 
+
+Object generalization. We gradually expand seen (training) objects from 10 to 100, while the unseen (testing) objects are keep at 100. Overall, as shown in Fig. 4(a), increasing object diversity in training improves generalization: SR rises from 26.84% (train on 10 objects) to 42.22% (train on 100 objects), and CR increases from 65.33% to 84.21%. We observe dimin-ishing returns beyond 75 training objects, where SR saturates (42.24% → 42.22%). In contrast, OR remains consistently high (91.2–93.5%) across all settings, suggesting that this metric is less sensitive to training object count compared to 
+
+SR and CR .
+
+Room generalization. Fig. 4(b) evaluates generalization to unseen rooms when training with different numbers of rooms. Increasing the number of training environments consis-tently improves performance across all metrics: SR rises from 44.20% (train on 2 rooms) to 57.40% (train on 8 rooms), while 
+
+CR improves from 85.22% to 93.49%. Similarly, OR increases from 84.25% to 96.80%. These results suggest that greater environmental diversity substantially enhances robustness to novel scene layouts and backgrounds. 
+
+Joint object-and-room generalization. Fig. 4(c) reports performance when simultaneously scaling both object and room diversity (from 10 objects/1 room to 100 objects/8 rooms) and evaluating on unseen objects and unseen rooms. We observe a clear monotonic improvement with increasing diversity: SR improves from 21.40% to 42.40%, CR from 53.55% to 85.96%, and OR from 73.20% to 93.30%. Notably, the absolute SR gains are larger than those observed when varying only the number of objects or only the number of rooms, indicating that object and environment diversity provide complementary benefits for generalization. Across all three settings, increasing training diversity con-sistently improves generalization to unseen test conditions. Expanding the number of training objects yields clear gains on unseen objects, with diminishing returns beyond ∼75 objects, while expanding the number of training rooms sub-stantially boosts robustness to unseen rooms. When jointly scaling both object and room diversity, performance improves monotonically and the gains are larger than varying either factor alone, indicating complementary benefits from object and room diversity for robust reach-to-grasp generalization. 
+
+F. Imitation learning algorithms comparison                                
+
+> TABLE II PERFORMANCE COMPARISON UNDER DIFFERENT ALGORITHM AND GENERALIZATION SETTINGS . B OLD INDICATES THE BEST PERFORMANCE .
+> Algorithm Generalization SR CR OR
+> ACT [43] Room 57.40% 93.49% 96.80%
+> Object 42.22% 84.21% 93.50%
+> Room & Object 42.40% 85.96% 93.90%
+> VTM-VAE [13] Room 55.75% 95.49% 95.25% Object 44.90% 93.13% 91.70% Room & Object 44.20% 94.50% 92.70% HannesImitation [14] Room 48.95% 75.91% 93.60% Object 33.24% 66.87% 87.06% Room & Object 40.10% 77.28% 83.20%
+
+Table II compares three imitation-learning baselines under three generalization settings: unseen rooms, unseen objects, and jointly unseen rooms & objects. Overall, ACT achieves the best performance for room generalization, obtaining an SR of 57.40% with strong CR (93.49%) and OR (96.80%). For 
+
+object generalization, VTM-VAE performs best, improving SR from 42.22% (ACT) to 44.90% and yielding substantially higher CR (93.13% vs. 84.21%). Under the hardest setting (room & object ), ACT and VTM-VAE are comparable in SR 710 25 50 75 100       
+
+> (a): Object generalization
+> 20
+> 30
+> 40
+> 50
+> 60
+> 70
+> 80
+> 90
+> 100
+> Percentage (%)
+> 2468
+> (b): Room generalization
+> 20
+> 30
+> 40
+> 50
+> 60
+> 70
+> 80
+> 90
+> 100
+> 10 objs
+> & 1 room
+> 25 objs
+> & 2 rooms
+> 50 objs
+> & 4 rooms
+> 75 objs
+> & 6 rooms
+> 100 objs
+> & 8 rooms
+> (c): Joint object-and-room generalization
+> 20
+> 30
+> 40
+> 50
+> 60
+> 70
+> 80
+> 90
+> 100
+> SR CR OR
+> Fig. 4. Generalization performance for models trained on diverse number of objects, and rooms. ’SR’ means success rate, ’CR’ means close before lifting rate, and ’OR’ means open during reaching rate.
+
+(42.40% vs. 44.20%), while VTM-VAE maintains markedly higher CR (94.50% vs. 85.96%) and similar OR (92.70% vs. 93.90%). In contrast, the prosthetic-specific diffusion baseline 
+
+HannesImitation underperforms across all settings, especially on unseen objects (SR 33.24%), indicating that robust gen-eralization benefits from both action chunking and efficient visuomotor representation learning. Overall, our simulation-collected demonstrations enable several representative SOTA imitation-learning policies to achieve strong performance in Isaac Lab, a physics-engine-based manipulation environment with rigid-body dynamics and contact interactions. The non-trivial success rates and consistently high intermediate metrics across the evaluated generalization settings indicate that our dataset provides ef-fective supervision for learning visuomotor prosthetic grasping behaviors in simulation. 
+
+V. R EALISTIC -SETTING EXPERIMENTS 
+
+We report realistic-setting experimental results from 12 participants included in the final analysis (13 enrolled, 1 withdrew), evaluated on 5 objects, 3 scenes, and 2 algorithms, with 5 recorded trials per object in each scene for each algorithm per participant (1800 trials in total). (a) Objects  (b) Wearable prosthetic hand    
+
+> Yellow table White table Brown table
+> (C) Scenes
+> Fig. 5. Objects, wearable prosthetic hand, and three scenes used in the realistic-setting experiments.
+
+A. Objects, prosthetic hand, and scenes 
+
+Objects. Fig. 5(a) shows the five objects used in the realistic-setting experiments (bottle, banana, ball, can, and box). These objects span diverse shapes, sizes, weights, and surface textures to cover a range of grasping conditions. 
+
+Prosthetic hand. Fig. 5(b) shows the wearable prosthetic hand used in the experiments. The experimental setup follows [13], including the same wearable hardware, camera and control interface. 
+
+Scenes. Fig. 5(c) shows the three experimental scenes, which vary in tabletop color and background wall texture. These scene variations are introduced to evaluate grasp ro-bustness and to test whether the algorithm triggers unintended finger closure when no graspable object is present. 
+
+B. Participants 
+
+Thirteen healthy right-handed adults were enrolled in the study. One participant withdrew from the experiment and was excluded from subsequent analyses. Therefore, data from 12 participants (9 men and 3 women) were included in the final analysis. Participants were 24–36 years old ( M = 27 .9, SD =3.9) and 157 to 183 cm tall ( M = 171 .6, SD = 8 .3). We did not recruit amputee participants, as prior studies [13] have found that biosignals-free methods do not differ substantially between amputee and non-amputee conditions. Because the number of trials was large, testing was con-ducted across two separate sessions. In each session, objects were randomly selected, and each session lasted approximately 1–1.5 hours. The interval between sessions ranged from 1– 21 days ( M = 6 .3, SD = 5 .9). Before data collection, participants watched an instructional video demonstrating the hold–grasp–lift sequence to familiar-ize them with the prosthetic control procedure. They then completed several practice trials (typically fewer than 10) before performing five consecutive recorded trials for each object. Practice trials were not included in the analysis. The protocol was approved by the Memorial University Interdisciplinary Committee on Ethics in Human Research (20210316-SC), and written informed consent was obtained from all participants before participation. 8
+
+TABLE III OVERALL REALISTIC -SETTING GRASPING PERFORMANCE . N OTE : SR DENOTES SUCCESS RATE ; OR DENOTES OPEN DURING HOLD RATE ; CR  
+
+> DENOTES
+
+CLOSE DURING GRASP RATE (COMPUTED OVER OR TRIALS ). O BJECT -LEVEL VALUES ARE REPORTED AS MEAN ± STANDARD DEVIATION ACROSS PARTICIPANTS . S TAT -A AGGREGATES ACROSS PARTICIPANTS AND OBJECTS , AND STAT -B AGGREGATES ACROSS PARTICIPANTS , OBJECTS ,
+
+> AND SCENES
+
+.
+
+Training Dataset Scene Criteria Stat-A Stat-B 
+
+VTM-VAE [13] 
+
+SR 0.97 ±0.07 1.00 ±0.00 0.95 ±0.09 1.00 ±0.00 1.00 ±0.00 0.98 ±0.06 
+
+SR: 0.66 ±0.47 
+
+OR: 0.67 ±0.47 
+
+CR: N/A OR 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 
+
+CR 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 
+
+SR 1.00 ±0.00 1.00 ±0.00 0.97 ±0.07 1.00 ±0.00 1.00 ±0.00 0.99 ±0.04 
+
+OR 1.00 ±0.00 1.00 ±0.00 0.98 ±0.06 1.00 ±0.00 1.00 ±0.00 0.99 ±0.03 
+
+CR 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 
+
+SR 0.00 ±0.00 0.00 ±0.00 0.00 ±0.00 0.00 ±0.00 0.00 ±0.00 0.00 ±0.00 
+
+OR 0.00 ±0.00 0.00 ±0.00 0.00 ±0.00 0.00 ±0.00 0.00 ±0.00 0.00 ±0.00 
+
+CR N/A N/A N/A N/A N/A N/A Ours 
+
+SR 0.97 ±0.07 0.77 ±0.27 0.82 ±0.21 0.95 ±0.12 0.98 ±0.06 0.90 ±0.19 
+
+SR: 0.92 ±0.15 
+
+OR: 0.99 ±0.01 
+
+CR: 0.97 ±0.09 
+
+OR 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 
+
+CR 0.98 ±0.06 0.83 ±0.23 0.92 ±0.13 1.00 ±0.00 1.00 ±0.00 0.95 ±0.14 
+
+SR 0.93 ±0.09 0.88 ±0.13 0.97 ±0.07 0.95 ±0.12 0.88 ±0.24 0.92 ±0.15 
+
+OR 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 
+
+CR 0.97 ±0.07 0.97 ±0.07 0.98 ±0.06 1.00 ±0.00 1.00 ±0.00 0.98 ±0.06 
+
+SR 0.97 ±0.07 0.97 ±0.07 0.95 ±0.12 0.92 ±0.10 0.95 ±0.09 0.95 ±0.09 
+
+OR 0.98 ±0.06 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 1.00 ±0.00 0.99 ±0.03 
+
+CR 1.00 ±0.00 0.98 ±0.06 0.97 ±0.07 0.98 ±0.06 1.00 ±0.00 0.99 ±0.05 
+
+C. Inference Models for the Realistic Setting 
+
+We evaluate two inference models under the realistic setting: a baseline trained on real-world data and our model trained entirely in simulation. 
+
+VTM-VAE [13]. We train VTM-VAE using only the real-world grasping dataset from [13], which was collected exclu-sively in white-table scenes (Fig. 5(c)). 
+
+Ours. Without any real-world fine-tuning, we directly de-ploy the best-performing simulation-trained model from room generalization. 
+
+D. Realistic-setting inference procedure 
+
+In each trial, the computer provides three voice prompts in sequence: “hold”, “grasp”, and “fail”. The delay is 2 seconds between “hold” and “grasp”, and 5 seconds between “grasp” and “fail”. 1) Hold: During the hold phase, the participant keeps the prosthetic hand approximately parallel to the tabletop. 2) Grasp: The participant moves their right arm toward the target object. Once the prosthetic hand is properly positioned, the participant waits for the autonomous algorithm to execute the grasp. If the participant judges that the object has been successfully grasped, they lift the object; otherwise, they continue waiting until finger closure is complete or the fail prompt. 3) Fail: If the “fail” prompt is issued before the object is lifted, the trial is terminated and counted as a failure. 
+
+E. Evaluation criteria 
+
+The criteria used in the simulation experiment (Sec. IV-D) were taken as a reference and adjusted to better represent realistic settings. 
+
+Success rate (SR). The ratio of successful grasp trials to total trials. A trial is considered successful if the participant lifts the object during the grasp phase. 
+
+Open during hold rate (OR). The ratio of trials in which the fingers remain open throughout the hold phase. 
+
+Close during grasp rate (CR). Among trials that satisfy Open During Hold, the ratio of trials in which the fingers close during the grasp phase. 
+
+Definition of finger closure and opening. If three or more finger joints have angles greater than 20 degrees, the hand is classified as closed; otherwise, it is classified as open. 
+
+F. Results 
+
+Table III summarizes the performance of the two methods in realistic settings across three scenes, five objects, and 12 participants, using the three criteria mentioned above. Object-wise performance are reported as mean ± standard deviation across participants. Stat-A summarizes performance by aver-aging across participants and objects, and Stat-B summarizes overall performance by averaging across participants, objects, and scenes. 
+
+Overall performance. The main result is that the proposed simulation-trained room-generalization model achieves sub-stantially better overall robustness across scenes. Our method obtains a Stat-B SR of 0.92 ±0.15 , compared with 0.66 ±0.47 
+
+for VTM-VAE. A similar trend is observed for hold-phase stability: our method achieves OR = 0.99 ±0.01 , whereas VTM-VAE achieves OR = 0.67 ±0.47 . For CR (computed over OR trials), our method achieves 0.97 ±0.09 , while VTM-VAE is N/A overall because it completely fails in one scene (yielding no valid OR trials for CR computation in that scene). 
+
+Success rate. VTM-VAE performs near perfectly in the first two scenes (brown and white), with Stat-A SR values of 
+
+0.98 ±0.06 and 0.99 ±0.04 , respectively. However, in the third scene (yellow), VTM-VAE collapses to 0.00 ±0.00 SR across all five objects. This failure pattern indicates strong sensitivity to scene appearance changes (background texture). 9
+
+In contrast, our method maintains high SR in all three scenes, with Stat-A values of 0.90 ±0.19 , 0.92 ±0.15 , and 
+
+0.95 ±0.09 . Although our method is slightly below VTM-VAE in the first two scenes, it remains robust in the third scene, where VTM-VAE fails completely. This cross-scene consistency is the primary source of the large improvement in overall Stat-B SR. 
+
+Open during hold rate. For OR, VTM-VAE again performs well in the first two scenes (Stat-A: 1.00 ±0.00 and 0.99 ±0.03 )but drops to 0.00 ±0.00 in the third scene. This indicates that the baseline cannot reliably maintain an open hand during the hold phase under the shifted scene condition. Our method maintains near-ceiling OR in all scenes, with Stat-A values of 1.00 ±0.00 , 1.00 ±0.00 , and 0.99 ±0.03 . These results show that the proposed method preserves stable hold-phase behavior under scene variation and avoids scene-induced false triggering. 
+
+Close during grasp rate. CR is computed over trials satisfying OR and measures whether finger closure occurs during the grasp phase. VTM-VAE achieves CR = 1.00 ±0.00 in the first two scenes, but CR is N/A in the third scene because no trials satisfy OR there for calculation. Our method achieves high and consistent CR across all scenes, with Stat-A values of 0.95 ±0.14 , 0.98 ±0.06 , and 
+
+0.99 ±0.05 . This indicates that once a stable hold is established, the method reliably transitions to timely finger closure across different scene appearances. 
+
+Scene-level interpretation. The dominant performance dif-ference between the two methods is driven by scene variation rather than object identity. VTM-VAE performs strongly in two scenes but fails uniformly across all objects in the third scene, suggesting a severe visual domain shift. In contrast, our method remains effective in all three scenes, which is consistent with the use of procedurally varied simulation environments during training. 
+
+Object-level trends. For our method, SR remains high across all five objects in all scenes, with moderate variation depending on the object-scene combination (e.g., lower SR for some objects in the first and second scenes). Importantly, these fluctuations remain localized and do not cause scene-wide failure. By contrast, the VTM-VAE degradation in the third scene affects all objects simultaneously, indicating poor scene-level generalization. Overall, these results demonstrate that simulation-based room generalization model improves realistic-setting robust-ness to scene appearance changes, even if it yields slightly lower in-domain performance in easier scenes. 
+
+G. Failure mode analysis 
+
+To better understand the limitations of realistic-setting de-ployment, we categorize all unsuccessful trials into five failure modes (Table IV). The most common failures are insufficient grip force / slip (32 cases) and no finger closure during the grasp phase (25 cases), which together account for the majority of failures. These outcomes suggest that failures are dominated by either (i) missed or delayed grasp triggering (no closure), or (ii) insufficient grasp quality after closure (unstable grasp leading to slip or loss).       
+
+> TABLE IV BREAKDOWN OF FAILURE MODES FOR UNSUCCESSFUL REALISTIC -SETTING GRASP TRIALS .
+> Failure mode Count
+> No finger closure during grasp phase 25 Insufficient grip force / slip 32 Object pushed away during grasp 8Poor prosthetic hand pose 3Premature closure during hold phase 1
+
+Less frequent failure modes include the object being pushed away during approach/contact (8 cases) and poor hand pose/misalignment (3 cases), indicating that approach trajectory and end-effector alignment can still lead to failures even when the grasp controller behaves as intended. Finally, premature closure during the hold phase is rare (1 case), consistent with the high OR values reported in Table III and suggesting that unintended closure during hold is not a major issue in our setup. 
+
+VI. C ONCLUSION AND FUTURE WORK 
+
+In this work, we presented a simulation-driven imitation learning framework for biosignals-free shared-autonomy pros-thetic grasping. By automatically generating diverse reach-to-grasp demonstrations in simulation, the proposed pipeline reduces the reliance on large-scale real-world human demon-strations and enables scalable policy training for sim-to-real transfer. Experimental results in three real-world scenarios showed that the learned policy achieved grasping success rates of over 90% and demonstrated stronger generalization than baseline methods. These findings indicate that simulation-driven imitation learning is a promising and practical direction for developing scalable biosignals-free shared-autonomy pros-thetic grasping systems. Future work will expand the dataset in terms of object and environment diversity, incorporate richer interaction dynamics such as multi-object clutter and articulated objects, improve sim-to-real transfer through better calibration and domain adaptation, and generalize the frame-work to a broader range of prosthetic hands and amputation types. 
+
+REFERENCES         
+
+> [1] A. S. Dhawan, B. Mukherjee, S. Patwardhan, N. Akhlaghi, G. Diao, G. Levay, R. Holley, W. M. Joiner, M. Harris-Love, and S. Sikdar, “Proprioceptive sonomyographic control: A novel method for intuitive and proportional control of multiple degrees-of-freedom for individuals with upper extremity limb loss,” Scientific reports , vol. 9, no. 1, p. 9499, 2019. [2] D. Farina, N. Jiang, H. Rehbaum, A. Holobar, B. Graimann, H. Dietl, and O. C. Aszmann, “The extraction of neural information from the surface emg for the control of upper-limb prostheses: emerging avenues and challenges,” IEEE transactions on neural systems and rehabilitation engineering , vol. 22, no. 4, pp. 797–809, 2014. [3] C. Cipriani, C. Antfolk, M. Controzzi, G. Lundborg, B. Ros´ en, M. C. Carrozza, and F. Sebelius, “Online myoelectric control of a dexterous hand prosthesis by transradial amputees,” IEEE Transactions on Neural Systems and Rehabilitation Engineering , vol. 19, no. 3, pp. 260–270, 2011. [4] A. D. Roche, H. Rehbaum, D. Farina, and O. C. Aszmann, “Prosthetic myoelectric control strategies: a clinical perspective,” Current Surgery Reports , vol. 2, pp. 1–11, 2014. 10
+
+[5] A. Nasr, S. Bell, J. He, R. L. Whittaker, N. Jiang, C. R. Dickerson, and J. McPhee, “Musclenet: mapping electromyography to kinematic and dynamic biomechanical variables by machine learning,” Journal of Neural Engineering , vol. 18, no. 4, p. 0460d3, 2021. [6] R. Boostani and M. H. Moradi, “Evaluation of the forearm emg signal features for the control of a prosthetic hand,” Physiological Measurement , vol. 24, no. 2, p. 309, 2003. [7] S. A. Dalley, H. A. Varol, and M. Goldfarb, “A method for the control of multigrasp myoelectric prosthetic hands,” IEEE Transactions on Neural Systems and Rehabilitation Engineering , vol. 20, no. 1, pp. 58–67, 2011. [8] T. R. Farrell and R. F. Weir, “The optimal controller delay for myoelec-tric prostheses,” IEEE Transactions on neural systems and rehabilitation engineering , vol. 15, no. 1, pp. 111–118, 2007. [9] J. Wang, M. Pang, P. Yu, B. Tang, K. Xiang, and Z. Ju, “Effect of muscle fatigue on surface electromyography-based hand grasp force estimation,” 
+
+Applied Bionics and Biomechanics , vol. 2021, no. 1, p. 8817480, 2021. [10] B. Fang, C. Wang, F. Sun, Z. Chen, J. Shan, H. Liu, W. Ding, and W. Liang, “Simultaneous semg recognition of gestures and force levels for interaction with prosthetic hand,” IEEE Transactions on Neural Systems and Rehabilitation Engineering , vol. 30, pp. 2426–2436, 2022. [11] S. Doˇ sen, C. Cipriani, M. Kosti´ c, M. Controzzi, M. C. Carrozza, and D. B. Popovi´ c, “Cognitive vision system for control of dexterous prosthetic hands: experimental evaluation,” Journal of Neuroengineering and Rehabilitation , vol. 7, pp. 1–14, 2010. [12] Y. He, R. Kubozono, O. Fukuda, N. Yamaguchi, and H. Okumura, “Vision-based assistance for myoelectric hand control,” IEEE Access ,vol. 8, pp. 201 956–201 965, 2020. [13] K. Shi, W. Lu, H. Zhao, V. Prado da Fonseca, T. Zou, and X. Jiang, “Toward biosignals-free autonomous prosthetic hand control via imita-tion learning,” IEEE Transactions on Neural Systems and Rehabilitation Engineering , vol. 33, pp. 3544–3554, 2025. [14] C. Alessi, F. Vasile, F. Ceola, G. Pasquale, N. Boccardo, and L. Natale, “Hannesimitation: Grasping with the hannes prosthetic hand via imita-tion learning,” in 2025 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) . IEEE, 2025, pp. 10 085–10 092. [15] A. Gupta, A. Murali, D. P. Gandhi, and L. Pinto, “Robot learning in homes: Improving generalization and reducing dataset bias,” Advances in neural information processing systems , vol. 31, 2018. [16] J. Tobin, R. Fong, A. Ray, J. Schneider, W. Zaremba, and P. Abbeel, “Domain randomization for transferring deep neural networks from simulation to the real world,” in 2017 IEEE/RSJ international conference on intelligent robots and systems (IROS) . IEEE, 2017, pp. 23–30. [17] K. Hsu, M. J. Kim, R. Rafailov, J. Wu, and C. Finn, “Vision-based manipulators need to also see from their hands.” in ICLR , 2022. [18] M. Kim, K. Pertsch, S. Karamcheti, T. Xiao, A. Balakrishna, S. Nair, R. Rafailov, E. Foster, G. Lam, P. Sanketi, Q. Vuong, T. Kollar, B. Burch-fiel, R. Tedrake, D. Sadigh, S. Levine, P. Liang, and C. Finn, “Open-vla: An open-source vision-language-action model,” arXiv preprint arXiv:2406.09246 , 2024. [19] J. Xie and X. Hu, “Virtual reality for evaluating prosthetic hand control strategies: A preliminary report,” in 2021 43rd Annual International Conference of the IEEE Engineering in Medicine & Biology Society (EMBC) . IEEE, 2021, pp. 6263–6266. [20] P. Geethanjali and K. Ray, “A low-cost real-time research platform for emg pattern recognition-based prosthetic hand,” IEEE/ASME Transac-tions on Mechatronics , vol. 20, no. 4, pp. 1948–1955, 2014. [21] G. K. Patel, C. Castellini, J. M. Hahne, D. Farina, and S. Dosen, “A classification method for myoelectric control of hand prostheses inspired by muscle coordination,” IEEE Transactions on Neural Systems and Rehabilitation Engineering , vol. 26, no. 9, pp. 1745–1755, 2018. [22] J. M. Hahne, S. D¨ ahne, H.-J. Hwang, K.-R. M¨ uller, and L. C. Parra, “Concurrent adaptation of human and machine improves simultaneous and proportional myoelectric control,” IEEE Transactions on Neural Systems and Rehabilitation Engineering , vol. 23, no. 4, pp. 618–627, 2015. [23] N. Jiang, S. Dosen, K.-R. Muller, and D. Farina, “Myoelectric control of artificial limbs—is there a need to change focus?[in the spotlight],” 
+
+IEEE Signal Processing Magazine , vol. 29, no. 5, pp. 152–150, 2012. [24] N. Jiang, H. Rehbaum, I. Vujaklija, B. Graimann, and D. Farina, “In-tuitive, online, simultaneous, and proportional myoelectric control over two degrees-of-freedom in upper limb amputees,” IEEE transactions on neural systems and rehabilitation engineering , vol. 22, no. 3, pp. 501– 510, 2013. [25] Y. Xu, X. Wang, J. Li, X. Zhang, F. Li, Q. Gao, C. Fu, and Y. Leng, “A powered prosthetic hand with vision system for enhancing the anthropo-pathic grasp,” IEEE Transactions on Neural Systems and Rehabilitation Engineering , 2025. [26] F. Montagnani, M. Controzzi, and C. Cipriani, “Exploiting arm posture synergies in activities of daily living to control the wrist rotation in upper limb prostheses: A feasibility study,” in 2015 37th Annual International Conference of the IEEE Engineering in Medicine and Biology Society .IEEE, 2015, pp. 2462–2465. [27] J. K¨ uhn, T. Hu, A. T¨ odtheide, E. Pozo Fortuni´ c, E. Jensen, and S. Haddadin, “The synergy complement control approach for seamless limb-driven prostheses,” Nature Machine Intelligence , vol. 6, no. 4, pp. 481–492, 2024. [28] M. Merad, E. De Montalivet, M. Legrand, E. Mastinu, M. Ortiz-Catalan, A. Touillet, N. Martinet, J. Paysant, A. Roby-Brami, and N. Jarrasse, “Assessment of an automatic prosthetic elbow control strategy using residual limb motion for transhumeral amputated individuals with socket or osseointegrated prostheses,” IEEE Transactions on Medical Robotics and Bionics , vol. 2, no. 1, pp. 38–49, 2020. [29] D. A. Bennett and M. Goldfarb, “Imu-based wrist rotation control of a transradial myoelectric prosthesis,” IEEE Transactions on Neural Systems and Rehabilitation Engineering , vol. 26, no. 2, pp. 419–427, 2017. [30] P. M. Pilarski, M. R. Dawson, T. Degris, J. P. Carey, and R. S. Sutton, “Dynamic switching and real-time machine learning for im-proved human control of assistive biomedical robots,” in 2012 4th IEEE RAS & EMBS International Conference on Biomedical Robotics and Biomechatronics . IEEE, 2012, pp. 296–302. [31] E. Mastinu, A. Coletti, J. van den Berg, and C. Cipriani, “Explorations of autonomous prosthetic grasping via proximity vision and deep learning,” 
+
+IEEE Transactions on Medical Robotics and Bionics , 2024. [32] S.-H. Heo and H.-S. Park, “Proximity perception-based grasping intel-ligence: toward the seamless control of a dexterous prosthetic hand,” 
+
+IEEE/ASME Transactions on Mechatronics , vol. 29, no. 3, pp. 2079– 2090, 2023. [33] H.-S. Fang, C. Wang, M. Gou, and C. Lu, “Graspnet-1billion: A large-scale benchmark for general object grasping,” in Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , 2020, pp. 11 444–11 453. [34] J. Chen, Y. Ke, and H. Wang, “Bodex: Scalable and efficient robotic dexterous grasp synthesis using bilevel optimization,” in 2025 IEEE International Conference on Robotics and Automation (ICRA) . IEEE, 2025, pp. 01–08. [35] R. Wang, J. Zhang, J. Chen, Y. Xu, P. Li, T. Liu, and H. Wang, “Dexgraspnet: A large-scale robotic dexterous grasp dataset for general objects based on simulation,” arXiv preprint arXiv:2210.02697 , 2022. [36] H. Liu, H. Li, C. Jiang, S. Xue, Y. Zhao, X. Huang, and Z. Jiang, “Struc-tured local feature-conditioned 6-dof variational grasp detection network in cluttered scenes,” IEEE/ASME Transactions on Mechatronics , 2024. [37] H. Yu, X. Zhang, Z. Zhao, and C. He, “Trustworthy robotic grasp-ing: A credibility alignment framework via self-regulation encoding,” 
+
+IEEE/ASME Transactions on Mechatronics , 2025. [38] W. Xu, Z. Geng, X. Shi, W. Guo, and X. Sheng, “Anthropomorphic grasp motion planning for humanoid robots via learned riemannian metric and dextrous grasp evaluator,” IEEE/ASME Transactions on Mechatronics ,2025. [39] Q. Wang, K. Bai, L. Zhang, Q. Li, A. Knoll, J. Zhang, Y. Ying, and M. Zhou, “Toward collision-aware robotic fragile fruit grasping: A sim-to-real framework for perception, reasoning, and execution,” 
+
+IEEE/ASME Transactions on Mechatronics , 2025. [40] J. Zhang, H. Liu, D. Li, X. Yu, H. Geng, Y. Ding, J. Chen, and H. Wang, “Dexgraspnet 2.0: Learning generative dexterous grasping in large-scale synthetic cluttered scenes,” in 8th Annual Conference on Robot Learning , 2024. [41] J. Tobin, L. Biewald, R. Duan, M. Andrychowicz, A. Handa, V. Ku-mar, B. McGrew, A. Ray, J. Schneider, P. Welinder et al. , “Domain randomization and generative models for robotic grasping,” in 2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) . IEEE, 2018, pp. 3482–3489. [42] J. Huber, F. H´ el´ enon, H. Watrelot, F. B. Amar, and S. Doncieux, “Domain randomization for sim2real transfer of automatically generated grasping datasets,” in 2024 IEEE international conference on robotics and automation (ICRA) . IEEE, 2024, pp. 4112–4118. [43] T. Z. Zhao, V. Kumar, S. Levine, and C. Finn, “Learning fine-grained bimanual manipulation with low-cost hardware,” arXiv preprint arXiv:2304.13705 , 2023. [44] A. Mandlekar, C. R. Garrett, D. Xu, and D. Fox, “Human-in-the-loop task and motion planning for imitation learning,” in Conference on Robot Learning . PMLR, 2023, pp. 3030–3060. [45] S. Choudhury, M. Bhardwaj, S. Arora, A. Kapoor, G. Ranade, S. Scherer, and D. Dey, “Data-driven planning via imitation learning,” The Interna-11 
+
+tional Journal of Robotics Research , vol. 37, no. 13-14, pp. 1632–1672, 2018. [46] M. Zare, P. M. Kebria, A. Khosravi, and S. Nahavandi, “A survey of imitation learning: Algorithms, recent developments, and challenges,” 
+
+IEEE Transactions on Cybernetics , vol. 54, no. 12, pp. 7173–7186, 2024. [47] C. Chi, Z. Xu, S. Feng, E. Cousineau, Y. Du, B. Burchfiel, R. Tedrake, and S. Song, “Diffusion policy: Visuomotor policy learning via ac-tion diffusion,” The International Journal of Robotics Research , p. 02783649241273668, 2023. [48] F. Torabi, G. Warnell, and P. Stone, “Behavioral cloning from observa-tion,” arXiv preprint arXiv:1805.01954 , 2018. [49] S. Ross, G. Gordon, and D. Bagnell, “A reduction of imitation learning and structured prediction to no-regret online learning,” in Proceedings of the fourteenth international conference on artificial intelligence and statistics . JMLR Workshop and Conference Proceedings, 2011, pp. 627–635. [50] M. Kelly, C. Sidrane, K. Driggs-Campbell, and M. J. Kochenderfer, “Hg-dagger: Interactive imitation learning with human experts,” in 2019 International Conference on Robotics and Automation (ICRA) . IEEE, 2019, pp. 8077–8083. [51] S. Levine, C. Finn, T. Darrell, and P. Abbeel, “End-to-end training of deep visuomotor policies,” Journal of Machine Learning Research ,vol. 17, no. 39, pp. 1–40, 2016. [52] S. James, P. Wohlhart, M. Kalakrishnan, D. Kalashnikov, A. Irpan, J. Ibarz, S. Levine, R. Hadsell, and K. Bousmalis, “Sim-to-real via sim-to-sim: Data-efficient robotic grasping via randomized-to-canonical adaptation networks,” in Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , 2019, pp. 12 627–12 637. [53] S. Patel, X. Yin, W. Huang, S. Garg, H. Nayyeri, L. Fei-Fei, S. Lazebnik, and Y. Li, “A real-to-sim-to-real approach to robotic manipulation with vlm-generated iterative keypoint rewards,” in 2025 IEEE International Conference on Robotics and Automation (ICRA) . IEEE, 2025, pp. 8258–8266. [54] H. Ju, R. Juan, R. Gomez, K. Nakamura, and G. Li, “Transferring policy of deep reinforcement learning from simulation to reality for robotics,” 
+
+Nature Machine Intelligence , vol. 4, no. 12, pp. 1077–1087, 2022. [55] L. Ankile, Z. Jiang, R. Duan, G. Shi, P. Abbeel, and A. Nagabandi, “Residual off-policy rl for finetuning behavior cloning policies,” arXiv preprint arXiv:2509.19301 , 2025. [56] L. Downs, A. Francis, N. Koenig, B. Kinman, R. Hickman, K. Reymann, T. B. McHugh, and V. Vanhoucke, “Google scanned objects: A high-quality dataset of 3d scanned household items,” in 2022 International Conference on Robotics and Automation (ICRA) . IEEE, 2022, pp. 2553–2560. [57] L. F. Casas, N. Khargonkar, B. Prabhakaran, and Y. Xiang, “Multi-grippergrasp: A dataset for robotic grasping from parallel jaw grippers to dexterous hands,” in 2024 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) . IEEE, 2024, pp. 2978–2984. [58] PSYONIC, “The world’s first touch-sensing bionic hand,” [Online]. Available: https://www.psyonic.io/, 2024, accessed: 2026-01-19. [59] A. Raistrick, L. Mei, K. Kayan, D. Yan, Y. Zuo, B. Han, H. Wen, M. Parakh, S. Alexandropoulos, L. Lipson et al. , “Infinigen indoors: Photorealistic indoor scenes using procedural generation,” in Proceed-ings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , 2024, pp. 21 783–21 794. [60] J. Chen, Y. Ke, and H. Wang, “Bodex: Scalable and efficient robotic dexterous grasp synthesis using bilevel optimization,” arXiv preprint arXiv:2412.16490 , 2024. [61] G. Stracquadanio, F. Vasile, E. Maiettini, N. Boccardo, and L. Natale, “Bring your own grasp generator: Leveraging robot grasp generation for prosthetic grasping,” arXiv preprint arXiv:2503.00466 , 2025. [62] M. Sundermeyer, A. Mousavian, R. Triebel, and D. Fox, “Contact-graspnet: Efficient 6-dof grasp generation in cluttered scenes,” in 2021 IEEE International Conference on Robotics and Automation (ICRA) .IEEE, 2021, pp. 13 438–13 444. [63] T. Wu, M. Wu, J. Zhang, Y. Gan, and H. Dong, “Learning score-based grasping primitive for human-assisting dexterous grasping,” Advances in Neural Information Processing Systems , vol. 36, pp. 22 132–22 150, 2023. [64] Y.-W. Chao, W. Yang, Y. Xiang, P. Molchanov, A. Handa, J. Tremblay, Y. S. Narang, K. Van Wyk, U. Iqbal, S. Birchfield et al. , “Dexycb: A benchmark for capturing hand grasping of objects,” in Proceedings of the IEEE/CVF conference on computer vision and pattern recognition ,2021, pp. 9044–9053.

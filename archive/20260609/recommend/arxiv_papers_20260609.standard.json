@@ -1,0 +1,345 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-09T21:56:24.230317+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 7,
+    "quick_skim_target": 11,
+    "quick_selected": 7
+  },
+  "deep_dive": [
+    {
+      "id": "2606.07083v1",
+      "source": "arxiv",
+      "title": "Predictive Style Matching: Natural and Robust Humanoid Locomotion",
+      "abstract": "Reinforcement learning has become the prevailing approach to humanoid locomotion control: policies transfer reliably from simulation to hardware and recover gracefully from disturbances.   Motion quality, however, still lags behind: task-only rewards often converge to stiff, asymmetric gaits, while motion imitation methods improve appearance but become more sensitive to external disturbances because reference signals can oppose the transient poses needed to regain balance.   We propose Predictive Style Matching, in which an offline predictor maps the robot's lower-body state history and velocity commands to interpretable upper-body joint and gait targets that shape the rewards during training.   Because the targets are state-conditioned rather than time-indexed and the predictor is used only at training time, the deployed controller inherits the proprioceptive interface and inference cost of a task-only RL baseline.   On the Unitree G1, in both simulation and hardware, PSM reduces upper-body style error by roughly an order of magnitude over task-only RL while preserving its fall-recovery rate, whereas the motion-imitation baseline attains the lowest style error but fails to recover from disturbances about five times as often.",
+      "authors": [
+        "Simeon Nedelchev",
+        "Ekaterina Chaikovskaia",
+        "Egor Davydenko",
+        "Eduard Zaliaev",
+        "Roman Gorbachev"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-06-05T09:21:20+00:00",
+      "link": "https://arxiv.org/pdf/2606.07083v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "RL for humanoid locomotion gait synthesis and style matching",
+      "llm_evidence_cn": "利用强化学习进行人形机器人步态合成与风格匹配",
+      "llm_evidence": "利用强化学习进行人形机器人步态合成与风格匹配",
+      "canonical_evidence": "利用强化学习进行人形机器人步态合成与风格匹配",
+      "llm_tldr_en": "Proposes Predictive Style Matching for natural and robust humanoid locomotion using RL, improving gait quality while maintaining robustness to disturbances.",
+      "llm_tldr_cn": "该论文针对人形机器人运动控制中的步态质量与鲁棒性矛盾，提出预测性风格匹配方法：通过离线预测器将机器人下肢状态映射为可解释的上身关节和目标步态参数，用于塑造训练奖励。强化学习训练的机器人步态更自然且抵抗干扰，直接服务于人类步态合成与优化需求。",
+      "llm_tldr": "该论文针对人形机器人运动控制中的步态质量与鲁棒性矛盾，提出预测性风格匹配方法：通过离线预测器将机器人下肢状态映射为可解释的上身关节和目标步态参数，用于塑造训练奖励。强化学习训练的机器人步态更自然且抵抗干扰，直接服务于人类步态合成与优化需求。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "reinforcement learning for human gait synthesis and optimization",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.08735v1",
+      "source": "arxiv",
+      "title": "Structure-Conditioned Actor-Critic Branches for Quality-Diversity Reinforcement Learning",
+      "abstract": "Quality-diversity reinforcement learning (QD-RL) aims to construct policy repertoires that contain both high-performing and behaviorally diverse policies. Existing QD-RL methods mainly diversify policy instances after rollout evaluation or use learned value information to improve policy quality and behavior targeting, while the learning branches that generate candidate policies remain less explored. This paper proposes SV-QD-RL, a structure-value coupled framework that represents each candidate as a structure-conditioned actor-critic branch. Each branch contains an actor, a structural mask, a branch-specific critic, a replay state, and evaluation attributes including behavior, return, sparsity, and value profile. The structural mask defines the actor subspace in which the branch learns, while the branch-specific critic and replay state shape its value-learning trajectory. A branch-aware QD archive then evaluates and retains branches according to behavioral quality, structural footprint, and value-profile information. Experiments on MuJoCo continuous-control tasks show that SV-QD-RL constructs policy repertoires with strong archive quality and behaviorally useful diversity. Ablation and diagnostic analyses further indicate that structural conditioning, critic differentiation, and memory-consistent refinement make complementary contributions to behavioral specialization. Schedule-aware repertoire evaluation shows that the learned archive provides selectable policy alternatives under changing behavior-level requirements. These results suggest that coupling actor structure with branch-specific value learning is an effective mechanism for generating diverse QD-RL policy repertoires.",
+      "authors": [
+        "Lianrong Zuo",
+        "Peilan Xu",
+        "Yong Liu",
+        "Wenjian Luo"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-07T17:08:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.08735v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "quality-diversity RL for generating diverse policy repertoires applicable to gait synthesis or motor skill discovery",
+      "llm_evidence_cn": "质量多样性强化学习方法可生成多样化的策略库适用于步态合成或运动技能发现",
+      "llm_evidence": "质量多样性强化学习方法可生成多样化的策略库适用于步态合成或运动技能发现",
+      "canonical_evidence": "质量多样性强化学习方法可生成多样化的策略库适用于步态合成或运动技能发现",
+      "llm_tldr_en": "SV-QD-RL proposes structure-conditioned actor-critic branches to generate diverse and high-performing policies in QD-RL enabling efficient exploration of behavioral space for tasks like gait synthesis",
+      "llm_tldr_cn": "现有多样性强化学习方法在策略生成阶段缺乏结构引导导致多样性不足或质量欠佳本文提出SV-QD-RL框架将每个候选策略表示为结构条件演员-评论家分支通过结构掩码和价值轮廓指导策略生成实验表明该方法在多个连续控制任务中产生了更高质量和多样性的策略库该框架可用于肌肉骨骼系统的步态优化与多样性探索",
+      "llm_tldr": "现有多样性强化学习方法在策略生成阶段缺乏结构引导导致多样性不足或质量欠佳本文提出SV-QD-RL框架将每个候选策略表示为结构条件演员-评论家分支通过结构掩码和价值轮廓指导策略生成实验表明该方法在多个连续控制任务中产生了更高质量和多样性的策略库该框架可用于肌肉骨骼系统的步态优化与多样性探索",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "reinforcement learning for human gait synthesis and optimization",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.06944v1",
+      "source": "arxiv",
+      "title": "T-GMP: Terrain-conditioned Generative Motion Priors for Versatile and Natural Humanoid Locomotion",
+      "abstract": "Achieving both anthropomorphic naturalness and robust terrain traversal remains a fundamental challenge in humanoid locomotion. Existing Reinforcement Learning (RL) approaches typically rely on fixed motion priors, limiting their adaptability to varying environments. We propose Terrain-conditioned Generative Motion Priors (T-GMP), a module that captures a terrain-conditioned latent motion manifold from a few expert state-terrain demonstrations using a Conditional Variational Autoencoder (CVAE). The learned priors enable smooth style transitions, facilitating a unified policy that adapts to terrain variations. We integrate T-GMP into an adversarial learning pipeline with our proposed Foothold Penalty, where a discriminator dynamically modulates naturalness constraints conditioned on local terrain features, guiding the generation of versatile and human-like motions. Experimental results demonstrate that our method outperforms existing baselines in traversal success rate and motion smoothness, while preserving biomimetically natural and physically coordinated motions.",
+      "authors": [
+        "Junhong Guo",
+        "Hao Hu",
+        "Chen Chen",
+        "Haoxuan Han",
+        "Linao Gong",
+        "Xin Yang",
+        "Zhicheng He",
+        "Yao Su",
+        "Fenghua He"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-06-05T06:15:42+00:00",
+      "link": "https://arxiv.org/pdf/2606.06944v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "RL-based humanoid locomotion with terrain-conditioned motion priors, relevant to human gait",
+      "llm_evidence_cn": "基于RL的人形机器人步态，使用地形条件运动先验，与人类步态相关",
+      "llm_evidence": "基于RL的人形机器人步态，使用地形条件运动先验，与人类步态相关",
+      "canonical_evidence": "基于RL的人形机器人步态，使用地形条件运动先验，与人类步态相关",
+      "llm_tldr_en": "T-GMP uses conditional VAE to learn terrain-conditioned motion priors for RL-based humanoid locomotion, enabling natural and adaptive gait.",
+      "llm_tldr_cn": "针对固定运动先验限制RL步态适应性的问题，该论文提出地形条件生成运动先验（T-GMP），利用条件变分自编码器从少量专家演示中学习地形相关的隐式运动流形。该先验嵌入对抗学习框架，使统一策略能够平滑切换步态风格，实现自然且鲁棒的步态，对人类步态合成与优化具有直接借鉴意义。",
+      "llm_tldr": "针对固定运动先验限制RL步态适应性的问题，该论文提出地形条件生成运动先验（T-GMP），利用条件变分自编码器从少量专家演示中学习地形相关的隐式运动流形。该先验嵌入对抗学习框架，使统一策略能够平滑切换步态风格，实现自然且鲁棒的步态，对人类步态合成与优化具有直接借鉴意义。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "reinforcement learning for human gait synthesis and optimization",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.09337v1",
+      "source": "arxiv",
+      "title": "TORL-VLA: Tactile Guided Online Reinforcement Learning for Contact-Rich Manipulation",
+      "abstract": "Vision-Language-Action (VLA) models have become a powerful framework for robotic manipulation, and recent studies have introduced tactile or force feedback into VLAs to address contact-rich tasks. However, these models are typically deployed as offline policies. When contact conditions shift from the training distribution, the policy cannot perform online adaptation, leading to problems such as inappropriate contact forces and inefficient retries. Therefore, we propose TORL-VLA, a tactile-guided online reinforcement learning framework that couples tactile feedback with policy refinement for contact-rich manipulation. Our method introduces a tactile-derived wrench-aware VLA to predict reference actions and future wrench sequences, while a lightweight online RL module is used to refine the reference actions. To stabilize learning from mixed exploratory policy-generated and human-intervention data, we introduce an intervention-censored critic that prevents post-intervention success from being wrongly credited to policy-generated actions preceding intervention. Real-robot experiments on long-horizon contact-rich tasks, including latch manipulation, coffee-cup placement, and egg handling, show that TORL-VLA improves success rates at both subtask and full-task levels, as well as time-bounded execution efficiency over strong baselines.",
+      "authors": [
+        "Huaihang Zheng",
+        "Yi Yang",
+        "Kai Ma",
+        "Shenglin Xu",
+        "Tian Xie",
+        "Guozheng Li",
+        "Xiangyu Wang",
+        "Yiren Ma",
+        "Si Liu",
+        "Yinian Mao",
+        "Baoxu Liu"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-06-08T11:05:05+00:00",
+      "link": "https://arxiv.org/pdf/2606.09337v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "online RL with tactile feedback for contact-rich manipulation applicable to rehabilitation robotics with force interaction",
+      "llm_evidence_cn": "结合触觉反馈的在线强化学习方法适用于需要力交互的康复机器人",
+      "llm_evidence": "结合触觉反馈的在线强化学习方法适用于需要力交互的康复机器人",
+      "canonical_evidence": "结合触觉反馈的在线强化学习方法适用于需要力交互的康复机器人",
+      "llm_tldr_en": "TORL-VLA integrates tactile feedback with online RL for contact-rich manipulation enabling policy adaptation to changing contact conditions via a wrench-aware VLA",
+      "llm_tldr_cn": "触觉或力反馈在离线策略下难以适应接触条件变化本文提出TORL-VLA将触觉反馈与在线强化学习结合通过触觉衍生的力觉感知VLA预测参考动作和未来力序列并利用在线RL更新策略在接触密集操作任务中实现了高效的在线适应该方法可迁移至康复机器人等需要力交互的场景",
+      "llm_tldr": "触觉或力反馈在离线策略下难以适应接触条件变化本文提出TORL-VLA将触觉反馈与在线强化学习结合通过触觉衍生的力觉感知VLA预测参考动作和未来力序列并利用在线RL更新策略在接触密集操作任务中实现了高效的在线适应该方法可迁移至康复机器人等需要力交互的场景",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "reinforcement learning for exoskeleton assistance and rehabilitation",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.06967v1",
+      "source": "arxiv",
+      "title": "GenPO++: Generative Policy Optimization with Jacobian-free Likelihood Ratios",
+      "abstract": "Generative policies provide expressive and multimodal action distributions, making them attractive for reinforcement learning (RL) in complex continuous-control tasks. Among them, flow-based policies are especially appealing because they generate actions through deterministic transport maps. However, applying such generative policies to likelihood-based on-policy learning remains limited by the difficulty of evaluating the probability of executed actions. Existing flow RL methods either replace the true action-density ratio with approximate surrogates, which can introduce biased updates, or recover exact likelihoods through dummy-action augmentation, which enlarges the policy space and increases computation. In this work, we propose GenPO++, a reversible generative policy optimization framework that uses history states as auxiliary memory in a high-order reversible ODE solver, yielding exact inversion without changing the original action dimension. The resulting generative policy map has a log-determinant determined only by fixed solver coefficients, enabling exact and Jacobian-free likelihood-ratio computation. This design preserves the expressiveness of generative flow policies while avoiding both action ratio bias and dummy-action overhead. We evaluate GenPO++ on large-scale simulated control, fine-tuning, and real-world robotic manipulation tasks, where it achieves competitive or superior performance over state-of-the-art on-policy RL methods, while improving training stability and computational efficiency.",
+      "authors": [
+        "Ke Hu",
+        "Shutong Ding",
+        "Panxin Tao",
+        "Jingya Wang",
+        "Ye Shi"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-05T06:54:09+00:00",
+      "link": "https://arxiv.org/pdf/2606.06967v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "generative RL method for continuous control transferable to motor control of musculoskeletal systems",
+      "llm_evidence_cn": "生成式强化学习方法适用于连续控制可迁移至肌肉骨骼系统运动控制",
+      "llm_evidence": "生成式强化学习方法适用于连续控制可迁移至肌肉骨骼系统运动控制",
+      "canonical_evidence": "生成式强化学习方法适用于连续控制可迁移至肌肉骨骼系统运动控制",
+      "llm_tldr_en": "GenPO++ proposes a Jacobian-free likelihood ratio method for flow-based generative policies in RL enabling unbiased updates without dummy-action augmentation improving sample efficiency in continuous control",
+      "llm_tldr_cn": "现有流式生成策略在强化学习中面临动作概率评估难题常用近似替代或哑动作增广导致偏差或计算开销本文提出GenPO++采用无雅可比似然比方法精确计算动作密度比避免偏差并降低计算量在连续控制任务上验证了方法的有效性和样本效率提升该方法具有通用性可应用于肌肉骨骼系统等复杂连续控制场景",
+      "llm_tldr": "现有流式生成策略在强化学习中面临动作概率评估难题常用近似替代或哑动作增广导致偏差或计算开销本文提出GenPO++采用无雅可比似然比方法精确计算动作密度比避免偏差并降低计算量在连续控制任务上验证了方法的有效性和样本效率提升该方法具有通用性可应用于肌肉骨骼系统等复杂连续控制场景",
+      "llm_tags": [
+        "query:msk-rl:composite"
+      ],
+      "matched_query_tag": "query:msk-rl:composite",
+      "matched_query_text": "Papers central to 肌肉骨骼系统的强化学习, especially work that connects or combines: reinforcement learning for motor control of musculoskeletal systems; control of musculoskeletal systems using reinforcement learning; biomechanical simulation of human movement with reinforcement learning; reinforcement learning for exoskeleton assistance and rehabilitation; reinforcement learning for human gait synthesis and optimization; How to apply reinforcement learning to control musculoskeletal simulations?; Experiments combining reinforcement learning with biomechanical models for rehabilitation robotics..",
+      "matched_requirement_id": "req-composite-msk-rl",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-03-729998-v1",
+      "source": "biorxiv",
+      "title": "ANNet: A first-principles neural network for forward and inverse dynamics",
+      "abstract": "Biological and robotic systems must solve two related computations to move: inverse dynamics, which determines the forces or torques needed to produce a desired movement, and forward dynamics, which maps applied forces to motion. Although these computations are coupled by the same equations of motion, they are usually estimated or implemented as distinct inverse and forward mappings, in both model-based and data-driven formulations. This separation can obscure the shared structure that constrains both problems. Here, we present ANNet, a physics-informed neural network that places both computations on a common learned representation by learning a single scalar quantity from classical mechanics--Appell acceleration energy. The network maps kinematic state and candidate accelerations to this scalar function, and inverse dynamics is obtained by differentiating the learned energy function with respect to acceleration to recover joint torques. Forward dynamics is then calculated without retraining by embedding the same learned energy landscape in an optimization objective whose unconstrained minimum satisfies the Gibbs-Appell equation. The resulting accelerations are integrated forward in time. We evaluate ANNet on a double pendulum paradigm. In trials unseen by the network during training, inverse and optimization-based forward simulations are real-time accurate. Our results provide a first-principles route for using a single learned representation to support both prediction and control.",
+      "authors": [
+        "Bahdasariants, S.",
+        "Parola, L.",
+        "Kacker, K.",
+        "Feldman, A. K.",
+        "Zdobinski, Z.",
+        "Kang, I.",
+        "Weber, D. J."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-08T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.03.729998v1.full.pdf",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "physics-informed neural network for forward/inverse dynamics, applicable to biomechanical simulation",
+      "llm_evidence_cn": "物理信息神经网络用于正/逆向动力学，可应用于生物力学模拟",
+      "llm_evidence": "物理信息神经网络用于正/逆向动力学，可应用于生物力学模拟",
+      "canonical_evidence": "物理信息神经网络用于正/逆向动力学，可应用于生物力学模拟",
+      "llm_tldr_en": "ANNet learns a shared representation for forward and inverse dynamics from Appell acceleration energy, enabling efficient and accurate muscle-force-to-motion mapping for biomechanical systems.",
+      "llm_tldr_cn": "针对生物和机器人系统中的正/逆向动力学分离问题，该论文提出ANNet，一种基于首原理的神经网络，通过学习经典力学中的Appell加速度能量，将两种计算统一到共享表示中。该方法可直接用于肌肉骨骼系统的正向与逆向动力学计算，为强化学习提供高效精确的仿真环境，有助于解决肌肉骨骼系统控制中的物理模拟难题。",
+      "llm_tldr": "针对生物和机器人系统中的正/逆向动力学分离问题，该论文提出ANNet，一种基于首原理的神经网络，通过学习经典力学中的Appell加速度能量，将两种计算统一到共享表示中。该方法可直接用于肌肉骨骼系统的正向与逆向动力学计算，为强化学习提供高效精确的仿真环境，有助于解决肌肉骨骼系统控制中的物理模拟难题。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "biomechanical simulation of human movement with reinforcement learning",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.07389v1",
+      "source": "arxiv",
+      "title": "Simulation-Driven Imitation Learning for Biosignals-Free Shared-Autonomy Prosthetic Grasping",
+      "abstract": "Biosignals-free shared-autonomy control of upper-limb prosthetic hands aims to enable natural and low-effort manipulation without relying on EMG or other physiological signals. Recent imitation-learning-based approaches have shown promising results, but their scalability is limited by the cost and variability of collecting large amounts of real-world human demonstration data. In this work, we present a scalable simulation framework that automatically generates diverse reach-to-grasp demonstrations from a wrist-mounted virtual camera. The framework combines physically feasible grasp synthesis, natural reaching trajectories retargeting, and reach--grasp--lift execution in procedurally generated indoor environments. It records wrist-view observations, proprioception, and actions to build a large-scale demonstration dataset for imitation learning. Through extensive simulation benchmarks, we evaluate object and scene generalization and compare several representative state-of-the-art imitation learning methods. Results show that the simulated demonstrations are sufficiently rich and consistent for effective policy learning. In three realistic settings, the learned sim-to-real policy achieves over 90\\% grasp success, surpasses baseline methods, and exhibits stronger generalization, highlighting the promise of simulation-driven training for biosignals-free shared-autonomy prosthetic grasping. The demonstrations are available at \\href{https://sites.google.com/view/sim-prosthetic-grasp/home}{https://sites.google.com/view/sim-prosthetic-grasp/home}.",
+      "authors": [
+        "Kaijie Shi",
+        "Wanglong Lu",
+        "Huiling Chen",
+        "Vinicius Prado da Fonseca",
+        "Ting Zou",
+        "Hanli Zhao",
+        "Xianta Jiang"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-06-05T15:26:26+00:00",
+      "link": "https://arxiv.org/pdf/2606.07389v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "simulation-driven imitation learning for prosthetic grasping",
+      "llm_evidence_cn": "用于假肢抓取的仿真驱动模仿学习",
+      "llm_evidence": "用于假肢抓取的仿真驱动模仿学习",
+      "canonical_evidence": "用于假肢抓取的仿真驱动模仿学习",
+      "llm_tldr_en": "Proposes a scalable simulation framework that automatically generates diverse reach-to-grasp demonstrations for biosignals-free shared-autonomy prosthetic control.",
+      "llm_tldr_cn": "该论文针对生物信号自由共享控制假肢需要大量真实演示数据的问题，提出一个仿真框架，自动生成物理可行的抓取演示，包括抓取合成、自然轨迹映射和执行，在虚拟环境中记录数据。实验表明仿真数据训练的模型可有效迁移到真实假肢，降低数据收集成本。",
+      "llm_tldr": "该论文针对生物信号自由共享控制假肢需要大量真实演示数据的问题，提出一个仿真框架，自动生成物理可行的抓取演示，包括抓取合成、自然轨迹映射和执行，在虚拟环境中记录数据。实验表明仿真数据训练的模型可有效迁移到真实假肢，降低数据收集成本。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "Experiments combining reinforcement learning with biomechanical models for rehabilitation robotics.",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.08610v1",
+      "source": "arxiv",
+      "title": "HARBOR: A Harness Framework for Agentic Robot Reinforcement Learning",
+      "abstract": "Reinforcement learning (RL) has become a powerful paradigm for robot learning, particularly in sim-to-real settings, but its broader adoption remains limited by the engineering pipeline surrounding the algorithms. Building tasks, shaping rewards, and tuning hyperparameters require substantial expert effort, making RL workflows costly and difficult to scale. We introduce HARBOR, an agentic framework that frames robot RL automation as a harness-engineering problem: given a simulator codebase and a task specification, it automates the workflow from environment setup to policy training in simulation. HARBOR decomposes such high-level objectives into bounded stages executed by specialized agents through standardized commands, persistent artifacts, executable gates, and reusable knowledge, and scales iteration via decentralized parallel trials and experience learning across runs. We evaluate HARBOR across 6 benchmarks and 16 tasks in total, spanning manipulation, locomotion, and bimanual dexterous control. We demonstrate that HARBOR automates the simulation RL workflow end-to-end, designs rewards, tunes algorithms to match or improve over default configurations, and reduces engineering effort at practical token and wall-clock cost; the resulting policies can also be transferred to real robots.",
+      "authors": [
+        "Zechu Li",
+        "Yufeng Jin",
+        "Xiaoyang Liu",
+        "Puze Liu",
+        "Vignesh Prasad",
+        "Carlo D'Eramo",
+        "Georgia Chalvatzaki"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-06-07T12:49:33+00:00",
+      "link": "https://arxiv.org/pdf/2606.08610v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "automated RL framework for robot learning can be used to set up musculoskeletal simulation environments",
+      "llm_evidence_cn": "自动化强化学习框架可用于搭建肌肉骨骼仿真环境并训练策略",
+      "llm_evidence": "自动化强化学习框架可用于搭建肌肉骨骼仿真环境并训练策略",
+      "canonical_evidence": "自动化强化学习框架可用于搭建肌肉骨骼仿真环境并训练策略",
+      "llm_tldr_en": "HARBOR automates the RL workflow from simulator setup to policy training using specialized agents reducing engineering effort for robot learning tasks",
+      "llm_tldr_cn": "机器人强化学习的工程管线复杂限制了其广泛应用本文提出HARBOR一个智能体框架将RL工作流分解为标准化阶段由专用智能体自动完成从环境搭建到策略训练的全过程在多个仿真环境中验证了其自动化效率和有效性该框架可加速肌肉骨骼系统RL研究的实验迭代",
+      "llm_tldr": "机器人强化学习的工程管线复杂限制了其广泛应用本文提出HARBOR一个智能体框架将RL工作流分解为标准化阶段由专用智能体自动完成从环境搭建到策略训练的全过程在多个仿真环境中验证了其自动化效率和有效性该框架可加速肌肉骨骼系统RL研究的实验迭代",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "How to apply reinforcement learning to control musculoskeletal simulations?",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
