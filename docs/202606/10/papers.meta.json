@@ -1,0 +1,54 @@
+{
+  "label": "2026-06-10",
+  "date": "2026-06-10",
+  "generated_at": "2026-06-10T22:11:27",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202606/10/2606.04718v2-core-moe-contrastive-reweighted-mixture-of-experts-for-multi-terrain-humanoid-locomotion-with-gait-adaptation",
+      "section": "deep",
+      "title_en": "CoRe-MoE: Contrastive Reweighted Mixture of Experts for Multi-Terrain Humanoid Locomotion with Gait Adaptation",
+      "authors": "Kailun Huang, Zikang Xie, Yanzhe Xie, Panpan Liao, Fanghai Zhang, Yanheng Mai, Wenhao Xu, Yunheng Wang, Renjing Xu, Haohui Huang",
+      "date": "2026-06-03",
+      "pdf": "https://arxiv.org/pdf/2606.04718v2",
+      "score": "9.0",
+      "evidence": "使用强化学习的人形机器人步态适应",
+      "tldr": "人形机器人需要在复杂地形中自然切换行走和跑步，但统一策略面临多任务梯度干扰和分布偏移。提出CoRe-MoE两阶段框架：先学习稳定步态策略，再引入对比目标训练门控网络，促进专家专业化并学习结构化地形表示。通过加权融合基础步态和地形分支，实现平滑步态转换与复杂地形适应。仿真和真机实验表明，成功率和稳定性优于基线，零样本部署后能在楼梯、斜坡等地形上保持鲁棒行走和奔跑。",
+      "tags": "query:msk-rl",
+      "abstract_en": "Humans primarily rely on walking and running to traverse complex terrains. Similarly, humanoid robots should be able to smoothly transition between walking and running while maintaining natural and stable locomotion. However, unifying gait transition and multi-terrain adaptation within a single policy remains challenging due to gradient interference between tasks and the distribution shift caused by terrain variations. Although Mixture-of-Experts (MoE) architectures can mitigate multi-skill interference, direct joint training often fails to achieve clear expert specialization. To address these challenges, we propose CoRe-MoE, a two-stage reinforcement learning framework that decouples gait generation from terrain adaptation. In the first stage, a stable locomotion policy is learned to produce natural walking and running behaviors with smooth transitions. In the second stage, a terrain-aware MoE branch is introduced, and the gating network is trained with a contrastive objective to learn structured terrain representations and promote expert specialization. The final action is obtained through weighted fusion of the base gait policy and the terrain-aware branch, enabling the policy to preserve stable locomotion while adapting to complex terrains. Extensive simulation results demonstrate that the proposed method outperforms baseline approaches in terms of success rate, locomotion stability, and multi-terrain adaptability. Furthermore, zero-shot deployment on a Unitree G1 humanoid robot validates the effectiveness of our framework, achieving robust walking and running across stairs, slopes, steps, obstacles, and unstructured outdoor terrains while maintaining accurate foothold control and dynamic stability.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/10/2606.10288v1-march-model-assisted-reinforcement-learning-for-the-perceptive-control-of-humanoids-over-sparse-footholds",
+      "section": "quick",
+      "title_en": "MARCH: Model-Assisted Reinforcement Learning for the Perceptive Control of Humanoids over Sparse Footholds",
+      "authors": "Codrin Crismariu, Ryan K. Cosner",
+      "date": "2026-06-09",
+      "pdf": "https://arxiv.org/pdf/2606.10288v1",
+      "score": "7.0",
+      "evidence": "强化学习用于稀疏立足点双足行走，可应用于人类步态合成",
+      "tldr": "双足机器人在稀疏立足点上的感知运动面临挑战：模型方法精确但脆弱，无模型方法鲁棒但难以发现精确约束运动。提出MARCH框架，结合两者优势：先通过简化模型生成安全参考轨迹，再利用控制李雅普诺夫函数奖励训练特权教师策略，最后蒸馏为视觉学生策略。该方法提升了样本效率，减少了复杂学习课程需求，实现了更平滑的运动，在稀疏立足点任务上达到与无模型基线相当的性能，并在Unitree G1机器人上成功部署。",
+      "tags": "query:msk-rl",
+      "abstract_en": "Perceptive bipedal locomotion over sparse terrain remains a difficult challenge: model-based methods are precise but brittle to uncertainty, while model-free methods are robust but struggle to discover the precise, constrained motions required for safety-critical locomotion where small errors can cause catastrophic failures. We propose a model-assisted reinforcement learning (RL) framework that combines both perspectives in three steps: (1) generate a safe reference trajectory using simplified models; (2) train a privileged teacher policy guided by a control Lyapunov function (CLF) reward built around the safe reference trajectory; and (3) distill the teacher into a vision-based student policy. We show that this model-assistance procedure produces physically grounded locomotion, improving sample efficiency, reducing the need for a complex learning curriculum, and achieving smoother locomotion behavior alongside stepping stone performance comparable to model-free baselines. We validate our approach in simulation and demonstrate successful deployment on a Unitree G1 humanoid robot navigating sparse footholds with lateral constraints.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/10/2606.06123v1-adaptive-state-action-abstractions-via-rate-distortion",
+      "section": "quick",
+      "title_en": "Adaptive state-action abstractions via rate-distortion",
+      "authors": "Fernando E. Rosas",
+      "date": "2026-06-04",
+      "pdf": "https://arxiv.org/pdf/2606.06123v1",
+      "score": "6.0",
+      "evidence": "用于强化学习的自适应抽象原则，以行走为例",
+      "tldr": "强化学习缺乏动态调整抽象粒度的通用原则。本文提出根据学习误差与抽象误差的比较来调整抽象粒度，基于率失真原理构建连续可调的软状态-动作抽象。在表格型任务中，即使大幅压缩状态和动作信息，该方法也能接近最优性能。该工作为自动构建合适抽象提供了理论依据和实践方法。",
+      "tags": "query:msk-rl",
+      "abstract_en": "When learning to walk, infants seem to address a coarse version of the problem first - stay upright, reach the caregiver - and refine it only when further practice at that resolution stops paying off. Reinforcement learning offers multiple techniques for building simple versions of complex tasks, but lacks general principles for how to dynamically adjust the granularity of these abstractions during learning. This paper proposes one such principle: refine the abstraction as soon as the learning error within it becomes comparable to the error induced by the abstraction itself. Here, we investigate one way of formalising this principle via a performance certificate that decomposes value error into two terms: a learning error bound captured by a Bellman residual, and an abstraction error bound given by a bisimulation metric. The resulting switching strategy is implemented by soft state-action abstractions built from rate-distortion principles, whose resolution along state and action axes can be continuously adjusted. We validate this construction in a range of tabular settings, showing that near-optimal performance can be achieved under substantial lossy compression of state and action information.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

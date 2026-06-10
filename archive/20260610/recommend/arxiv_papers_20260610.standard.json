@@ -1,0 +1,134 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-10T22:08:47.489495+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2606.04718v2",
+      "source": "arxiv",
+      "title": "CoRe-MoE: Contrastive Reweighted Mixture of Experts for Multi-Terrain Humanoid Locomotion with Gait Adaptation",
+      "abstract": "Humans primarily rely on walking and running to traverse complex terrains. Similarly, humanoid robots should be able to smoothly transition between walking and running while maintaining natural and stable locomotion. However, unifying gait transition and multi-terrain adaptation within a single policy remains challenging due to gradient interference between tasks and the distribution shift caused by terrain variations. Although Mixture-of-Experts (MoE) architectures can mitigate multi-skill interference, direct joint training often fails to achieve clear expert specialization. To address these challenges, we propose CoRe-MoE, a two-stage reinforcement learning framework that decouples gait generation from terrain adaptation. In the first stage, a stable locomotion policy is learned to produce natural walking and running behaviors with smooth transitions. In the second stage, a terrain-aware MoE branch is introduced, and the gating network is trained with a contrastive objective to learn structured terrain representations and promote expert specialization. The final action is obtained through weighted fusion of the base gait policy and the terrain-aware branch, enabling the policy to preserve stable locomotion while adapting to complex terrains. Extensive simulation results demonstrate that the proposed method outperforms baseline approaches in terms of success rate, locomotion stability, and multi-terrain adaptability. Furthermore, zero-shot deployment on a Unitree G1 humanoid robot validates the effectiveness of our framework, achieving robust walking and running across stairs, slopes, steps, obstacles, and unstructured outdoor terrains while maintaining accurate foothold control and dynamic stability.",
+      "authors": [
+        "Kailun Huang",
+        "Zikang Xie",
+        "Yanzhe Xie",
+        "Panpan Liao",
+        "Fanghai Zhang",
+        "Yanheng Mai",
+        "Wenhao Xu",
+        "Yunheng Wang",
+        "Renjing Xu",
+        "Haohui Huang"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-06-03T10:51:46+00:00",
+      "link": "https://arxiv.org/pdf/2606.04718v2",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "humanoid locomotion with gait adaptation using RL",
+      "llm_evidence_cn": "使用强化学习的人形机器人步态适应",
+      "llm_evidence": "使用强化学习的人形机器人步态适应",
+      "canonical_evidence": "使用强化学习的人形机器人步态适应",
+      "llm_tldr_en": "Proposes CoRe-MoE, a two-stage RL framework for humanoid locomotion that decouples gait generation from terrain adaptation, enabling smooth gait transitions across complex terrains.",
+      "llm_tldr_cn": "人形机器人在复杂地形中行走需要步态转换和地形适应能力。现有方法因梯度干扰和分布偏移难以统一。本文提出CoRe-MoE，一种两阶段强化学习框架，通过解耦步态生成与地形适应，利用专家混合架构实现多技能协作。实验表明该方法在多种地形上实现了平滑步态转换与稳定行走，为机器人多地形运动提供了有效方案。",
+      "llm_tldr": "人形机器人在复杂地形中行走需要步态转换和地形适应能力。现有方法因梯度干扰和分布偏移难以统一。本文提出CoRe-MoE，一种两阶段强化学习框架，通过解耦步态生成与地形适应，利用专家混合架构实现多技能协作。实验表明该方法在多种地形上实现了平滑步态转换与稳定行走，为机器人多地形运动提供了有效方案。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "reinforcement learning for human gait synthesis and optimization",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.10288v1",
+      "source": "arxiv",
+      "title": "MARCH: Model-Assisted Reinforcement Learning for the Perceptive Control of Humanoids over Sparse Footholds",
+      "abstract": "Perceptive bipedal locomotion over sparse terrain remains a difficult challenge: model-based methods are precise but brittle to uncertainty, while model-free methods are robust but struggle to discover the precise, constrained motions required for safety-critical locomotion where small errors can cause catastrophic failures. We propose a model-assisted reinforcement learning (RL) framework that combines both perspectives in three steps: (1) generate a safe reference trajectory using simplified models; (2) train a privileged teacher policy guided by a control Lyapunov function (CLF) reward built around the safe reference trajectory; and (3) distill the teacher into a vision-based student policy. We show that this model-assistance procedure produces physically grounded locomotion, improving sample efficiency, reducing the need for a complex learning curriculum, and achieving smoother locomotion behavior alongside stepping stone performance comparable to model-free baselines. We validate our approach in simulation and demonstrate successful deployment on a Unitree G1 humanoid robot navigating sparse footholds with lateral constraints.",
+      "authors": [
+        "Codrin Crismariu",
+        "Ryan K. Cosner"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-06-09T01:21:26+00:00",
+      "link": "https://arxiv.org/pdf/2606.10288v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "RL for bipedal locomotion on sparse footholds, applicable to human gait synthesis",
+      "llm_evidence_cn": "强化学习用于稀疏立足点双足行走，可应用于人类步态合成",
+      "llm_evidence": "强化学习用于稀疏立足点双足行走，可应用于人类步态合成",
+      "canonical_evidence": "强化学习用于稀疏立足点双足行走，可应用于人类步态合成",
+      "llm_tldr_en": "Model-assisted RL framework for humanoid locomotion on sparse footholds, combining model-based reference trajectories with CLF rewards and teacher-student distillation.",
+      "llm_tldr_cn": "针对双足机器人在稀疏立足点地形上行走的难题，现有模型基方法精确但脆弱，模型自由方法鲁棒但难以发现精确约束动作。本文提出MARCH框架，首先利用简化模型生成安全参考轨迹，然后通过控制李雅普诺夫函数（CLF）奖励训练教师策略，最后蒸馏为基于视觉的学生策略。实验表明，该方法在多种稀疏地形上实现了高成功率和鲁棒性，弥合了模型基与模型自由方法的差距。",
+      "llm_tldr": "针对双足机器人在稀疏立足点地形上行走的难题，现有模型基方法精确但脆弱，模型自由方法鲁棒但难以发现精确约束动作。本文提出MARCH框架，首先利用简化模型生成安全参考轨迹，然后通过控制李雅普诺夫函数（CLF）奖励训练教师策略，最后蒸馏为基于视觉的学生策略。实验表明，该方法在多种稀疏地形上实现了高成功率和鲁棒性，弥合了模型基与模型自由方法的差距。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "reinforcement learning for human gait synthesis and optimization",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.06123v1",
+      "source": "arxiv",
+      "title": "Adaptive state-action abstractions via rate-distortion",
+      "abstract": "When learning to walk, infants seem to address a coarse version of the problem first - stay upright, reach the caregiver - and refine it only when further practice at that resolution stops paying off. Reinforcement learning offers multiple techniques for building simple versions of complex tasks, but lacks general principles for how to dynamically adjust the granularity of these abstractions during learning. This paper proposes one such principle: refine the abstraction as soon as the learning error within it becomes comparable to the error induced by the abstraction itself. Here, we investigate one way of formalising this principle via a performance certificate that decomposes value error into two terms: a learning error bound captured by a Bellman residual, and an abstraction error bound given by a bisimulation metric. The resulting switching strategy is implemented by soft state-action abstractions built from rate-distortion principles, whose resolution along state and action axes can be continuously adjusted. We validate this construction in a range of tabular settings, showing that near-optimal performance can be achieved under substantial lossy compression of state and action information.",
+      "authors": [
+        "Fernando E. Rosas"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "stat.ML"
+      ],
+      "published": "2026-06-04T13:10:18+00:00",
+      "link": "https://arxiv.org/pdf/2606.06123v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "adaptive abstraction principle for RL with walking example",
+      "llm_evidence_cn": "用于强化学习的自适应抽象原则，以行走为例",
+      "llm_evidence": "用于强化学习的自适应抽象原则，以行走为例",
+      "canonical_evidence": "用于强化学习的自适应抽象原则，以行走为例",
+      "llm_tldr_en": "Proposes a principle for dynamically adjusting state-action abstraction granularity in RL based on rate-distortion, using walking as an example, to improve learning efficiency.",
+      "llm_tldr_cn": "强化学习中抽象任务粒度的调整缺乏原则指导。本文借鉴婴儿学习过程，提出一个基于率失真的原则：当学习误差与抽象误差相当时细化抽象。通过性能界将价值误差分解为两项，并展示其如何指导自适应。该方法以行走学习为例，可迁移到其他复杂任务，有助于提高RL效率。",
+      "llm_tldr": "强化学习中抽象任务粒度的调整缺乏原则指导。本文借鉴婴儿学习过程，提出一个基于率失真的原则：当学习误差与抽象误差相当时细化抽象。通过性能界将价值误差分解为两项，并展示其如何指导自适应。该方法以行走学习为例，可迁移到其他复杂任务，有助于提高RL效率。",
+      "llm_tags": [
+        "query:msk-rl:composite"
+      ],
+      "matched_query_tag": "query:msk-rl:composite",
+      "matched_query_text": "Papers central to 肌肉骨骼系统的强化学习, especially work that connects or combines: reinforcement learning for motor control of musculoskeletal systems; control of musculoskeletal systems using reinforcement learning; biomechanical simulation of human movement with reinforcement learning; reinforcement learning for exoskeleton assistance and rehabilitation; reinforcement learning for human gait synthesis and optimization; How to apply reinforcement learning to control musculoskeletal simulations?; Experiments combining reinforcement learning with biomechanical models for rehabilitation robotics..",
+      "matched_requirement_id": "req-composite-msk-rl",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
