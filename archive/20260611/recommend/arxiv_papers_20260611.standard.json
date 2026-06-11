@@ -1,0 +1,52 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-11T22:02:20.921391+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "biorxiv-10-64898-2026-06-03-729790-v1",
+      "source": "biorxiv",
+      "title": "How a Predictive State Observer Can Self-Adapt Its Sensory Prediction-Error Correction Gain: Closed-Loop Evidence from a Muscle-Driven Reaching Task",
+      "abstract": "We ask how a forward-model-based predictive state observer should set its sensory prediction-error correction gain during muscle-driven reaching, and whether that gain can be adapted from agent-available signals -- innovation history and per-episode reaching outcome -- rather than from swept oracle labels. We evaluate a residual-MLP forward model in a 34-muscle MyoSuite arm on an IK-reachable below-shoulder task, deployed in closed loop with a stabilized endpoint probe controller that uses non-negative least-squares muscle routing and a virtual target ramp; the controller is a stabilized probe for evaluating state-estimation effects, not a biological motor planner. A swept fixed-gain closed-loop oracle reveals a delay-dependent correction structure: with no sensory delay, intermediate correction gains are best (K = 0.25-0.50), whereas with 18-step delay observation-heavy correction wins (K = 1.0). The forward-model-only K = 0 ablation is not the oracle: it is systematically worse than the best fixed K by 1.9-6.1 cm and shows large NNLS controller residuals caused by long-horizon autoregressive drift; we therefore report K = 0 as a diagnostic. Outcome-trained reliability-adaptive observers improve the delayed regime by 1.9-2.5 cm over default reliability while remaining neutral in no-delay cells, where the oracle is already intermediate. A feature-conditioned {beta} adapter that maps cell-level innovation statistics to per-field gain parameters nearly matches a per-cell trained diagnostic in 5/6 cells, but both remain 1.4-1.8 cm worse than the swept fixed-K oracle at 18-step delay. These results separate the delay-dependent correction structure, the forward-model-only failure mode of K = 0, and the remaining limits of agent-available adaptive correction.",
+      "authors": [
+        "Kobayashi, J."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-08T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.03.729790v1.full.pdf",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "muscle-driven reaching task with predictive state observer",
+      "llm_evidence_cn": "肌肉驱动到达任务中的预测状态观测器",
+      "llm_evidence": "肌肉驱动到达任务中的预测状态观测器",
+      "canonical_evidence": "肌肉驱动到达任务中的预测状态观测器",
+      "llm_tldr_en": "Investigates self-adaptation of sensory prediction-error gain in a muscle-driven reaching task using a forward model on a 34-muscle arm, relevant to motor control of musculoskeletal systems.",
+      "llm_tldr_cn": "本文研究肌肉驱动到达任务中前向模型预测状态观测器如何自适应感觉预测误差校正增益。在34块肌肉的MyoSuite手臂上验证了基于残差MLP的框架，为肌肉骨骼系统的状态估计与闭环控制提供了新方法，虽未直接使用强化学习，但相关技术可服务于后续RL控制策略。",
+      "llm_tldr": "本文研究肌肉驱动到达任务中前向模型预测状态观测器如何自适应感觉预测误差校正增益。在34块肌肉的MyoSuite手臂上验证了基于残差MLP的框架，为肌肉骨骼系统的状态估计与闭环控制提供了新方法，虽未直接使用强化学习，但相关技术可服务于后续RL控制策略。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "reinforcement learning for motor control of musculoskeletal systems",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

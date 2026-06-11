@@ -6,29 +6,26 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-10
-- 运行时间：2026-06-10 22:11:20 UTC
+- 最新运行日期：2026-06-11
+- 运行时间：2026-06-11 22:02:42 UTC
 - 运行状态：成功
-- 本次总论文数：3
-- 精读区：1
-- 速读区：2
+- 本次总论文数：1
+- 精读区：0
+- 速读区：1
 
 ### 今日简报（AI）
-今日聚焦人形机器人多地形步态适应与稀疏立足点感知控制，精读1篇速读2篇。重点推荐《CoRe-MoE》的对比重加权专家混合方法及《MARCH》的模型辅助强化学习策略。建议深入理解步态自适应的核心机制，并关注状态-动作抽象与率失真理论的潜在应用。
-- 详情：[/202606/10/README](/202606/10/README)
+今天速读了一篇关于肌肉驱动任务中预测状态观测器自我适应误差修正增益的研究。  
+关键发现：观测器能通过闭环证据自动调节感觉预测误差的修正强度。  
+建议关注该机制在机器人自适应控制中的潜在应用。
+- 详情：[/202606/11/README](/202606/11/README)
 
 ### 精读区论文标签
-1. [CoRe-MoE: Contrastive Reweighted Mixture of Experts for Multi-Terrain Humanoid Locomotion with Gait Adaptation](/202606/10/2606.04718v2-core-moe-contrastive-reweighted-mixture-of-experts-for-multi-terrain-humanoid-locomotion-with-gait-adaptation)  
-   标签：评分：9.0/10、query:msk-rl
-   evidence：使用强化学习的人形机器人步态适应
+- 本次无精读推荐。
 
 ### 速读区论文标签
-1. [MARCH: Model-Assisted Reinforcement Learning for the Perceptive Control of Humanoids over Sparse Footholds](/202606/10/2606.10288v1-march-model-assisted-reinforcement-learning-for-the-perceptive-control-of-humanoids-over-sparse-footholds)  
-   标签：评分：7.0/10、query:msk-rl
-   evidence：强化学习用于稀疏立足点双足行走，可应用于人类步态合成
-2. [Adaptive state-action abstractions via rate-distortion](/202606/10/2606.06123v1-adaptive-state-action-abstractions-via-rate-distortion)  
+1. [How a Predictive State Observer Can Self-Adapt Its Sensory Prediction-Error Correction Gain: Closed-Loop Evidence from a Muscle-Driven Reaching Task](/202606/11/biorxiv-10-64898-2026-06-03-729790-v1-how-a-predictive-state-observer-can-self-adapt-its-sensory-prediction-error-correction-gain-closed-loop-evidence-from-a-muscle-driven-reaching-task)  
    标签：评分：6.0/10、query:msk-rl
-   evidence：用于强化学习的自适应抽象原则，以行走为例
+   evidence：肌肉驱动到达任务中的预测状态观测器
 
 
 <div class="dpr-home-promo-card">
