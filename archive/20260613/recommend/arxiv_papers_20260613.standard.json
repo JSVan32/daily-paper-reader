@@ -1,0 +1,90 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-13T21:03:42.671208+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "biorxiv-10-64898-2026-06-03-729794-v1",
+      "source": "biorxiv",
+      "title": "Predictive Neuromechanical Simulation Explains Gait Biomechanics in Obesity",
+      "abstract": "Individuals with obesity exhibit gait adaptations including reduced early-stance knee flexion, altered muscle coordination, slower preferred walking speeds, and shorter step lengths. Although these features are well documented, the mechanisms by which obesity-related physiological changes produce these patterns and influence knee joint loading relevant to osteoarthritis (OA) remain unclear. This study used predictive neuromechanical simulation to examine how musculoskeletal changes and movement objectives interact to generate obesity-associated gait patterns and tibiofemoral loading. Predictive simulations were performed using a reflex-based neuromechanical walking model. A baseline non-obese model (1.8 m, 80 kg) was modified to represent obesity-related changes in segment mass distribution and muscle strength (1.8 m, 140 kg), including more apple-like and more pear-like body mass distributions. Control parameters were optimized to generate stable walking while minimizing muscle effort and tibiofemoral joint loading. Objective weightings were identified by matching simulated knee kinematics to experimental observations at a typical walking speed. Using the selected weightings, we compared joint kinematics, kinetics, and muscle activations, and simulations were performed across walking speeds to evaluate optimal walking speed, step length, muscle effort, and knee loading. The baseline model best matched reference knee kinematics using a muscle-effort objective alone, whereas the obese model required a combined objective penalizing both muscle effort and knee loading. This formulation reproduced key gait features, including reduced early-stance knee flexion, reduced vastii activation with increased plantarflexor activation, slower optimal walking speeds, and shorter step lengths. Variations in body mass distribution produced moderate but consistent effects on gait mechanics relative to larger effects of increased body mass. Obesity-related changes in body mass and muscle strength alone did not reproduce observed gait patterns, but incorporating an objective that penalizes knee loading generated multiple characteristic features. Predictive neuromechanical simulation provides a framework for identifying candidate mechanisms linking obesity, gait biomechanics, and knee joint loading.\n\nAuthor SummaryUnderstanding how and why obesity alters gait is a complex biomechanical problem involving multiple interacting factors including increased segmental mass, altered inertial properties, and reduced relative muscle strength. These factors interact in ways that are difficult to isolate through experimental observation alone. Here, we used computer simulations to examine how musculoskeletal changes and movement objectives interact to generate obesity-associated gait patterns and knee loading. We found that physiological changes alone did not reproduce observed gait features, whereas incorporating an objective that penalizes knee loading generated multiple characteristic features simultaneously, including reduced early-stance knee flexion, altered muscle coordination, slower optimal walking speeds, and shorter step lengths. These findings suggest that obesity-associated gait reflects coordination strategies that regulate knee loading under increased body mass.",
+      "authors": [
+        "Choi, C. W.",
+        "Ton, V.",
+        "Gill, S. V.",
+        "Song, S."
+      ],
+      "primary_category": "systems biology",
+      "categories": [
+        "systems biology"
+      ],
+      "published": "2026-06-08T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.03.729794v1.full.pdf",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "predictive neuromechanical simulation of gait biomechanics",
+      "llm_evidence_cn": "预测性神经力学模拟步态生物力学",
+      "llm_evidence": "预测性神经力学模拟步态生物力学",
+      "canonical_evidence": "预测性神经力学模拟步态生物力学",
+      "llm_tldr_en": "Uses reflex-based neuromechanical simulation to explain obesity-related gait adaptations, providing a biomechanical model that could be integrated with RL.",
+      "llm_tldr_cn": "肥胖患者步态适应的机制尚不明确。本研究采用基于反射的神经力学步行模型进行预测模拟，通过修改模型参数模拟肥胖相关生理变化，成功再现了肥胖步态特征（减少的早期支撑期膝关节屈曲、改变的肌肉协调等）。模拟结果揭示了肥胖诱发步态模式及胫股关节负荷的机制，为理解肥胖相关骨关节炎提供了生物力学基础。该方法虽未使用强化学习，但为强化学习控制肌肉骨骼系统提供了高保真仿真环境。",
+      "llm_tldr": "肥胖患者步态适应的机制尚不明确。本研究采用基于反射的神经力学步行模型进行预测模拟，通过修改模型参数模拟肥胖相关生理变化，成功再现了肥胖步态特征（减少的早期支撑期膝关节屈曲、改变的肌肉协调等）。模拟结果揭示了肥胖诱发步态模式及胫股关节负荷的机制，为理解肥胖相关骨关节炎提供了生物力学基础。该方法虽未使用强化学习，但为强化学习控制肌肉骨骼系统提供了高保真仿真环境。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "biomechanical simulation of human movement with reinforcement learning",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-08-730995-v1",
+      "source": "biorxiv",
+      "title": "Reliability-weighted target-position estimation in a musculoskeletal arm model: adaptive priors and learned source weighting under violations of fixed-precision assumptions",
+      "abstract": "Reliability-weighted integration is a normative account of cue combination, but its scope in musculoskeletal models and conditions requiring adaptive or learned extensions remains unclear. We studied target-position estimation in a MyoSuite arm within a field-wise architecture representing vision, proprioception, forward prediction, and a task prior. Target-position experiments combined vision, forward prediction, and, where applicable, the task prior by precision weighting; proprioception informed other state fields. At the open-loop state-estimate level, a trusted but wrong prior biased the target estimate more as visual reliability decreased, and a false visual cue was followed under low noise and discounted under high noise; both effects followed the bias {approx} w x offset pattern. Across trials, an adaptive prior tracked shifts in the target mean, while variance tracking reduced the prior weight as the target spread increased. A learned softmax integrator met the prespecified parity criterion relative to precision weighting for calibrated Gaussian synthetic observation channels and improved estimation when reported variance was miscalibrated, or channel errors were biased, heavy-tailed, or correlated. On target-position observations from two held-out MyoSuite rollout seeds, improvements under prediction miscalibration and injected visual outliers were directionally consistent across seeds during offline replay. The MSE benefit in the outlier regime reflected regime-level source weighting rather than consistent per-trial outlier detection. These results define a computational boundary: precision weighting was sufficient in the calibrated conditions tested here, whereas adaptive statistics or learned source weighting became useful when assumptions changed or failed. Evidence from the arm model is limited to target-position estimates; endpoint propagation remains unresolved.",
+      "authors": [
+        "Kobayashi, J."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-11T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.08.730995v1.full.pdf",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "musculoskeletal arm model with reliability-weighted integration",
+      "llm_evidence_cn": "肌肉骨骼手臂模型中的可靠性加权整合",
+      "llm_evidence": "肌肉骨骼手臂模型中的可靠性加权整合",
+      "canonical_evidence": "肌肉骨骼手臂模型中的可靠性加权整合",
+      "llm_tldr_en": "Studies target-position estimation in a MyoSuite musculoskeletal arm, relevant to motor control through sensory integration.",
+      "llm_tldr_cn": "在MyoSuite肌肉骨骼手臂模型中研究可靠性加权目标位置估计，构建场感知架构整合视觉、本体感觉、前向预测和任务先验。实验发现当视觉可靠性降低时，受信任但错误的先验会显著影响估计结果，而自适应先验和源加权可以部分缓解。该工作揭示了肌肉骨骼系统中多感觉整合的机制，但未直接应用强化学习控制。",
+      "llm_tldr": "在MyoSuite肌肉骨骼手臂模型中研究可靠性加权目标位置估计，构建场感知架构整合视觉、本体感觉、前向预测和任务先验。实验发现当视觉可靠性降低时，受信任但错误的先验会显著影响估计结果，而自适应先验和源加权可以部分缓解。该工作揭示了肌肉骨骼系统中多感觉整合的机制，但未直接应用强化学习控制。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "reinforcement learning for motor control of musculoskeletal systems",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

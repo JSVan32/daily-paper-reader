@@ -1,0 +1,39 @@
+{
+  "label": "2026-06-13",
+  "date": "2026-06-13",
+  "generated_at": "2026-06-13T21:04:10",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202606/13/biorxiv-10-64898-2026-06-03-729794-v1-predictive-neuromechanical-simulation-explains-gait-biomechanics-in-obesity",
+      "section": "quick",
+      "title_en": "Predictive Neuromechanical Simulation Explains Gait Biomechanics in Obesity",
+      "authors": "Choi, C. W., Ton, V., Gill, S. V., Song, S.",
+      "date": "2026-06-08",
+      "pdf": "https://www.biorxiv.org/content/10.64898/2026.06.03.729794v1.full.pdf",
+      "score": "7.0",
+      "evidence": "预测性神经力学模拟步态生物力学",
+      "tldr": "肥胖导致步态异常，但机制不明。本研究采用预测性神经力学模拟，结合肌肉骨骼变化和运动目标优化，发现仅生理变化无法复现步态，而加入膝关节负荷惩罚目标后有效重现了膝关节屈曲减少、肌肉协调改变、步速减慢和步长缩短等特征。模拟揭示了肥胖步态可能源于调节膝关节负荷的协调策略。",
+      "tags": "query:msk-rl",
+      "abstract_en": "Individuals with obesity exhibit gait adaptations including reduced early-stance knee flexion, altered muscle coordination, slower preferred walking speeds, and shorter step lengths. Although these features are well documented, the mechanisms by which obesity-related physiological changes produce these patterns and influence knee joint loading relevant to osteoarthritis (OA) remain unclear. This study used predictive neuromechanical simulation to examine how musculoskeletal changes and movement objectives interact to generate obesity-associated gait patterns and tibiofemoral loading. Predictive simulations were performed using a reflex-based neuromechanical walking model. A baseline non-obese model (1.8 m, 80 kg) was modified to represent obesity-related changes in segment mass distribution and muscle strength (1.8 m, 140 kg), including more apple-like and more pear-like body mass distributions. Control parameters were optimized to generate stable walking while minimizing muscle effort and tibiofemoral joint loading. Objective weightings were identified by matching simulated knee kinematics to experimental observations at a typical walking speed. Using the selected weightings, we compared joint kinematics, kinetics, and muscle activations, and simulations were performed across walking speeds to evaluate optimal walking speed, step length, muscle effort, and knee loading. The baseline model best matched reference knee kinematics using a muscle-effort objective alone, whereas the obese model required a combined objective penalizing both muscle effort and knee loading. This formulation reproduced key gait features, including reduced early-stance knee flexion, reduced vastii activation with increased plantarflexor activation, slower optimal walking speeds, and shorter step lengths. Variations in body mass distribution produced moderate but consistent effects on gait mechanics relative to larger effects of increased body mass. Obesity-related changes in body mass and muscle strength alone did not reproduce observed gait patterns, but incorporating an objective that penalizes knee loading generated multiple characteristic features. Predictive neuromechanical simulation provides a framework for identifying candidate mechanisms linking obesity, gait biomechanics, and knee joint loading.\n\nAuthor SummaryUnderstanding how and why obesity alters gait is a complex biomechanical problem involving multiple interacting factors including increased segmental mass, altered inertial properties, and reduced relative muscle strength. These factors interact in ways that are difficult to isolate through experimental observation alone. Here, we used computer simulations to examine how musculoskeletal changes and movement objectives interact to generate obesity-associated gait patterns and knee loading. We found that physiological changes alone did not reproduce observed gait features, whereas incorporating an objective that penalizes knee loading generated multiple characteristic features simultaneously, including reduced early-stance knee flexion, altered muscle coordination, slower optimal walking speeds, and shorter step lengths. These findings suggest that obesity-associated gait reflects coordination strategies that regulate knee loading under increased body mass.",
+      "source": "biorxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/13/biorxiv-10-64898-2026-06-08-730995-v1-reliability-weighted-target-position-estimation-in-a-musculoskeletal-arm-model-adaptive-priors-and-learned-source-weighting-under-violations-of-fixed-precision-assumptions",
+      "section": "quick",
+      "title_en": "Reliability-weighted target-position estimation in a musculoskeletal arm model: adaptive priors and learned source weighting under violations of fixed-precision assumptions",
+      "authors": "Kobayashi, J.",
+      "date": "2026-06-11",
+      "pdf": "https://www.biorxiv.org/content/10.64898/2026.06.08.730995v1.full.pdf",
+      "score": "6.0",
+      "evidence": "肌肉骨骼手臂模型中的可靠性加权整合",
+      "tldr": "在肌肉骨骼手臂模型中，可靠性加权整合是线索组合的规范方法，但面对违反固定精度假设时其局限性尚不明确。本研究通过场域架构中的视觉、前向预测和任务先验进行精度加权，并引入自适应先验和学习的softmax积分器。实验表明，精度加权在校准条件下充分，而自适应统计或学习源加权在假设变化或失败时能改善目标位置估计。这些结果界定了计算边界，为复杂环境下的感知整合提供了新见解。",
+      "tags": "query:msk-rl",
+      "abstract_en": "Reliability-weighted integration is a normative account of cue combination, but its scope in musculoskeletal models and conditions requiring adaptive or learned extensions remains unclear. We studied target-position estimation in a MyoSuite arm within a field-wise architecture representing vision, proprioception, forward prediction, and a task prior. Target-position experiments combined vision, forward prediction, and, where applicable, the task prior by precision weighting; proprioception informed other state fields. At the open-loop state-estimate level, a trusted but wrong prior biased the target estimate more as visual reliability decreased, and a false visual cue was followed under low noise and discounted under high noise; both effects followed the bias {approx} w x offset pattern. Across trials, an adaptive prior tracked shifts in the target mean, while variance tracking reduced the prior weight as the target spread increased. A learned softmax integrator met the prespecified parity criterion relative to precision weighting for calibrated Gaussian synthetic observation channels and improved estimation when reported variance was miscalibrated, or channel errors were biased, heavy-tailed, or correlated. On target-position observations from two held-out MyoSuite rollout seeds, improvements under prediction miscalibration and injected visual outliers were directionally consistent across seeds during offline replay. The MSE benefit in the outlier regime reflected regime-level source weighting rather than consistent per-trial outlier detection. These results define a computational boundary: precision weighting was sufficient in the calibrated conditions tested here, whereas adaptive statistics or learned source weighting became useful when assumptions changed or failed. Evidence from the arm model is limited to target-position estimates; endpoint propagation remains unresolved.",
+      "source": "biorxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
