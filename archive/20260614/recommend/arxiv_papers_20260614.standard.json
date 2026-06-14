@@ -1,0 +1,103 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-14T21:23:54.398171+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.08253v1",
+      "source": "arxiv",
+      "title": "Mind Your Steps: A General Learning Framework for Accurate Humanoid Foothold Tracking",
+      "abstract": "Enabling humanoid robots to operate in complex, dynamic environments remains a critical challenge, fundamentally limited by the ability to navigate robustly, safely, and accurately. While reinforcement learning with velocity-commanded policies has achieved remarkable robustness in humanoid locomotion, this approach lacks explicit control of the foothold placement, leading to unsafe behavior, such as stepping onto human feet, or imprecise navigation, hindering the following manipulation task. Conversely, explicit foothold-tracking policies offer a promising alternative by directly being commanded with target foot poses. However, existing approaches are often limited by unrealistic state assumptions, compromising real-world deployment, or they are part of staged pipelines, making them tied to specific downstream tasks. In this work, we introduce a novel, lightweight framework for training general-purpose 3D foothold-tracking policies. By dynamically providing footstep support through a goal sampler, this method enables the learned policy to be agnostic to specific terrains. Our new target representation effectively mitigates challenges arising in the real world, such as noisy and inaccurate pose estimation and foot contact estimation. Designed for direct real-world transfer, our policy acts as a standalone low-level controller that can be seamlessly paired with various high-level foothold generators. We demonstrate the effectiveness of our framework through extensive experiments in simulation and in the real world. By coupling our policy with different upstream planners, we achieve natural and accurate locomotion in challenging settings, paving the way for loco-manipulation tasks in complex environments.",
+      "authors": [
+        "Alessandro Montenegro",
+        "Shihao Li",
+        "Puze Liu",
+        "Alberto Maria Metelli",
+        "Jan Peters"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.LG"
+      ],
+      "published": "2026-06-06T16:44:56+00:00",
+      "link": "https://arxiv.org/pdf/2606.08253v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "RL framework for humanoid foothold tracking, relevant to gait synthesis",
+      "llm_evidence_cn": "用于类人机器人足迹跟踪的强化学习框架，与步态合成相关",
+      "llm_evidence": "用于类人机器人足迹跟踪的强化学习框架，与步态合成相关",
+      "canonical_evidence": "用于类人机器人足迹跟踪的强化学习框架，与步态合成相关",
+      "llm_tldr_en": "Proposes a reinforcement learning framework for humanoid robots to accurately track target foothold placements, addressing the lack of explicit foothold control in velocity-commanded policies, improving safety and precision.",
+      "llm_tldr_cn": "该论文针对类人机器人步伐控制问题，提出一种强化学习框架以实现精确的足迹跟踪。现有速度指令策略缺乏对落脚点的明确控制，导致不安全行为。所提方法直接以目标脚部位姿为指令，学习显式足迹跟踪策略，在模拟中提升了安全性和导航精度。与用户关于强化学习用于步态合成与优化的需求高度相关。",
+      "llm_tldr": "该论文针对类人机器人步伐控制问题，提出一种强化学习框架以实现精确的足迹跟踪。现有速度指令策略缺乏对落脚点的明确控制，导致不安全行为。所提方法直接以目标脚部位姿为指令，学习显式足迹跟踪策略，在模拟中提升了安全性和导航精度。与用户关于强化学习用于步态合成与优化的需求高度相关。",
+      "llm_tags": [
+        "query:msk-rl"
+      ],
+      "matched_query_tag": "query:msk-rl",
+      "matched_query_text": "reinforcement learning for human gait synthesis and optimization",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.08278v1",
+      "source": "arxiv",
+      "title": "SIMPLE: Simulation-Based Policy Learning and Evaluation for Humanoid Loco-manipulation",
+      "abstract": "Humanoid foundation models are advancing faster than we can evaluate them. While real-world testing is expensive and difficult to reproduce, existing simulation benchmarks focus primarily on table-top or wheeled robots. A scalable and reproducible benchmark for whole-body humanoid loco-manipulation remains an open problem. To this end, we present SIMPLE, a unified simulation testbed for humanoid policy learning and evaluation. SIMPLE couples the accurate contact-rich dynamics of MuJoCo with the photorealistic rendering of IsaacSim. It provides a large-scale environment comprising 60 diverse whole-body tasks, 50 indoor scenes, and over 1,000 object assets. To facilitate scalable data collection, the framework integrates two data generation pipelines: automated trajectory generation via motion planning and a low-latency VR teleoperation interface. We further integrate and benchmark mainstream humanoid policies at scale in SIMPLE, including lightweight imitation networks, large vision-language-action (VLA) models, and recent world action models (WAMs). Our experiments reveal a strong correlation between policy performance in simulation and the real world. Furthermore, we demonstrate that policies trained on data collected in SIMPLE can be transferred zero-shot to physical humanoid robots under similar settings, providing a robust and reproducible foundation for humanoid robotics research.",
+      "authors": [
+        "Songlin Wei",
+        "Zhenhao Ni",
+        "Jie Liu",
+        "Zhenyu Zhao",
+        "Junjie Ye",
+        "Hongyi Jing",
+        "Junkai Xia",
+        "Xiawei Liu",
+        "Michael Leong",
+        "Liang Heng",
+        "Di Huang",
+        "Yue Wang"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-06-06T17:55:43+00:00",
+      "link": "https://arxiv.org/pdf/2606.08278v1",
+      "tags": [
+        "keyword:msk-rl",
+        "query:msk-rl"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "humanoid simulation benchmark for policy learning",
+      "llm_evidence_cn": "人形机器人仿真基准用于策略学习",
+      "llm_evidence": "人形机器人仿真基准用于策略学习",
+      "canonical_evidence": "人形机器人仿真基准用于策略学习",
+      "llm_tldr_en": "SIMPLE provides a unified simulation testbed for humanoid loco-manipulation using MuJoCo and IsaacSim, enabling reproducible policy learning and evaluation.",
+      "llm_tldr_cn": "SIMPLE提出了一个统一的人形机器人全身操作与运动仿真基准，结合MuJoCo的接触动力学和IsaacSim的逼真渲染，提供60个任务和1000+物体资产，为策略学习与评估提供可重复平台。虽然不直接基于肌肉骨骼模型，但其仿真环境和强化学习流程可迁移至类似控制问题。",
+      "llm_tldr": "SIMPLE提出了一个统一的人形机器人全身操作与运动仿真基准，结合MuJoCo的接触动力学和IsaacSim的逼真渲染，提供60个任务和1000+物体资产，为策略学习与评估提供可重复平台。虽然不直接基于肌肉骨骼模型，但其仿真环境和强化学习流程可迁移至类似控制问题。",
+      "llm_tags": [
+        "query:msk-rl:composite"
+      ],
+      "matched_query_tag": "query:msk-rl:composite",
+      "matched_query_text": "Papers central to 肌肉骨骼系统的强化学习, especially work that connects or combines: reinforcement learning for motor control of musculoskeletal systems; control of musculoskeletal systems using reinforcement learning; biomechanical simulation of human movement with reinforcement learning; reinforcement learning for exoskeleton assistance and rehabilitation; reinforcement learning for human gait synthesis and optimization; How to apply reinforcement learning to control musculoskeletal simulations?; Experiments combining reinforcement learning with biomechanical models for rehabilitation robotics..",
+      "matched_requirement_id": "req-composite-msk-rl",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

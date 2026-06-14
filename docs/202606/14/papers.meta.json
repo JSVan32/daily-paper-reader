@@ -1,0 +1,39 @@
+{
+  "label": "2026-06-14",
+  "date": "2026-06-14",
+  "generated_at": "2026-06-14T21:25:27",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202606/14/2606.08253v1-mind-your-steps-a-general-learning-framework-for-accurate-humanoid-foothold-tracking",
+      "section": "quick",
+      "title_en": "Mind Your Steps: A General Learning Framework for Accurate Humanoid Foothold Tracking",
+      "authors": "Alessandro Montenegro, Shihao Li, Puze Liu, Alberto Maria Metelli, Jan Peters",
+      "date": "2026-06-06",
+      "pdf": "https://arxiv.org/pdf/2606.08253v1",
+      "score": "6.0",
+      "evidence": "用于类人机器人足迹跟踪的强化学习框架，与步态合成相关",
+      "tldr": "人形机器人导航依赖速度命令策略缺乏落脚点精确控制，易产生不安全行为；现有落脚点跟踪方法受限于不现实状态假设或与下游任务绑定。本文提出轻量级框架，通过动态目标采样器提供步态支持，训练通用3D落脚点跟踪策略，新目标表示应对真实世界噪声。策略可作为独立低层控制器，与多种高层落脚点生成器无缝配合，在仿真和真实环境中实现精确、自然的运动。该工作提升了人形机器人导航的安全性与精确性，为复杂环境下的操作任务奠定基础。",
+      "tags": "query:msk-rl",
+      "abstract_en": "Enabling humanoid robots to operate in complex, dynamic environments remains a critical challenge, fundamentally limited by the ability to navigate robustly, safely, and accurately. While reinforcement learning with velocity-commanded policies has achieved remarkable robustness in humanoid locomotion, this approach lacks explicit control of the foothold placement, leading to unsafe behavior, such as stepping onto human feet, or imprecise navigation, hindering the following manipulation task. Conversely, explicit foothold-tracking policies offer a promising alternative by directly being commanded with target foot poses. However, existing approaches are often limited by unrealistic state assumptions, compromising real-world deployment, or they are part of staged pipelines, making them tied to specific downstream tasks. In this work, we introduce a novel, lightweight framework for training general-purpose 3D foothold-tracking policies. By dynamically providing footstep support through a goal sampler, this method enables the learned policy to be agnostic to specific terrains. Our new target representation effectively mitigates challenges arising in the real world, such as noisy and inaccurate pose estimation and foot contact estimation. Designed for direct real-world transfer, our policy acts as a standalone low-level controller that can be seamlessly paired with various high-level foothold generators. We demonstrate the effectiveness of our framework through extensive experiments in simulation and in the real world. By coupling our policy with different upstream planners, we achieve natural and accurate locomotion in challenging settings, paving the way for loco-manipulation tasks in complex environments.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/14/2606.08278v1-simple-simulation-based-policy-learning-and-evaluation-for-humanoid-loco-manipulation",
+      "section": "quick",
+      "title_en": "SIMPLE: Simulation-Based Policy Learning and Evaluation for Humanoid Loco-manipulation",
+      "authors": "Songlin Wei, Zhenhao Ni, Jie Liu, Zhenyu Zhao, Junjie Ye, Hongyi Jing, Junkai Xia, Xiawei Liu, Michael Leong, Liang Heng, Di Huang, Yue Wang",
+      "date": "2026-06-06",
+      "pdf": "https://arxiv.org/pdf/2606.08278v1",
+      "score": "6.0",
+      "evidence": "人形机器人仿真基准用于策略学习",
+      "tldr": "现有仿真基准主要针对桌面或轮式机器人，缺乏可扩展的全身人形机器人运动操作评估环境。本文提出SIMPLE平台，耦合MuJoCo接触动力学与IsaacSim逼真渲染，包含60个全身任务、50室内场景和1000+物体资产，并集成运动规划与VR遥操作数据生成管线。实验表明策略在仿真与真实世界性能强相关，仿真训练策略可零样本迁移至真实人形机器人。该工作为人形机器人研究提供了统一的、可复现的基准。",
+      "tags": "query:msk-rl",
+      "abstract_en": "Humanoid foundation models are advancing faster than we can evaluate them. While real-world testing is expensive and difficult to reproduce, existing simulation benchmarks focus primarily on table-top or wheeled robots. A scalable and reproducible benchmark for whole-body humanoid loco-manipulation remains an open problem. To this end, we present SIMPLE, a unified simulation testbed for humanoid policy learning and evaluation. SIMPLE couples the accurate contact-rich dynamics of MuJoCo with the photorealistic rendering of IsaacSim. It provides a large-scale environment comprising 60 diverse whole-body tasks, 50 indoor scenes, and over 1,000 object assets. To facilitate scalable data collection, the framework integrates two data generation pipelines: automated trajectory generation via motion planning and a low-latency VR teleoperation interface. We further integrate and benchmark mainstream humanoid policies at scale in SIMPLE, including lightweight imitation networks, large vision-language-action (VLA) models, and recent world action models (WAMs). Our experiments reveal a strong correlation between policy performance in simulation and the real world. Furthermore, we demonstrate that policies trained on data collected in SIMPLE can be transferred zero-shot to physical humanoid robots under similar settings, providing a robust and reproducible foundation for humanoid robotics research.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
