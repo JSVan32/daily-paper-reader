@@ -6,27 +6,22 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-14
-- 运行时间：2026-06-14 21:25:20 UTC
+- 最新运行日期：2026-06-15
+- 运行时间：2026-06-15 22:12:38 UTC
 - 运行状态：成功
-- 本次总论文数：2
+- 本次总论文数：0
 - 精读区：0
-- 速读区：2
+- 速读区：0
 
 ### 今日简报（AI）
-今天速读两篇人形机器人论文，均获6.0分，聚焦步态追踪与全身操控。最值得关注的是《Mind Your Steps》提出的通用足部追踪学习框架，以及《SIMPLE》的仿真策略学习用于人形机器人操控。建议重点理解这两项工作在步态稳定性和操控策略迁移上的核心方法。
-- 详情：[/202606/14/README](/202606/14/README)
+> 今日无新推荐，系统未产出可展示论文。
+- 详情：[/202606/15/README](/202606/15/README)
 
 ### 精读区论文标签
 - 本次无精读推荐。
 
 ### 速读区论文标签
-1. [Mind Your Steps: A General Learning Framework for Accurate Humanoid Foothold Tracking](/202606/14/2606.08253v1-mind-your-steps-a-general-learning-framework-for-accurate-humanoid-foothold-tracking)  
-   标签：评分：6.0/10、query:msk-rl
-   evidence：用于类人机器人足迹跟踪的强化学习框架，与步态合成相关
-2. [SIMPLE: Simulation-Based Policy Learning and Evaluation for Humanoid Loco-manipulation](/202606/14/2606.08278v1-simple-simulation-based-policy-learning-and-evaluation-for-humanoid-loco-manipulation)  
-   标签：评分：6.0/10、query:msk-rl
-   evidence：人形机器人仿真基准用于策略学习
+- 本次无速读推荐。
 
 
 <div class="dpr-home-promo-card">
