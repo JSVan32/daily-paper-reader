@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-06-27T20:41:26.386606+00:00",
-  "updated_date": "20260627",
+  "generated_at": "2026-06-28T20:48:30.139636+00:00",
+  "updated_date": "20260628",
   "carryover_days": 9,
   "tag_states": {
     "msk-rl": {
-      "updated_date": "20260627",
+      "updated_date": "20260628",
       "carryover_days": 9,
       "items": []
     }
